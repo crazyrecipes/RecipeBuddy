@@ -1,3 +1,2 @@
 # recipebuddy
-#### API and Frontend must be opened as separate projects.
-TODO: Build script
+# The frontend and backend have been broken out into two separate repositories.
