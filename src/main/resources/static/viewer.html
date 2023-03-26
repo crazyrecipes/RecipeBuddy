@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View Recipe - RecipeBuddy</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="navbar">
+            <a href="index.html"><div class="navbar_item">Home</div></a>
+            <a href="list.html"><div class="navbar_item">My Recipes</div></a>
+            <a href="search.html"><div class="navbar_item">Search</div></a>
+            <a href="create.html"><div class="navbar_item">Create</div></a>
+            <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
+            <a href="settings.html"><div class="navbar_item">Settings</div></a>
+        </div>
+
+
+        <div class="app_main">
+            <img class="logo" src="media/recipebuddy.png">
+
+            <div class="content_container">
+                <div class="content_inner">
+                    <div id="RECIPE_CONTENT"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            /* API url to get single recipe from */
+            const params = new URLSearchParams(decodeURI(window.location.search));
+            const RECIPE_URL = "api/recipe/" + params.get("id");
+
+            /* Grab a single recipe and display it */
+            function display_recipe() {
+                console.log(`Handle DISPLAY recipe ${RECIPE_URL}...`);
+                fetch(RECIPE_URL, {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                    },
+                }).then(async response => {
+                    if(!response.ok) {
+                        throw new Error("GET request failed!");
+                    }
+                    const data = await response.json();
+                    console.log(data);
+
+                    recipe_ingredients = data.ingredients.join("<br>");
+                    recipe_implements = data.implements.join("<br>");
+                    recipe_steps = data.steps.join("<br>");
+                    recipe_allergens = data.allergens.join("<br>");
+                    recipe_tags = data.tags.join(",");
+                    
+                    var recipeHTML = `
+                        <img class="recipeviewer_photo" src="${data.photo}">
+                        <h1>${data.name}</h1>
+                        <p>${data.desc}</p>
+                        <div class="spacer"></div>
+                        <h2>Ingredients</h2>
+                        <p>${recipe_ingredients}</p>
+                        <h2>Implements</h2>
+                        <p>${recipe_implements}</p>
+                        <h2>Steps</h2>
+                        <p>${recipe_steps}</p>
+                        <h2>Tags</h2>
+                        <p>${recipe_tags}</p>
+                        <h2>Allergens</h2>
+                        <p>${recipe_allergens}</p>
+                        <a href="editor.html?id=${data.id}"><div class="inline_button">Edit this recipe</div></a>
+                    `
+                    document.getElementById("RECIPE_CONTENT").innerHTML = recipeHTML;
+                }).catch(error => {
+                    console.log(error);
+                    window.alert("Error encountered! Please check the console for more details.");
+                });
+            }
+
+            /* ===== On page load: ===== */
+            display_recipe();
+        </script>
+    </body>
+</html>

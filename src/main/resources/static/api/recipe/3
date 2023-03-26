@@ -1,0 +1,35 @@
+{
+    "id": "3",
+    "name": "Simple Spaghetti",
+    "desc": "A very simple recipe for those making mock APIs.",
+    "photo": "media/spaghetti.jpg",
+    "rating": "4.4",
+    "cooked": "41",
+    "ingredients": [
+        "Spaghetti Pasta",
+        "Tomato Sauce",
+        "Parmesan",
+        "Strainer"
+    ],
+    "implements": [
+        "Pot",
+        "Ladle",
+        "Stirring Spoon"
+    ],
+    "steps": [
+        "Boil 6 cups water in pot.",
+        "Add spaghetti pasta. Stir until cooked.",
+        "Turn off heat. Drain water from pot with strainer.",
+        "Add tomato sauce to pasta and stir.",
+        "Plate, top with parmesan and garnish to taste. Serve."
+    ],
+    "allergens": [
+        "Gluten",
+        "Dairy"
+    ],
+    "tags": [
+        "spaghetti",
+        "simple",
+        "pasta"
+    ]
+}

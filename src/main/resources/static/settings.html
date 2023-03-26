@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Settings</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="navbar">
+            <a href="index.html"><div class="navbar_item">Home</div></a>
+            <a href="list.html"><div class="navbar_item">My Recipes</div></a>
+            <a href="search.html"><div class="navbar_item">Search</div></a>
+            <a href="create.html"><div class="navbar_item">Create</div></a>
+            <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
+            <a href="settings.html"><div class="navbar_item">Settings</div></a>
+        </div>
+
+        <div class="app_main">
+            <img class="logo" src="media/recipebuddy.png">
+            <div class="content_container">
+                <div class="content_inner">
+                    <h1>Settings</h1>
+
+                    <div class="spacer"></div>
+
+                    <h3>Name</h3>
+                    <p>Your current name is "<span id="NAME_CURRENT"></span>".</p>
+                    <div><input class="text_field" id="NAME_INPUT" placeholder="Enter new name here..."></div>
+                    <button class="inline_button" onclick="handle_name_change()">Change Name</button>
+                    
+                    <div class="spacer"></div>
+
+                    <h3>Allergens</h3>
+                    <input type="checkbox" id="ALLERGEN_PEANUTS" name="ALLERGENS_INPUT" value="Peanuts">
+                    <label for="ALLERGEN_PEANUTS">Peanuts</label><br>
+                    <input type="checkbox" id="ALLERGEN_TREE_NUTS" name="ALLERGENS_INPUT" value="Tree Nuts">
+                    <label for="ALLERGEN_TREE_NUTS">Tree Nuts</label><br>
+                    <input type="checkbox" id="ALLERGEN_DAIRY" name="ALLERGENS_INPUT" value="Dairy">
+                    <label for="ALLERGEN_DAIRY">Dairy</label><br>
+                    <input type="checkbox" id="ALLERGEN_SOY" name="ALLERGENS_INPUT" value="Soy">
+                    <label for="ALLERGEN_SOY">Soy</label><br>
+                    <input type="checkbox" id="ALLERGEN_GLUTEN" name="ALLERGENS_INPUT" value="Gluten">
+                    <label for="ALLERGEN_GLUTEN">Gluten</label><br>
+                    <input type="checkbox" id="ALLERGEN_EGG" name="ALLERGENS_INPUT" value="Egg">
+                    <label for="ALLERGEN_EGG">Egg</label><br>
+                    <input type="checkbox" id="ALLERGEN_FISH" name="ALLERGENS_INPUT" value="Fish">
+                    <label for="ALLERGEN_FISH">Fish</label><br>
+                    <input type="checkbox" id="ALLERGEN_SHELLFISH" name="ALLERGENS_INPUT" value="Shellfish">
+                    <label for="ALLERGEN_SHELLFISH">Shellfish</label><br>
+                    <input type="checkbox" id="ALLERGEN_CORN" name="ALLERGENS_INPUT" value="Corn">
+                    <label for="ALLERGEN_CORN">Corn</label><br>
+                    <input type="checkbox" id="ALLERGEN_SESAME" name="ALLERGENS_INPUT" value="Sesame">
+                    <label for="ALLERGEN_SESAME">Sesame</label><br>
+                    <input type="checkbox" id="ALLERGEN_MUSTARD" name="ALLERGENS_INPUT" value="Mustard">
+                    <label for="ALLERGEN_MUSTARD">Mustard</label><br>
+                    <div class="inline_button" onclick="handle_allergen_change()">Update Allergens</div>
+                    <div class="spacer"></div>
+                    <p>Need help? <a href="https://crazyrecipes.github.io">Check out our website.</a></p>
+                </div>
+            </div>
+        </div>
+        <script>
+            const ALLERGENS_URL = "api/allergens";
+
+            /* Handle name change (just a demo handler) */
+            function handle_name_change()  {
+                console.log("Handle CHANGE name...");
+                var name = document.getElementById("NAME_INPUT").value;
+                document.getElementById("NAME_CURRENT").innerHTML = name;
+            }
+
+            /* Grab and display current user allergens */
+            function display_allergens() {
+                console.log("Handle DISPLAY allergens...");
+                /* Send request */
+                fetch(ALLERGENS_URL, {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                    },
+                }).then(async response => {
+                    if(!response.ok) {
+                        throw new Error("GET request failed!");
+                    }
+                    const data = await response.json();
+                    console.log("[DEBUG] Got data:");
+                    console.log(data);
+                    var allergens_inputs = document.getElementsByName("ALLERGENS_INPUT");
+                    for(let i in data) {
+                        for(j = 0; j < allergens_inputs.length; j++) {
+                            if(allergens_inputs[j].value === data[i]) {
+                                allergens_inputs[j].checked = true;
+                            }
+                        }
+                    }
+                }).catch(error => {
+                    console.log(error);
+                    window.alert("Error encountered! Check the console for more details.");
+                });
+            }
+
+            /* Push user allergen changes */
+            function handle_allergen_change() {
+                console.log("Handle UPDATE allergens...");
+                var allergens_inputs = document.getElementsByName("ALLERGENS_INPUT");
+                var user_allergens = [];
+                for(i = 0; i < allergens_inputs.length; i++) {
+                    if(allergens_inputs[i].checked) {
+                        user_allergens.push(allergens_inputs[i].value);
+                    }
+                }
+                console.log(`Updated allergens: "${user_allergens}"`);
+                
+                /* Send request */
+                fetch(ALLERGENS_URL, {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(user_allergens),
+                }).then(async response => {
+                    if(!response.ok) {
+                        throw new Error("POST request failed!");
+                    }
+                    const data = await response.json();
+                    console.log("[DEBUG] Got data:");
+                    console.log(data);
+                    window.alert("Allergens updated successfully.");
+                    display_allergens();
+                }).catch(error => {
+                    console.log(error);
+                    window.alert("Error encountered! Check the console for more details.");
+                });
+            }
+
+            /* ===== On page load: ===== */
+            display_allergens();
+        </script>
+    </body>
+</html>

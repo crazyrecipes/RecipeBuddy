@@ -1,0 +1,39 @@
+{
+    "id": "2",
+    "name": "Ham Sandwich",
+    "desc": "For when you need more data for the mock API.",
+    "photo": "media/sandwich.jpg",
+    "rating": "3.9",
+    "cooked": "4",
+    "ingredients": [
+        "Bread",
+        "Ham",
+        "Swiss Cheese",
+        "Mustard",
+        "Tomato"
+    ],
+    "implements": [
+        "Frying pan",
+        "Spatula"
+    ],
+    "steps": [
+        "Toast 2 pieces of bread.",
+        "Stack the following in order:",
+        "Bread",
+        "Ham",
+        "Mustard",
+        "Tomato",
+        "Cheese",
+        "Bread",
+        "Your frontend team will thank you."
+    ],
+    "allergens": [
+        "Gluten",
+        "Dairy"
+    ],
+    "tags": [
+        "sandwich",
+        "simple",
+        "cold"
+    ]
+}

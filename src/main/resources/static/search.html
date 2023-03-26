@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Search Recipes - RecipeBuddy</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class="navbar">
+            <a href="index.html"><div class="navbar_item">Home</div></a>
+            <a href="list.html"><div class="navbar_item">My Recipes</div></a>
+            <a href="search.html"><div class="navbar_item">Search</div></a>
+            <a href="create.html"><div class="navbar_item">Create</div></a>
+            <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
+            <a href="settings.html"><div class="navbar_item">Settings</div></a>
+        </div>
+
+        <div class="app_main">
+            <img class="logo" src="media/recipebuddy.png">
+
+            <div class="content_container">
+                <div class="content_inner">
+                    <h1>Search Recipes</h1>
+                    <input class="text_field" id="SEARCH_TEXT" placeholder="Enter search keyword(s) here..."></input>
+                    <input class="text_field" id="SEARCH_TAGS" placeholder="Enter search tag(s) here, separated by commas."></input>
+                    
+                    <h3>Ingredients</h3>
+
+                    <input type="radio" name="INGREDIENTS_INPUT" value="ALL">
+                    <label>Show only recipes I have everything for</label><br>
+
+                    <input type="radio" name="INGREDIENTS_INPUT" value="SOME" checked>
+                    <label>Show more recipes (1 or 2 things missing)</label><br>
+
+                    <input type="radio" name="INGREDIENTS_INPUT" value="NONE">
+                    <label>Don't filter by ingredients</label><br>
+
+                    <h3>Allergens</h3>
+
+                    <input type="radio" name="ALLERGENS_INPUT" value="BLOCK" checked>
+                    <label>Don't show recipes with my allergens</label><br>
+
+                    <input type="radio" name="ALLERGENS_INPUT" value="SHOW">
+                    <label>Show recipes with my allergens</label><br>
+
+                    <button class="inline_button" onclick="do_search()">Search</button>
+                </div>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div id="SEARCH_RESULTS"></div>
+        </div>
+
+        <script>
+            /* API url to get search results from */
+            const RECIPELIST_URL = "api/search"
+            
+            /* Execute a search and display results */
+            function do_search() {
+                console.log("Handling SEARCH...");
+
+                /* Get search parameters */
+                var search_text = document.getElementById("SEARCH_TEXT").value;
+                console.log(`..for text "${search_text}"`)
+
+                var search_tags = document.getElementById("SEARCH_TAGS").value;
+                console.log(`..for tags "${search_tags}"`)
+
+                /* Get ingredients choice */
+                var ingredients_inputs = document.getElementsByName("INGREDIENTS_INPUT");
+                var search_ingredients = "SOME";
+                for(i = 0; i < ingredients_inputs.length; i++) {
+                    if(ingredients_inputs[i].checked) {
+                        search_ingredients = ingredients_inputs[i].value;
+                        break;
+                    }
+                }
+                console.log(`..for ingredients "${search_ingredients}"`)
+
+                /* Get allergens choice */
+                var allergens_inputs = document.getElementsByName("ALLERGENS_INPUT");
+                var search_allergens = "BLOCK";
+                for(i = 0; i < allergens_inputs.length; i++) {
+                    if(allergens_inputs[i].checked) {
+                        search_allergens = allergens_inputs[i].value;
+                        break;
+                    }
+                }
+                console.log(`..for allergens "${search_allergens}"`)
+
+                const SEARCH_JSON = `
+                {
+                    "query": {
+                        "title": "${search_text}",
+                        "tags": "${search_tags}",
+                        "ingredients": "${search_ingredients}",
+                        "allergens": "${search_allergens}",
+                    }
+                }
+                `
+
+                /* Send request and display results */
+                console.log("Getting results...");
+                fetch(RECIPELIST_URL, {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: SEARCH_JSON,
+                }).then(async response => {
+                    const data = await response.json();
+                    console.log("[DEBUG] Got data:");
+                    console.log(data);
+                    formatted_result = "";
+                    for(let i in data) {
+                        let recipe = data[i];
+                        console.log("[DEBUG] Processing recipe:");
+                        console.log(recipe);
+                        var recipeHTML = `
+                        <div class="recipepreview_container">
+                            <img class="recipepreview_photo" src="${recipe.photo}">
+                            <div class="recipepreview_content">
+                                <h2>${recipe.name}</h2>
+                                <p>${recipe.rating}&#9733; - Cooked ${recipe.cooked} times.</p>
+                                <p>${recipe.desc}</p>
+                                <a href="viewer.html?id=${recipe.id}"><div class="inline_button">Make It</div></a>
+                                <a href="editor.html?id=${recipe.id}"><div class="inline_button">Edit</div></a>
+                            </div>
+                        </div>
+                        `
+                        formatted_result += recipeHTML;
+                    }
+                    if(data.length > 0) {
+                        console.log("Displaying results...");
+                        document.getElementById("SEARCH_RESULTS").innerHTML = formatted_result;
+                    } else {
+                        document.getElementById("SEARCH_RESULTS").innerHTML = "No Results!";
+                    }
+                }).catch(error => {
+                    console.log(error);
+                    window.alert("Error encountered! Please check the console for more details.");
+                });
+            }
+
+            /* ===== On page load: ===== */
+        </script>
+    </body>
+</html>

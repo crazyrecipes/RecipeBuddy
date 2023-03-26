@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Recipes - RecipeBuddy</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class="navbar">
+            <a href="index.html"><div class="navbar_item">Home</div></a>
+            <a href="list.html"><div class="navbar_item">My Recipes</div></a>
+            <a href="search.html"><div class="navbar_item">Search</div></a>
+            <a href="create.html"><div class="navbar_item">Create</div></a>
+            <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
+            <a href="settings.html"><div class="navbar_item">Settings</div></a>
+        </div>
+
+        <div class="app_main">
+            <img class="logo" src="media/recipebuddy.png">
+
+            <div class="content_container">
+                <div class="content_inner">
+                    <h1>My Recipes</h1>
+                    <p>Below are all your recipes, sorted with RecipeBuddy magic.</p>
+                </div>
+            </div>
+
+            <div id="RECIPE_LIST"></div>
+        </div>
+
+        <script>
+            const RECIPELIST_URL = "api/recipes"
+            
+            /* Get all recipes and display them */
+            function display_recipe_list() {
+                console.log("Handling DISPLAY recipes...");
+                fetch(RECIPELIST_URL, {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                    },
+                }).then(async response => {
+                    const data = await response.json();
+                    console.log(data);
+                    formatted_result = "";
+                    for(let i in data) {
+                        let recipe = data[i];
+                        console.log(recipe);
+                        var recipeHTML = `
+                        <div class="recipepreview_container">
+                            <img class="recipepreview_photo" src="${recipe.photo}">
+                            <div class="recipepreview_content">
+                                <h1>${recipe.name}</h1>
+                                <p>${recipe.rating}&#9733; - Cooked ${recipe.cooked} times.</p>
+                                <p>${recipe.desc}</p>
+                                <a href="viewer.html?id=${recipe.id}"><div class="inline_button">Make It</div></a>
+                                <a href="editor.html?id=${recipe.id}"><div class="inline_button">Edit</div></a>
+                            </div>
+                        </div>
+                        `
+                        formatted_result += recipeHTML;
+                    }
+
+                    document.getElementById("RECIPE_LIST").innerHTML = formatted_result;
+                }).catch(error => {
+                    console.log(error);
+                    window.alert("Error encountered! Please check the console for more details.");
+                });
+            }
+        
+            /* ===== On page load: ===== */
+            display_recipe_list();
+        </script>
+    </body>
+</html>
