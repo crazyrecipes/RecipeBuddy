@@ -16,3 +16,4 @@ target/
 ### VS Code ###
 .vscode/
 .idea/workspace.xml
+.DS_Store
