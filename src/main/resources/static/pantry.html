@@ -33,12 +33,12 @@
 
                     <div class="spacer"></div>
 
-                    <h3>Implements</h3>
-                    <div id="IMPLEMENT_LIST"></div>
+                    <h3>Utensils</h3>
+                    <div id="UTENSIL_LIST"></div>
                     <div class="spacer"></div>
-                    <p>Add an implement:</p>
-                    <input class="text_field" id="IMPLEMENT_ADD_INPUT" placeholder="Enter implement name here...">
-                    <button class="inline_button" onclick="handle_add_implement()">Add</button>
+                    <p>Add a utensil:</p>
+                    <input class="text_field" id="UTENSIL_ADD_INPUT" placeholder="Enter utensil name here...">
+                    <button class="inline_button" onclick="handle_add_utensil()">Add</button>
 
                 </div>
             </div>
@@ -48,8 +48,8 @@
             /* API url to get and post ingredients */
             const INGREDIENTS_URL = "api/ingredients"
 
-            /* API url to get and post implement */
-            const IMPLEMENTS_URL = "api/implements"
+            /* API url to get and post utensils */
+            const UTENSILS_URL = "api/utensils"
 
             /* Remove an ingredient from the pantry */
             function handle_remove_ingredient(name) {
@@ -108,12 +108,12 @@
                 });
             }
 
-            /* Remove an implement from the pantry */
-            function handle_remove_implement(name) {
-                console.log(`Handling REMOVE implement "${name}"`);
+            /* Remove a utensil from the pantry */
+            function handle_remove_utensil(name) {
+                console.log(`Handling REMOVE utensil "${name}"`);
 
-                /* Get current implements */
-                fetch(IMPLEMENTS_URL, {
+                /* Get current utensils */
+                fetch(UTENSILS_URL, {
                     method: "GET",
                     headers: {
                         "Accept": "application/json",
@@ -125,23 +125,23 @@
                     const data = await response.json();
                     console.log("[DEBUG] Got data:");
                     console.log(data);
-                    current_implements = [];
+                    current_utensils = [];
                     for(let i in data) {
-                        current_implements.push(data[i]);
+                        current_utensils.push(data[i]);
                     }
-                    new_implements = current_implements.filter(function (a) {
+                    new_utensils = current_utensils.filter(function (a) {
                         return a !== name;
                     });
-                    console.log(`[DEBUG] New implements list: ${new_implements}`);
+                    console.log(`[DEBUG] New utensils list: ${new_utensils}`);
 
-                    /* Push list with removed implement */
-                    fetch(IMPLEMENTS_URL, {
+                    /* Push list with removed utensil */
+                    fetch(UTENSILS_URL, {
                         method: "POST",
                         headers: {
                             "Accept": "application/json",
                             "Content-Type": "application/json",
                         },
-                        body: JSON.stringify(new_implements),
+                        body: JSON.stringify(new_utensils),
                     }).then(async response => {
                         if(!response.ok) {
                             throw new Error("POST request failed.");
@@ -154,10 +154,10 @@
                     });
 
                     /* Refresh display */
-                    display_implements();
+                    display_utensils();
 
                     /* ===== 3/9 PRESENTATION ===== */
-                    window.alert(`Removed implement ${name}`);
+                    window.alert(`Removed utensil ${name}`);
                     /* =====                  ===== */
                 }).catch(error => {
                     console.log(error);
@@ -221,13 +221,13 @@
                 });
             }
 
-            /* Add an implement to the pantry */
-            function handle_add_implement() {
-                let implement_name = document.getElementById("IMPLEMENT_ADD_INPUT").value;
-                console.log(`Handling ADD implement "${implement_name}"`);
+            /* Add a utensil to the pantry */
+            function handle_add_utensil() {
+                let utensil_name = document.getElementById("UTENSIL_ADD_INPUT").value;
+                console.log(`Handling ADD utensil "${utensil_name}"`);
 
-                /* Get current implements */
-                fetch(IMPLEMENTS_URL, {
+                /* Get current utensils */
+                fetch(UTENSILS_URL, {
                     method: "GET",
                     headers: {
                         "Accept": "application/json",
@@ -239,21 +239,21 @@
                     const data = await response.json();
                     console.log("[DEBUG] Got data:");
                     console.log(data);
-                    current_implements = [];
+                    current_utensils = [];
                     for(let i in data) {
-                        current_implements.push(data[i]);
+                        current_utensils.push(data[i]);
                     }
-                    current_implements.push(implement_name);
-                    console.log(`[DEBUG] New implements list: ${current_implements}`);
+                    current_utensils.push(utensil_name);
+                    console.log(`[DEBUG] New utensils list: ${current_utensils}`);
 
-                    /* Push list with added implement */
-                    fetch(IMPLEMENTS_URL, {
+                    /* Push list with added utensil */
+                    fetch(UTENSILS_URL, {
                         method: "POST",
                         headers: {
                             "Accept": "application/json",
                             "Content-Type": "application/json",
                         },
-                        body: JSON.stringify(current_implements),
+                        body: JSON.stringify(current_utensils),
                     }).then(async response => {
                         if(!response.ok) {
                             throw new Error("POST request failed.");
@@ -266,10 +266,10 @@
                     });
 
                     /* Refresh display */
-                    display_implements();
+                    display_utensils();
 
                     /* ===== 3/9 PRESENTATION ===== */
-                    window.alert(`Added implement ${implement_name}`);
+                    window.alert(`Added utensil ${utensil_name}`);
                     /* =====                  ===== */
                 }).catch(error => {
                     console.log(error);
@@ -313,10 +313,10 @@
                 });
             }
 
-            /* Get and display all implements */
-            function display_implements() {
-                console.log("Handling DISPLAY implements...");
-                fetch(IMPLEMENTS_URL, {
+            /* Get and display all utensils */
+            function display_utensils() {
+                console.log("Handling DISPLAY utensils...");
+                fetch(UTENSILS_URL, {
                     method: "GET",
                     headers: {
                         "Accept": "application/json",
@@ -330,19 +330,19 @@
                     console.log(data);
                     formatted_result = "";
                     for(let i in data) {
-                        let implement = data[i];
-                        console.log("[DEBUG] Processing implement:");
-                        console.log(implement);
-                        var implementHTML = `
+                        let utensil = data[i];
+                        console.log("[DEBUG] Processing utensil:");
+                        console.log(utensil);
+                        var utensilHTML = `
                         <div class="pantry_entry">
-                            ${implement}
-                            <button class="pantry_button" onClick="handle_remove_implement('${implement}')">X</button>
+                            ${utensil}
+                            <button class="pantry_button" onClick="handle_remove_utensil('${utensil}')">X</button>
                         </div>
                         `
-                        formatted_result += implementHTML;
+                        formatted_result += utensilHTML;
                     }
 
-                    document.getElementById("IMPLEMENT_LIST").innerHTML = formatted_result;
+                    document.getElementById("UTENSIL_LIST").innerHTML = formatted_result;
                 }).catch(error => {
                     console.log(error);
                     window.alert("Error encountered! Please check the console for more details.");
@@ -351,7 +351,7 @@
 
             /* ===== On page load: ===== */
             display_ingredients();
-            display_implements();
+            display_utensils();
         </script>
     </body>
 </html>

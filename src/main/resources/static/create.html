@@ -43,8 +43,8 @@
                     <div class="spacer"></div>
                     
 
-                    <h3>Implements</h3>
-                    <textarea id="RECIPE_IMPLEMENTS" class="text_field_big" rows="5" placeholder="Enter each implement on its own line..."></textarea>
+                    <h3>Utensils</h3>
+                    <textarea id="RECIPE_UTENSILS" class="text_field_big" rows="5" placeholder="Enter each utensil on its own line..."></textarea>
                     
                     <div class="spacer"></div>
 
@@ -116,9 +116,9 @@
                 var recipe_ingredients = document.getElementById("RECIPE_INGREDIENTS").value;
                 console.log(`..with ingredients "${recipe_ingredients}"`);
 
-                /* Get implements */
-                var recipe_implements = document.getElementById("RECIPE_IMPLEMENTS").value;
-                console.log(`..with implements "${recipe_implements}"`);
+                /* Get utensils */
+                var recipe_utensils = document.getElementById("RECIPE_UTENSILS").value;
+                console.log(`..with utensils "${recipe_utensils}"`);
 
                 /* Get steps */
                 var recipe_steps = document.getElementById("RECIPE_STEPS").value;
@@ -147,7 +147,7 @@
                         "rating": "0.0",
                         "cooked": "0",
                         "ingredients": recipe_ingredients.split('\n'),
-                        "implements": recipe_implements.split('\n'),
+                        "utensils": recipe_utensils.split('\n'),
                         "allergens": recipe_allergens.split('\n'),
                         "steps": recipe_steps.split('\n'),
                         "tags": recipe_tags.split(','),

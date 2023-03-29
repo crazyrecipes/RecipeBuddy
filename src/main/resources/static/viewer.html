@@ -46,7 +46,7 @@
                     console.log(data);
 
                     recipe_ingredients = data.ingredients.join("<br>");
-                    recipe_implements = data.implements.join("<br>");
+                    recipe_utensils = data.utensils.join("<br>");
                     recipe_steps = data.steps.join("<br>");
                     recipe_allergens = data.allergens.join("<br>");
                     recipe_tags = data.tags.join(",");
@@ -58,8 +58,8 @@
                         <div class="spacer"></div>
                         <h2>Ingredients</h2>
                         <p>${recipe_ingredients}</p>
-                        <h2>Implements</h2>
-                        <p>${recipe_implements}</p>
+                        <h2>Utensils</h2>
+                        <p>${recipe_utensils}</p>
                         <h2>Steps</h2>
                         <p>${recipe_steps}</p>
                         <h2>Tags</h2>
