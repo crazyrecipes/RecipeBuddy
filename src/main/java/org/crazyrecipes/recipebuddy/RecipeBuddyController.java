@@ -36,9 +36,9 @@ public class RecipeBuddyController {
     }
 
     @PostMapping("/api/v1/recipes")
-    Recipe createRecipe(@RequestBody String name) {
+    Recipe createRecipe(@RequestBody Recipe newRecipe) {
         if(bucket.tryConsume(1)) {
-            return recipeRegistry.createRecipe(name);
+            return recipeRegistry.createRecipe(newRecipe);
         }
         throw new RateLimitException();
 

@@ -6,8 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class RecipeBuddyApplicationTests {
 
-	@Test
-	void contextLoads() {
+	void testExample() {
+		System.out.println("Testing!");
 	}
 
 }

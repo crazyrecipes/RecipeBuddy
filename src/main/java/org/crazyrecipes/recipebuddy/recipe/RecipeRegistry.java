@@ -1,5 +1,7 @@
 package org.crazyrecipes.recipebuddy.recipe;
 
+import org.crazyrecipes.recipebuddy.error.NotFoundException;
+
 import java.io.*;
 import java.util.Collections;
 import java.util.List;
@@ -15,8 +17,10 @@ public class RecipeRegistry {
 
     public RecipeRegistry() {
         recipes = loadRecipesFromFile();
-        if(recipes.size() < 1) { // if no users could be loaded
-            recipes.add(new Recipe("New Recipe", "Default Description"));
+        if(recipes.size() < 1) { // if no recipes could be loaded
+            Recipe r = new Recipe();
+            r.setName("Default");
+            recipes.add(r);
             saveRecipesToFile(recipes);
         }
     }
@@ -83,21 +87,22 @@ public class RecipeRegistry {
     public Recipe getRecipe(String id) {
         recipes = loadRecipesFromFile();
         for(Recipe i : recipes) {
-            if(i.getID().equals(id)) {
+            if (i.getID().equals(id)) {
                 return i;
             }
         }
-        return new Recipe("Not Found","Not Found");
+        throw new NotFoundException();
     }
 
     /**
-     * Creates a Recipe with the specified name
-     * @param name Name of the Recipe to be created
-     * @return The Recipe with the specified name
+     * Creates a new Recipe with the given instance.
+     * @param newRecipe New recipe to add
+     * @return The created Recipe
      */
-    public synchronized Recipe createRecipe(String name) {
+    public synchronized Recipe createRecipe(Recipe newRecipe) {
         recipes = loadRecipesFromFile();
-        Recipe recipeToAdd = new Recipe(name);
+        Recipe recipeToAdd = new Recipe();
+        recipeToAdd.duplicate_from(newRecipe);
         recipes.add(recipeToAdd);
         saveRecipesToFile(recipes);
         return recipeToAdd;
@@ -118,7 +123,7 @@ public class RecipeRegistry {
                 return recipe;
             }
         }
-        return new Recipe("Not Found", "Not Found");
+        throw new NotFoundException();
     }
 
     /**
