@@ -1,7 +1,8 @@
 package org.crazyrecipes.recipebuddy.error;
 
 /**
- * When a RateLimitException is thrown, the controller will return a HTTP 404.
+ * NotFoundException should be thrown if a request attempts to access or
+ *   modify content that does not exist.
  */
 public class NotFoundException extends RuntimeException {
     public NotFoundException() {

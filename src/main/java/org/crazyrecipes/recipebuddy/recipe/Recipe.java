@@ -7,7 +7,9 @@ import java.util.Random;
 import java.util.Vector;
 
 /**
- * Recipe represents a recipe with a name and description.
+ * Recipe stores a single recipe. Each recipe has an ID, a name, a description,
+ *   a photo URL, a rating, a times cooked counter, a list of ingredients,
+ *   a list of utensils, a list of allergens, a list of steps, and a list of tags.
  */
 public class Recipe implements Serializable {
 

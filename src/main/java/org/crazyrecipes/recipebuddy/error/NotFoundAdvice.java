@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * NotFoundAdvice provides responses when items cannot be found.
+ * NotFoundAdvice provides HTTP 404 responses when requests attempt to access
+ *   or modify content that does not exist.
  */
 @ControllerAdvice
 public class NotFoundAdvice {

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * RateLimitAdvice provides responses to throttled requests.
+ * RateLimitAdvice provides HTTP 429 responses to throttled requests.
  */
 @ControllerAdvice
 public class RateLimitAdvice {

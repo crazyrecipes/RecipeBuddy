@@ -41,7 +41,6 @@ public class AllergensRegistry {
             System.err.println("AllergensRegistry: ClassNotFoundException upon reading " + STORE_FILE);
             return new Vector<>();
         }
-
     }
 
     /**

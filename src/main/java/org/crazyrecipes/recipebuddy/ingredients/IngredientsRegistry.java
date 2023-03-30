@@ -41,7 +41,6 @@ public class IngredientsRegistry {
             System.err.println("IngredientsRegistry: ClassNotFoundException upon reading " + STORE_FILE);
             return new Vector<>();
         }
-
     }
 
     /**

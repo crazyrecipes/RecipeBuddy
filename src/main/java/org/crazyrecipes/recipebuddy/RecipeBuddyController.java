@@ -12,6 +12,7 @@ import org.crazyrecipes.recipebuddy.recipe.Recipe;
 import org.crazyrecipes.recipebuddy.recipe.RecipeRegistry;
 import org.crazyrecipes.recipebuddy.allergens.AllergensRegistry;
 import org.crazyrecipes.recipebuddy.ingredients.IngredientsRegistry;
+import org.crazyrecipes.recipebuddy.utensils.UtensilsRegistry;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,11 +24,13 @@ public class RecipeBuddyController {
     private RecipeRegistry recipeRegistry;
     private AllergensRegistry allergensRegistry;
     private IngredientsRegistry ingredientsRegistry;
+    private UtensilsRegistry utensilsRegistry;
 
     RecipeBuddyController() {
         recipeRegistry = new RecipeRegistry();
         allergensRegistry = new AllergensRegistry();
         ingredientsRegistry = new IngredientsRegistry();
+        utensilsRegistry = new UtensilsRegistry();
         Bandwidth limit = Bandwidth.classic(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE,
                 Refill.greedy(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE, Duration.ofMinutes(1)));
         this.bucket = Bucket.builder().addLimit(limit).build();
@@ -98,4 +101,22 @@ public class RecipeBuddyController {
     /* ===== INGREDIENTS ===== */
 
     // TODO implement ingredients API hooks
+
+    /* ===== UTENSILS ===== */
+
+    @GetMapping("/api/utensils")
+    List<String> readUtensils() {
+        if(bucket.tryConsume(1)) {
+            return utensilsRegistry.getUtensils();
+        }
+        throw new RateLimitException();
+    }
+
+    @PostMapping("api/utensils")
+    List<String> updateUtensils(@RequestBody List<String> newUtensils) {
+        if(bucket.tryConsume(1)) {
+            return utensilsRegistry.postUtensils(newUtensils);
+        }
+        throw new RateLimitException();
+    }
 }
