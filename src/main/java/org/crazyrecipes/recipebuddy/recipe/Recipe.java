@@ -30,7 +30,7 @@ public class Recipe implements Serializable {
      * Constructs a Recipe.
      */
     public Recipe() {
-        this.id = "" + new Random().nextLong();
+        this.id = "" + new Random().nextLong(0, (int) Math.pow(2, 63) - 1);
         this.name = "";
         this.desc = "";
         this.photo = "";

@@ -2,7 +2,6 @@ package org.crazyrecipes.recipebuddy;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Vector;
 
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RecipeBuddyController {
-
 
     private final Bucket bucket;
 
@@ -56,7 +54,7 @@ public class RecipeBuddyController {
 
     }
 
-    @GetMapping("/api/recipes/{id}")
+    @GetMapping("/api/recipe/{id}")
     Recipe readRecipe(@PathVariable String id) {
         if(bucket.tryConsume(1)) {
             return recipeRegistry.getRecipe(id);
@@ -64,7 +62,7 @@ public class RecipeBuddyController {
         throw new RateLimitException();
     }
 
-    @PutMapping("/api/recipes/{id}")
+    @PutMapping("/api/recipe/{id}")
     Recipe updateRecipe(@RequestBody Recipe newRecipe, @PathVariable String id) {
         if(bucket.tryConsume(1)) {
             return recipeRegistry.editRecipe(id, newRecipe);
@@ -72,10 +70,11 @@ public class RecipeBuddyController {
         throw new RateLimitException();
     }
 
-    @DeleteMapping("/api/recipes/{id}")
+    @DeleteMapping("/api/recipe/{id}")
     void deleteRecipe(@PathVariable String id) {
         if(bucket.tryConsume(1)) {
             recipeRegistry.deleteRecipe(id);
+            return;
         }
         throw new RateLimitException();
     }
@@ -100,7 +99,7 @@ public class RecipeBuddyController {
 
     /* ===== INGREDIENTS ===== */
 
-    @PostMapping("api/ingerdients")
+    @PostMapping("/api/ingredients")
     List<String> readIngredients() {
         if(bucket.tryConsume(1)) {
             return ingredientsRegistry.getIngredients();
@@ -108,8 +107,7 @@ public class RecipeBuddyController {
         throw new RateLimitException();
     }
 
-
-    @PostMapping("api/ingredients")
+    @PostMapping("/api/ingredients")
     List<String> updateIngredients(@RequestBody List<String> newIngredients) {
         if(bucket.tryConsume(1)) {
             return ingredientsRegistry.postIngredients(newIngredients);
