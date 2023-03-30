@@ -77,11 +77,12 @@ public class AllergensRegistry {
      * Posts allergens.
      * @param newAllergens List of allergens
      */
-    public synchronized void postAllergens(List<String> newAllergens) {
+    public synchronized List<String> postAllergens(List<String> newAllergens) {
         Vector<String> allergens = new Vector<String>();
         for(String i : newAllergens) {
             allergens.add(i);
         }
         saveToFile(allergens);
+        return allergens;
     }
 }

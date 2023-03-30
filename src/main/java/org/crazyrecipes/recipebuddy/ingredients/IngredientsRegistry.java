@@ -77,11 +77,12 @@ public class IngredientsRegistry {
      * Posts ingredients.
      * @param newIngredients List of ingredients
      */
-    public synchronized void postIngredients(List<String> newIngredients) {
+    public synchronized List<String> postIngredients(List<String> newIngredients) {
         Vector<String> ingredients = new Vector<String>();
         for(String i : newIngredients) {
             ingredients.add(i);
         }
         saveToFile(ingredients);
+        return ingredients;
     }
 }

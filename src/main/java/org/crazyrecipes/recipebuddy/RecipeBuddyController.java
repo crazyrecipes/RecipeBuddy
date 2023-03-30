@@ -2,6 +2,7 @@ package org.crazyrecipes.recipebuddy;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Vector;
 
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
@@ -9,6 +10,8 @@ import io.github.bucket4j.Refill;
 import org.crazyrecipes.recipebuddy.error.RateLimitException;
 import org.crazyrecipes.recipebuddy.recipe.Recipe;
 import org.crazyrecipes.recipebuddy.recipe.RecipeRegistry;
+import org.crazyrecipes.recipebuddy.allergens.AllergensRegistry;
+import org.crazyrecipes.recipebuddy.ingredients.IngredientsRegistry;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,15 +21,21 @@ public class RecipeBuddyController {
     private final Bucket bucket;
 
     private RecipeRegistry recipeRegistry;
+    private AllergensRegistry allergensRegistry;
+    private IngredientsRegistry ingredientsRegistry;
 
     RecipeBuddyController() {
         recipeRegistry = new RecipeRegistry();
+        allergensRegistry = new AllergensRegistry();
+        ingredientsRegistry = new IngredientsRegistry();
         Bandwidth limit = Bandwidth.classic(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE,
                 Refill.greedy(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE, Duration.ofMinutes(1)));
         this.bucket = Bucket.builder().addLimit(limit).build();
     };
 
-    @GetMapping("/api/v1/recipes")
+    /* ===== RECIPES ===== */
+
+    @GetMapping("/api/recipes")
     List<Recipe> readRecipes() {
         if(bucket.tryConsume(1)) {
             return recipeRegistry.getAll();
@@ -35,7 +44,7 @@ public class RecipeBuddyController {
 
     }
 
-    @PostMapping("/api/v1/recipes")
+    @PostMapping("/api/recipes")
     Recipe createRecipe(@RequestBody Recipe newRecipe) {
         if(bucket.tryConsume(1)) {
             return recipeRegistry.createRecipe(newRecipe);
@@ -44,7 +53,7 @@ public class RecipeBuddyController {
 
     }
 
-    @GetMapping("/api/v1/recipes/{id}")
+    @GetMapping("/api/recipes/{id}")
     Recipe readRecipe(@PathVariable String id) {
         if(bucket.tryConsume(1)) {
             return recipeRegistry.getRecipe(id);
@@ -52,7 +61,7 @@ public class RecipeBuddyController {
         throw new RateLimitException();
     }
 
-    @PutMapping("/api/v1/recipes/{id}")
+    @PutMapping("/api/recipes/{id}")
     Recipe updateRecipe(@RequestBody Recipe newRecipe, @PathVariable String id) {
         if(bucket.tryConsume(1)) {
             return recipeRegistry.editRecipe(id, newRecipe);
@@ -60,11 +69,33 @@ public class RecipeBuddyController {
         throw new RateLimitException();
     }
 
-    @DeleteMapping("/api/v1/recipes/{id}")
+    @DeleteMapping("/api/recipes/{id}")
     void deleteRecipe(@PathVariable String id) {
         if(bucket.tryConsume(1)) {
             recipeRegistry.deleteRecipe(id);
         }
         throw new RateLimitException();
     }
+
+    /* ===== ALLERGENS ===== */
+
+    @GetMapping("/api/allergens")
+    List<String> readAllergens() {
+        if(bucket.tryConsume(1)) {
+            return allergensRegistry.getAllergens();
+        }
+        throw new RateLimitException();
+    }
+
+    @PostMapping("api/allergens")
+    List<String> updateAllergens(@RequestBody List<String> newAllergens) {
+        if(bucket.tryConsume(1)) {
+            return allergensRegistry.postAllergens(newAllergens);
+        }
+        throw new RateLimitException();
+    }
+
+    /* ===== INGREDIENTS ===== */
+
+    // TODO implement ingredients API hooks
 }
