@@ -125,7 +125,7 @@
                     const data = await response.json();
                     console.log("[DEBUG] Got data:");
                     console.log(data);
-                    window.alert("Allergens updated successfully.");
+                    /* Update display */
                     display_allergens();
                 }).catch(error => {
                     console.log(error);

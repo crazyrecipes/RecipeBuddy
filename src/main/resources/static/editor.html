@@ -227,16 +227,10 @@
                 console.log("Handling DELETE recipe...");
                 fetch(RECIPE_URL, {
                     method: "DELETE",
-                    headers: {
-                        "Accept": "application/json"
-                    },
                 }).then(async response => {
                     if(!response.ok) {
                         throw new Error("DELETE request failed!");
                     }
-                    const data = await response.text();
-                    console.log("[DEBUG] Got data:");
-                    console.log(data);
                     window.alert("Recipe deleted successfully.");
                     window.location.href = "list.html";
                 }).catch(error => {

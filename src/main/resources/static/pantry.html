@@ -91,17 +91,14 @@
                         }
                         console.log("[DEBUG] Got data:");
                         console.log(data);
+
+                        /* Refresh display */
+                        display_ingredients();
                     }).catch(error => {
                         console.log(error);
                         window.alert("Error encountered! Please check the console for more details.");
                     });
 
-                    /* Refresh display */
-                    display_ingredients();
-
-                    /* ===== 3/9 PRESENTATION ===== */
-                    window.alert(`Removed ingredient ${name}`);
-                    /* =====                  ===== */
                 }).catch(error => {
                     console.log(error);
                     window.alert("Error encountered! Please check the console for more details.");
@@ -148,17 +145,14 @@
                         }
                         console.log("[DEBUG] Got data:");
                         console.log(data);
+
+                        /* Refresh display */
+                        display_utensils();
                     }).catch(error => {
                         console.log(error);
                         window.alert("Error encountered! Please check the console for more details.");
                     });
 
-                    /* Refresh display */
-                    display_utensils();
-
-                    /* ===== 3/9 PRESENTATION ===== */
-                    window.alert(`Removed utensil ${name}`);
-                    /* =====                  ===== */
                 }).catch(error => {
                     console.log(error);
                     window.alert("Error encountered! Please check the console for more details.");
@@ -204,17 +198,14 @@
                         }
                         console.log("[DEBUG] Got data:");
                         console.log(data);
+
+                        /* Refresh display */
+                        display_ingredients();
                     }).catch(error => {
                         console.log(error);
                         window.alert("Error encountered! Please check the console for more details.");
                     });
 
-                    /* Refresh display */
-                    display_ingredients();
-
-                    /* ===== 3/9 PRESENTATION ===== */
-                    window.alert(`Added ingredient ${ingredient_name}`);
-                    /* =====                  ===== */
                 }).catch(error => {
                     console.log(error);
                     window.alert("Error encountered! Please check the console for more details.");
@@ -260,17 +251,14 @@
                         }
                         console.log("[DEBUG] Got data:");
                         console.log(data);
+
+                        /* Refresh display */
+                        display_utensils();
                     }).catch(error => {
                         console.log(error);
                         window.alert("Error encountered! Please check the console for more details.");
                     });
 
-                    /* Refresh display */
-                    display_utensils();
-
-                    /* ===== 3/9 PRESENTATION ===== */
-                    window.alert(`Added utensil ${utensil_name}`);
-                    /* =====                  ===== */
                 }).catch(error => {
                     console.log(error);
                     window.alert("Error encountered! Please check the console for more details.");
