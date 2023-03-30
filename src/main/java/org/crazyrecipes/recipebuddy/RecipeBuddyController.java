@@ -100,7 +100,22 @@ public class RecipeBuddyController {
 
     /* ===== INGREDIENTS ===== */
 
-    // TODO implement ingredients API hooks
+    @PostMapping("api/ingerdients")
+    List<String> readIngredients() {
+        if(bucket.tryConsume(1)) {
+            return ingredientsRegistry.getIngredients();
+        }
+        throw new RateLimitException();
+    }
+
+
+    @PostMapping("api/ingredients")
+    List<String> updateIngredients(@RequestBody List<String> newIngredients) {
+        if(bucket.tryConsume(1)) {
+            return ingredientsRegistry.postIngredients(newIngredients);
+        }
+        throw new RateLimitException();
+    }
 
     /* ===== UTENSILS ===== */
 
