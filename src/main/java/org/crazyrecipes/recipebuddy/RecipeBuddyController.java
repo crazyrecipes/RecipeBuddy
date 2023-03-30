@@ -99,7 +99,7 @@ public class RecipeBuddyController {
 
     /* ===== INGREDIENTS ===== */
 
-    @PostMapping("/api/ingredients")
+    @GetMapping("/api/ingredients")
     List<String> readIngredients() {
         if(bucket.tryConsume(1)) {
             return ingredientsRegistry.getIngredients();
