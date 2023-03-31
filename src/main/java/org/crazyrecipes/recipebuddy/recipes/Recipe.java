@@ -1,4 +1,4 @@
-package org.crazyrecipes.recipebuddy.recipe;
+package org.crazyrecipes.recipebuddy.recipes;
 
 import java.io.Serializable;
 import java.util.List;

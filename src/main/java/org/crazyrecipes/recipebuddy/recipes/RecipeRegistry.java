@@ -1,4 +1,4 @@
-package org.crazyrecipes.recipebuddy.recipe;
+package org.crazyrecipes.recipebuddy.recipes;
 
 import org.crazyrecipes.recipebuddy.error.NotFoundException;
 
