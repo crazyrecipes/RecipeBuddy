@@ -1,4 +1,4 @@
-package org.crazyrecipes.recipebuddy.ingredients;
+package org.crazyrecipes.recipebuddy.ingredient;
 
 import java.io.*;
 import java.util.List;
@@ -8,10 +8,10 @@ import java.util.Vector;
  * IngredientsRegistry handles the storage and retrieval of ingredients.
  * THIS IS A SIMPLE, INEFFICIENT VERSION FOR TESTING.
  */
-public class IngredientsRegistry {
+public class IngredientRegistry {
     private final String STORE_FILE = "ingredients.dat";
 
-    public IngredientsRegistry() {
+    public IngredientRegistry() {
         Vector<String> ingredients = loadFromFile();
         if(ingredients.size() < 1) { // if no ingredients could be loaded
             ingredients.add("DEFAULT");

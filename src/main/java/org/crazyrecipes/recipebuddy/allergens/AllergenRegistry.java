@@ -8,10 +8,10 @@ import java.util.Vector;
  * AllergensRegistry handles the storage and retrieval of allergens.
  * THIS IS A SIMPLE, INEFFICIENT VERSION FOR TESTING.
  */
-public class AllergensRegistry {
+public class AllergenRegistry {
     private final String STORE_FILE = "allergens.dat";
 
-    public AllergensRegistry() {
+    public AllergenRegistry() {
         Vector<String> allergens = loadFromFile();
         if(allergens.size() < 1) { // if no allergens could be loaded
             allergens.add("DEFAULT");

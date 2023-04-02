@@ -7,11 +7,11 @@ import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
 import org.crazyrecipes.recipebuddy.error.RateLimitException;
-import org.crazyrecipes.recipebuddy.recipes.Recipe;
-import org.crazyrecipes.recipebuddy.recipes.RecipeRegistry;
-import org.crazyrecipes.recipebuddy.allergens.AllergensRegistry;
-import org.crazyrecipes.recipebuddy.ingredients.IngredientsRegistry;
-import org.crazyrecipes.recipebuddy.utensils.UtensilsRegistry;
+import org.crazyrecipes.recipebuddy.recipe.Recipe;
+import org.crazyrecipes.recipebuddy.recipe.RecipeRegistry;
+import org.crazyrecipes.recipebuddy.allergens.AllergenRegistry;
+import org.crazyrecipes.recipebuddy.ingredient.IngredientRegistry;
+import org.crazyrecipes.recipebuddy.utensil.UtensilRegistry;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,15 +20,15 @@ public class RecipeBuddyController {
     private final Bucket bucket;
 
     private RecipeRegistry recipeRegistry;
-    private AllergensRegistry allergensRegistry;
-    private IngredientsRegistry ingredientsRegistry;
-    private UtensilsRegistry utensilsRegistry;
+    private AllergenRegistry allergenRegistry;
+    private IngredientRegistry ingredientRegistry;
+    private UtensilRegistry utensilRegistry;
 
     RecipeBuddyController() {
         recipeRegistry = new RecipeRegistry();
-        allergensRegistry = new AllergensRegistry();
-        ingredientsRegistry = new IngredientsRegistry();
-        utensilsRegistry = new UtensilsRegistry();
+        allergenRegistry = new AllergenRegistry();
+        ingredientRegistry = new IngredientRegistry();
+        utensilRegistry = new UtensilRegistry();
         Bandwidth limit = Bandwidth.classic(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE,
                 Refill.greedy(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE, Duration.ofMinutes(1)));
         this.bucket = Bucket.builder().addLimit(limit).build();
@@ -84,7 +84,7 @@ public class RecipeBuddyController {
     @GetMapping("/api/allergens")
     List<String> readAllergens() {
         if(bucket.tryConsume(1)) {
-            return allergensRegistry.getAllergens();
+            return allergenRegistry.getAllergens();
         }
         throw new RateLimitException();
     }
@@ -92,7 +92,7 @@ public class RecipeBuddyController {
     @PostMapping("api/allergens")
     List<String> updateAllergens(@RequestBody List<String> newAllergens) {
         if(bucket.tryConsume(1)) {
-            return allergensRegistry.postAllergens(newAllergens);
+            return allergenRegistry.postAllergens(newAllergens);
         }
         throw new RateLimitException();
     }
@@ -102,7 +102,7 @@ public class RecipeBuddyController {
     @GetMapping("/api/ingredients")
     List<String> readIngredients() {
         if(bucket.tryConsume(1)) {
-            return ingredientsRegistry.getIngredients();
+            return ingredientRegistry.getIngredients();
         }
         throw new RateLimitException();
     }
@@ -110,7 +110,7 @@ public class RecipeBuddyController {
     @PostMapping("/api/ingredients")
     List<String> updateIngredients(@RequestBody List<String> newIngredients) {
         if(bucket.tryConsume(1)) {
-            return ingredientsRegistry.postIngredients(newIngredients);
+            return ingredientRegistry.postIngredients(newIngredients);
         }
         throw new RateLimitException();
     }
@@ -120,7 +120,7 @@ public class RecipeBuddyController {
     @GetMapping("/api/utensils")
     List<String> readUtensils() {
         if(bucket.tryConsume(1)) {
-            return utensilsRegistry.getUtensils();
+            return utensilRegistry.getUtensils();
         }
         throw new RateLimitException();
     }
@@ -128,7 +128,7 @@ public class RecipeBuddyController {
     @PostMapping("api/utensils")
     List<String> updateUtensils(@RequestBody List<String> newUtensils) {
         if(bucket.tryConsume(1)) {
-            return utensilsRegistry.postUtensils(newUtensils);
+            return utensilRegistry.postUtensils(newUtensils);
         }
         throw new RateLimitException();
     }

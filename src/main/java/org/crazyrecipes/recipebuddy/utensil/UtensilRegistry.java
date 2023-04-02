@@ -1,4 +1,4 @@
-package org.crazyrecipes.recipebuddy.utensils;
+package org.crazyrecipes.recipebuddy.utensil;
 
 import java.io.*;
 import java.util.List;
@@ -8,10 +8,10 @@ import java.util.Vector;
  * UtensilsRegistry handles the storage and retrieval of utensils.
  * THIS IS A SIMPLE, INEFFICIENT VERSION FOR TESTING.
  */
-public class UtensilsRegistry {
+public class UtensilRegistry {
     private final String STORE_FILE = "utensils.dat";
 
-    public UtensilsRegistry() {
+    public UtensilRegistry() {
         Vector<String> utensils = loadFromFile();
         if(utensils.size() < 1) { // if no utensils could be loaded
             utensils.add("DEFAULT");
