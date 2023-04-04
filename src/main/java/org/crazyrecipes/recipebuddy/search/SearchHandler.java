@@ -26,15 +26,34 @@ public class SearchHandler {
     public List<Recipe> doSearch(Search search) {
         Vector<Recipe> searchResults = new Vector<>();
         for(Recipe i : recipes) {
-            if(match(search, i)) {
+            if(match(search, i) > 0) {
                 searchResults.add(i);
             }
         }
         return searchResults;
     }
 
-    boolean match(Search search, Recipe recipe) {
+    int match(Search search, Recipe recipe) {
+        int title_match = 0;
+        int tags_match = 0;
+
+
+        if(match_strings(recipe.getName(), search.getQuery())) { title_match++; }
+        for(String i : recipe.getTags()) {
+            if(match_strings(i, search.getQuery())) {
+                tags_match++;
+                break;
+            }
+        }
+
+
         // TODO implement
         return false;
+    }
+
+    boolean match_strings(String base, String find) {
+        /* match any occurrence of base in find */
+        String pattern = (new StringBuilder()).append("(.*)").append(find).append("(.*)").toString();
+        return base.matches(pattern);
     }
 }
