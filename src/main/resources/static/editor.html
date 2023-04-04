@@ -25,15 +25,27 @@
                     <div class="spacer"></div>
 
                     <h3>Name</h3>
-                    <input class="text_field" id="RECIPE_NAME" placeholder="Enter the recipe's name here..."></input>
+                    <input class="text_field" id="RECIPE_NAME" placeholder="Recipe name"></input>
+
+                    <div class="spacer"></div>
 
                     <h3>Photo</h3>
-                    <input class="text_field" id="RECIPE_PHOTO" placeholder="Path to photo of recipe..."></input>
+                    <input class="text_field" id="RECIPE_PHOTO" placeholder="Recipe photo URL (ex. /media/burger.jpg)"></input>
 
                     <div class="spacer"></div>
 
                     <h3>Description</h3>
-                    <textarea class="text_field_big" id="RECIPE_DESC" rows="5" placeholder="Enter the recipe's description here..."></textarea>
+                    <textarea class="text_field_big" id="RECIPE_DESC" rows="5" placeholder="Recipe description"></textarea>
+
+                    <div class="spacer"></div>
+
+                    <h3>Rating</h3>
+                    <input class="text_field_small" id="RECIPE_RATING" placeholder="0-5"></input>&#9733;
+
+                    <div class="spacer"></div>
+
+                    <h3>Times Cooked</h3>
+                    <input class="text_field_small" id="RECIPE_COOKED" placeholder="0+"></input>
 
                     <div class="spacer"></div>
                     
@@ -41,7 +53,6 @@
                     <textarea id="RECIPE_INGREDIENTS" class="text_field_big" rows="10" placeholder="Enter each ingredient on its own line..."></textarea>
                     
                     <div class="spacer"></div>
-                    
 
                     <h3>Utensils</h3>
                     <textarea id="RECIPE_UTENSILS" class="text_field_big" rows="5" placeholder="Enter each utensil on its own line..."></textarea>
@@ -88,11 +99,9 @@
                     <button class="inline_button" onclick="do_delete()">Delete Recipe</button>
                 </div>
             </div>
-
-            <div class="spacer"></div>
-
-            <div id="SEARCH_RESULTS"></div>
         </div>
+
+        <div class="toast" id="TOAST_MESSAGE"></div>
 
         <script>
             /* API url to post recipe to */
@@ -102,6 +111,20 @@
             const params = new URLSearchParams(decodeURI(window.location.search));
             const RECIPE_URL = "api/recipe/" + params.get("id");
             const VIEW_URL = "viewer.html?id=" + params.get("id");
+
+            /* Show toast message */
+            function show_toast(message) {
+                var td = document.getElementById("TOAST_MESSAGE");
+                td.innerHTML = message;
+                td.className = "show";
+                setTimeout(hide_toast, 3500);
+            }
+
+            /* Hide toast message */
+            function hide_toast() {
+                var td = document.getElementById("TOAST_MESSAGE");
+                td.className = td.className.replace("show", "hide");
+            }
 
             /* Fetch single recipe and display data in editor */
             function display_recipe() {
@@ -127,6 +150,8 @@
                     document.getElementById("RECIPE_NAME").value = data.name;
                     document.getElementById("RECIPE_DESC").value = data.desc;
                     document.getElementById("RECIPE_PHOTO").value = data.photo;
+                    document.getElementById("RECIPE_RATING").value = data.rating;
+                    document.getElementById("RECIPE_COOKED").value = data.cooked;
                     document.getElementById("RECIPE_INGREDIENTS").value = recipe_ingredients;
                     document.getElementById("RECIPE_UTENSILS").value = recipe_utensils;
                     document.getElementById("RECIPE_STEPS").value = recipe_steps;
@@ -142,7 +167,7 @@
                     }
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Error encountered! Please check the console for more details.");
+                    show_toast("Error encountered! Please check the console for more details.");
                 });
             }
 
@@ -158,6 +183,12 @@
                
                 var recipe_desc = document.getElementById("RECIPE_DESC").value;
                 console.log(`..with desc "${recipe_desc}"`);
+
+                var recipe_rating = document.getElementById("RECIPE_RATING").value;
+                console.log(`..with rating "${recipe_rating}"`);
+
+                var recipe_cooked = document.getElementById("RECIPE_COOKED").value;
+                console.log(`..with cooked "${recipe_cooked}"`);
                 
                 var recipe_ingredients = document.getElementById("RECIPE_INGREDIENTS").value;
                 console.log(`..with ingredients "${recipe_ingredients}"`);
@@ -186,8 +217,8 @@
                         "name": recipe_name,
                         "desc": recipe_desc,
                         "photo": recipe_photo,
-                        "rating": "0.0",
-                        "cooked": "0",
+                        "rating": recipe_rating,
+                        "cooked": recipe_cooked,
                         "ingredients": recipe_ingredients.split('\n'),
                         "utensils": recipe_utensils.split('\n'),
                         "steps": recipe_steps.split('\n'),
@@ -212,10 +243,11 @@
                     const data = await response.json();
                     console.log("[DEBUG] Got data:");
                     console.log(data);
+                    show_toast("Updated recipe.");
                     window.location.href = VIEW_URL;
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Error encountered! Check the console for more details.");
+                    show_toast("Error encountered! Please check the console for more details.");
                 });
             }
 
@@ -234,7 +266,7 @@
                     window.location.href = "list.html";
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Error encountered! Check the console for more details.");
+                    show_toast("Error encountered! Please check the console for more details.");
                 })
             }
 

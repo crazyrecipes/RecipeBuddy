@@ -19,7 +19,9 @@ public class RecipeRegistry {
         recipes = loadRecipesFromFile();
         if(recipes.size() < 1) { // if no recipes could be loaded
             Recipe r = new Recipe();
-            r.setName("Default");
+            r.setName("The Default Burger");
+            r.setDesc("The burger that gets generated when a new database is created");
+            r.setPhoto("/media/burger.jpg");
             recipes.add(r);
             saveRecipesToFile(recipes);
         }
@@ -84,7 +86,7 @@ public class RecipeRegistry {
      * @param id Recipe's ID
      * @return The Recipe with the specified ID
      */
-    public Recipe getRecipe(String id) {
+    public Recipe getRecipe(String id) throws NotFoundException {
         recipes = loadRecipesFromFile();
         for(Recipe i : recipes) {
             if (i.getID().equals(id)) {
@@ -114,7 +116,7 @@ public class RecipeRegistry {
      * @param recipe The Recipe to replace with
      * @return The updated Recipe
      */
-    public synchronized Recipe editRecipe(String id, Recipe recipe) {
+    public synchronized Recipe editRecipe(String id, Recipe recipe) throws NotFoundException {
         recipes = loadRecipesFromFile();
         for(int i = 0; i < recipes.size(); i++) {
             if(recipes.get(i).getID().equals(id)) {

@@ -51,9 +51,25 @@
             <div id="SEARCH_RESULTS"></div>
         </div>
 
+        <div class="toast" id="TOAST_MESSAGE"></div>
+
         <script>
             /* API url to get search results from */
             const RECIPELIST_URL = "api/search"
+
+            /* Show toast message */
+            function show_toast(message) {
+                var td = document.getElementById("TOAST_MESSAGE");
+                td.innerHTML = message;
+                td.className = "show";
+                setTimeout(hide_toast, 3500);
+            }
+
+            /* Hide toast message */
+            function hide_toast() {
+                var td = document.getElementById("TOAST_MESSAGE");
+                td.className = td.className.replace("show", "hide");
+            }
             
             /* Execute a search and display results */
             function do_search() {
@@ -92,7 +108,8 @@
                     "allergens": "${search_allergens}"
                 }
                 `
-
+                
+                show_toast("Searching...");
                 /* Send request and display results */
                 console.log("Getting results...");
                 fetch(RECIPELIST_URL, {
@@ -127,13 +144,15 @@
                     }
                     if(data.length > 0) {
                         console.log("Displaying results...");
+                        show_toast(`Found ${data.length} results.`);
                         document.getElementById("SEARCH_RESULTS").innerHTML = formatted_result;
                     } else {
-                        document.getElementById("SEARCH_RESULTS").innerHTML = "No Results!";
+                        console.log("No results!");
+                        show_toast("Your search didn't match any results.");
                     }
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Error encountered! Please check the console for more details.");
+                    show_toast("Error encountered! Please check the console for more details.");
                 });
             }
 

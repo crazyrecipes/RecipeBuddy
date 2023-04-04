@@ -87,6 +87,17 @@ p {
     overflow-y: hidden;
 }
 
+.text_field_small {
+    font: inherit;
+    width: 40px;
+    margin: 8px 0;
+    border: 1px solid black;
+    padding: 6px;
+    border-radius: 5px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
 /* ===== NAVBAR ===== */
 
 .navbar {
