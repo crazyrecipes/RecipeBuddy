@@ -93,9 +93,26 @@
             <div id="SEARCH_RESULTS"></div>
         </div>
 
+        <div class="toast" id="TOAST_MESSAGE"></div>
+
         <script>
             const RECIPES_URL = "api/recipes"
             
+
+            /* Show toast message */
+            function show_toast(message) {
+                var td = document.getElementById("TOAST_MESSAGE");
+                td.innerHTML = message;
+                td.className = "show";
+                setTimeout(hide_toast, 3400);
+            }
+
+            /* Hide toast message */
+            function hide_toast() {
+                var td = document.getElementById("TOAST_MESSAGE");
+                td.className = td.className.replace("show", "hide");
+            }
+
             /* Create a recipe */
             function do_create() {
                 console.log("Handling CREATE recipe...");
@@ -171,11 +188,11 @@
                     const data = await response.json();
                     console.log("[DEBUG] Got data:");
                     console.log(data);
-                    window.alert("Recipe created successfully.");
+                    show_toast("Recipe created.");
                     window.location.href = "list.html";
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Error encountered! Check the console for more details.");
+                    show_toast("Error encountered! Check the console for more details.");
                 });
             }
         </script>

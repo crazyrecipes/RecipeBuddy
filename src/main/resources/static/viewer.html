@@ -28,8 +28,9 @@
                 <button class="inline_button" onclick="start_timer()">Start</button>
                 <button class="inline_button" onclick="stop_timer()">Stop</button>
             </div>
-
         </div>
+
+        <div class="toast" id="TOAST_MESSAGE"></div>
 
         <script>
             /* API url to get single recipe from */
@@ -37,6 +38,20 @@
             const RECIPE_URL = "api/recipe/" + params.get("id");
             var timer_interval;
             var timer_value;
+
+            /* Show toast message */
+            function show_toast(message) {
+                var td = document.getElementById("TOAST_MESSAGE");
+                td.innerHTML = message;
+                td.className = "show";
+                setTimeout(hide_toast, 3400);
+            }
+
+            /* Hide toast message */
+            function hide_toast() {
+                var td = document.getElementById("TOAST_MESSAGE");
+                td.className = td.className.replace("show", "hide");
+            }
             
             /* Hours:minutes:seconds to seconds */
             function hms_to_s(hms) {
@@ -68,6 +83,7 @@
                 timer_value = hms_to_s(hms);
                 console.log(timer_value);
                 display_timer();
+                show_toast(`Set timer to ${hms}`);
             }
 
             /* Update timer display */
@@ -79,17 +95,20 @@
             function start_timer() {
                 set_timer(document.getElementById("RECIPE_TIMER").value);
                 timer_interval = setInterval(tick_timer, 1000);
+                show_toast("Started timer.");
             }
 
             /* Stop timer */
             function stop_timer() {
                 clearInterval(timer_interval);
+                show_toast("Stopped timer.");
             }
 
             /* Tick timer */
             function tick_timer() {
                 timer_value -= 1;
                 if(timer_value < 1) {
+                    show_toast("Time's up!");
                     window.alert("Time's up!");
                     clearInterval(timer_interval);
                 }

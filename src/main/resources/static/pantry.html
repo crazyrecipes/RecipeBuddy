@@ -44,12 +44,28 @@
             </div>
         </div>
 
+        <div class="toast" id="TOAST_MESSAGE"></div>
+
         <script>
             /* API url to get and post ingredients */
             const INGREDIENTS_URL = "api/ingredients"
 
             /* API url to get and post utensils */
             const UTENSILS_URL = "api/utensils"
+
+            /* Show toast message */
+            function show_toast(message) {
+                var td = document.getElementById("TOAST_MESSAGE");
+                td.innerHTML = message;
+                td.className = "show";
+                setTimeout(hide_toast, 3400);
+            }
+
+            /* Hide toast message */
+            function hide_toast() {
+                var td = document.getElementById("TOAST_MESSAGE");
+                td.className = td.className.replace("show", "hide");
+            }
 
             /* Remove an ingredient from the pantry */
             function handle_remove_ingredient(name) {
@@ -94,14 +110,15 @@
 
                         /* Refresh display */
                         display_ingredients();
+                        show_toast("Removed ingredient.");
                     }).catch(error => {
                         console.log(error);
-                        window.alert("Error encountered! Please check the console for more details.");
+                        show_toast("Error encountered! Please check the console for more details.");
                     });
 
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Error encountered! Please check the console for more details.");
+                    show_toast("Error encountered! Please check the console for more details.");
                 });
             }
 
@@ -148,14 +165,15 @@
 
                         /* Refresh display */
                         display_utensils();
+                        show_toast("Removed utensil.");
                     }).catch(error => {
                         console.log(error);
-                        window.alert("Error encountered! Please check the console for more details.");
+                        show_toast("Error encountered! Please check the console for more details.");
                     });
 
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Error encountered! Please check the console for more details.");
+                    show_toast("Error encountered! Please check the console for more details.");
                 });
             }
 
@@ -201,14 +219,15 @@
 
                         /* Refresh display */
                         display_ingredients();
+                        show_toast("Added ingredient.");
                     }).catch(error => {
                         console.log(error);
-                        window.alert("Error encountered! Please check the console for more details.");
+                        show_toast("Error encountered! Please check the console for more details.");
                     });
 
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Error encountered! Please check the console for more details.");
+                    show_toast("Error encountered! Please check the console for more details.");
                 });
             }
 
@@ -254,14 +273,15 @@
 
                         /* Refresh display */
                         display_utensils();
+                        show_toast("Added utensil.");
                     }).catch(error => {
                         console.log(error);
-                        window.alert("Error encountered! Please check the console for more details.");
+                        show_toast("Error encountered! Please check the console for more details.");
                     });
 
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Error encountered! Please check the console for more details.");
+                    show_toast("Error encountered! Please check the console for more details.");
                 });
             }
             
@@ -297,7 +317,7 @@
                     document.getElementById("INGREDIENT_LIST").innerHTML = formatted_result;
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Error encountered! Please check the console for more details.");
+                    show_toast("Error encountered! Please check the console for more details.");
                 });
             }
 
@@ -333,7 +353,7 @@
                     document.getElementById("UTENSIL_LIST").innerHTML = formatted_result;
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Error encountered! Please check the console for more details.");
+                    show_toast("Error encountered! Please check the console for more details.");
                 })
             }
 
