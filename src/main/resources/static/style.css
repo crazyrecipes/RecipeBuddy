@@ -203,3 +203,28 @@ p {
 .content_inner {
     padding: 12px;
 }
+
+.timer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    height: auto;
+    width: auto;
+    z-index: 998;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.timer_field {
+    font: inherit;
+    width: 140px;
+    margin: 0;
+    border: 1px solid black;
+    padding: 4px;
+    border-radius: 5px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}

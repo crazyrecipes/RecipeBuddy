@@ -23,12 +23,77 @@
                     <div id="RECIPE_CONTENT"></div>
                 </div>
             </div>
+            <div class="timer">
+                <input class="timer_field" id="RECIPE_TIMER" placeholder="00:00:00"><br>
+                <button class="inline_button" onclick="start_timer()">Start</button>
+                <button class="inline_button" onclick="stop_timer()">Stop</button>
+            </div>
+
         </div>
 
         <script>
             /* API url to get single recipe from */
             const params = new URLSearchParams(decodeURI(window.location.search));
             const RECIPE_URL = "api/recipe/" + params.get("id");
+            var timer_interval;
+            var timer_value;
+            
+            /* Hours:minutes:seconds to seconds */
+            function hms_to_s(hms) {
+                let h = parseInt(hms.split(":")[0]);
+                let m = parseInt(hms.split(":")[1]);
+                let s = parseInt(hms.split(":")[2]);
+                console.log(`h: ${h}, m: ${m}, s: ${s}`);
+                return h * 3600 + m * 60 + s;
+            }
+            
+            /* Seconds to hours:minutes:seconds */
+            function s_to_hms(ts) {
+                let h = Math.floor(ts / 3600).toString().padStart(2, '0');
+                let m = Math.floor((ts % 3600) / 60).toString().padStart(2, '0');
+                let s = Math.floor((ts % 3600) % 60).toString().padStart(2, '0');
+                return `${h}:${m}:${s}`;
+            }
+
+            /* Check if a word is a valid time */
+            function is_time(word) {
+                let r = new RegExp("^[0-9][0-9]:[0-5][0-9]:[0-5][0-9]$");
+                return r.test(word);
+            }
+
+            /* Set timer */
+            function set_timer(hms) {
+                console.log("Setting timer... to " + hms);
+                timer_value = hms_to_s(hms);
+                console.log(timer_value);
+                display_timer();
+            }
+
+            /* Update timer display */
+            function display_timer() {
+                document.getElementById("RECIPE_TIMER").value = s_to_hms(timer_value);
+            }
+
+            /* Start timer */
+            function start_timer() {
+                set_timer(document.getElementById("RECIPE_TIMER").value);
+                timer_interval = setInterval(tick_timer, 1000);
+            }
+
+            /* Stop timer */
+            function stop_timer() {
+                clearInterval(timer_interval);
+            }
+
+            /* Tick timer */
+            function tick_timer() {
+                timer_value -= 1;
+                if(timer_value < 1) {
+                    window.alert("Time's up!");
+                    clearInterval(timer_interval);
+                }
+                display_timer();
+            }
 
             /* Grab a single recipe and display it */
             function display_recipe() {
@@ -44,6 +109,19 @@
                     }
                     const data = await response.json();
                     console.log(data);
+
+                    for(i in data.steps) {
+                        console.log(data.steps[i]);
+                        j = data.steps[i].split(" ");
+                        console.log(j);
+                        for(k in j) {
+                            console.log(j[k]);
+                            if(is_time(j[k])) {
+                                console.log("HIT!");
+                                data.steps[i] += `&nbsp<button onclick="set_timer('${j[k]}')">Set Timer</button>`;
+                            }
+                        }
+                    }
 
                     recipe_ingredients = data.ingredients.join("<br>");
                     recipe_utensils = data.utensils.join("<br>");
@@ -77,6 +155,7 @@
 
             /* ===== On page load: ===== */
             display_recipe();
+
         </script>
     </body>
 </html>
