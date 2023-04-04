@@ -58,14 +58,32 @@
                 </div>
             </div>
         </div>
+
+        <div class="toast" id="TOAST_MESSAGE"></div>
+
         <script>
             const ALLERGENS_URL = "api/allergens";
+
+            /* Show toast message */
+            function show_toast(message) {
+                var td = document.getElementById("TOAST_MESSAGE");
+                td.innerHTML = message;
+                td.className = "show";
+                setTimeout(hide_toast, 3500);
+            }
+
+            /* Hide toast message */
+            function hide_toast() {
+                var td = document.getElementById("TOAST_MESSAGE");
+                td.className = td.className.replace("show", "hide");
+            }
 
             /* Handle name change (just a demo handler) */
             function handle_name_change()  {
                 console.log("Handle CHANGE name...");
                 var name = document.getElementById("NAME_INPUT").value;
                 document.getElementById("NAME_CURRENT").innerHTML = name;
+                show_toast("Updated name.");
             }
 
             /* Grab and display current user allergens */
@@ -127,6 +145,7 @@
                     console.log(data);
                     /* Update display */
                     display_allergens();
+                    show_toast("Updated allergens.");
                 }).catch(error => {
                     console.log(error);
                     window.alert("Error encountered! Check the console for more details.");

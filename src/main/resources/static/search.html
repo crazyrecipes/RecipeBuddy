@@ -21,8 +21,7 @@
             <div class="content_container">
                 <div class="content_inner">
                     <h1>Search Recipes</h1>
-                    <input class="text_field" id="SEARCH_TEXT" placeholder="Enter search keyword(s) here..."></input>
-                    <input class="text_field" id="SEARCH_TAGS" placeholder="Enter search tag(s) here, separated by commas."></input>
+                    <input class="text_field" id="SEARCH_TEXT" placeholder="Enter search keyword here..."></input>
                     
                     <h3>Ingredients</h3>
 
@@ -64,9 +63,6 @@
                 var search_text = document.getElementById("SEARCH_TEXT").value;
                 console.log(`..for text "${search_text}"`)
 
-                var search_tags = document.getElementById("SEARCH_TAGS").value;
-                console.log(`..for tags "${search_tags}"`)
-
                 /* Get ingredients choice */
                 var ingredients_inputs = document.getElementsByName("INGREDIENTS_INPUT");
                 var search_ingredients = "SOME";
@@ -91,12 +87,9 @@
 
                 const SEARCH_JSON = `
                 {
-                    "query": {
-                        "title": "${search_text}",
-                        "tags": "${search_tags}",
-                        "ingredients": "${search_ingredients}",
-                        "allergens": "${search_allergens}",
-                    }
+                    "query": "${search_text}",
+                    "ingredients": "${search_ingredients}",
+                    "allergens": "${search_allergens}"
                 }
                 `
 

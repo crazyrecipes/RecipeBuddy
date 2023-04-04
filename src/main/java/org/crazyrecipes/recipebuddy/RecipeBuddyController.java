@@ -12,6 +12,7 @@ import org.crazyrecipes.recipebuddy.recipe.RecipeRegistry;
 import org.crazyrecipes.recipebuddy.allergens.AllergenRegistry;
 import org.crazyrecipes.recipebuddy.ingredient.IngredientRegistry;
 import org.crazyrecipes.recipebuddy.search.Search;
+import org.crazyrecipes.recipebuddy.search.SearchHandler;
 import org.crazyrecipes.recipebuddy.utensil.UtensilRegistry;
 import org.springframework.web.bind.annotation.*;
 
@@ -137,7 +138,9 @@ public class RecipeBuddyController {
     /* ===== SEARCH ===== */
     @PostMapping("api/search")
     List<Recipe> doSearch(@RequestBody Search s_query) {
-        // TODO implement
-        return null;
+        return (new SearchHandler(recipeRegistry.getAll(),
+                ingredientRegistry.getIngredients(),
+                utensilRegistry.getUtensils(),
+                allergenRegistry.getAllergens())).doSearch(s_query);
     }
 }

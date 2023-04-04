@@ -101,6 +101,7 @@
             /* API url to get single recipe from */
             const params = new URLSearchParams(decodeURI(window.location.search));
             const RECIPE_URL = "api/recipe/" + params.get("id");
+            const VIEW_URL = "viewer.html?id=" + params.get("id");
 
             /* Fetch single recipe and display data in editor */
             function display_recipe() {
@@ -211,8 +212,7 @@
                     const data = await response.json();
                     console.log("[DEBUG] Got data:");
                     console.log(data);
-                    window.alert("Recipe edited successfully.");
-                    window.location.href = "list.html";
+                    window.location.href = VIEW_URL;
                 }).catch(error => {
                     console.log(error);
                     window.alert("Error encountered! Check the console for more details.");
@@ -231,7 +231,6 @@
                     if(!response.ok) {
                         throw new Error("DELETE request failed!");
                     }
-                    window.alert("Recipe deleted successfully.");
                     window.location.href = "list.html";
                 }).catch(error => {
                     console.log(error);

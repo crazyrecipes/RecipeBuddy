@@ -7,7 +7,7 @@ public class Search {
     String ingredients;
     String allergens;
 
-    public Search(String query, String tags, String ingredients, String allergens) {
+    public Search(String query, String ingredients, String allergens) {
         this.query = query;
         this.ingredients = ingredients;
         this.allergens = allergens;
