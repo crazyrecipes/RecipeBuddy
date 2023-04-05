@@ -259,11 +259,7 @@ p {
 
 #TOAST_MESSAGE.show {
     visibility: visible;
-    animation: toastin 0.5s, toastout 0.5s 3s;
-}
-
-#TOAST_MESSAGE.hide {
-    visibility: hidden;   
+    animation: toastin 0.5s, toastout 0.5s 2.5s;
 }
 
 @keyframes toastin {

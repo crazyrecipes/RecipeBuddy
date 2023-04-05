@@ -58,11 +58,11 @@ public class DatabaseController {
      * @return The created Recipe
      */
     public synchronized Recipe createRecipe(Recipe newRecipe) {
-        //Recipe recipeToAdd = new Recipe();
-        //recipeToAdd.duplicate_from(newRecipe);
-        recipes.add(newRecipe);
+        Recipe recipeToAdd = new Recipe();
+        recipeToAdd.duplicate_from(newRecipe);
+        recipes.add(recipeToAdd);
         saveRecipesToFile(recipes, RECIPES_STORE_FILE);
-        return newRecipe;
+        return recipeToAdd;
     }
 
     /**
