@@ -1,6 +1,7 @@
 package org.crazyrecipes.recipebuddy.search;
 
 import org.crazyrecipes.recipebuddy.recipe.Recipe;
+import org.crazyrecipes.recipebuddy.util.Log;
 
 import java.util.List;
 import java.util.Vector;
@@ -10,9 +11,11 @@ public class SearchHandler {
     Vector<String> ingredients;
     Vector<String> utensils;
     Vector<String> allergens;
+    Log log;
 
     public SearchHandler(List<Recipe> recipes, List<String> ingredients,
                          List<String> utensils, List<String> allergens) {
+        this.log = new Log("SearchHandler");
         this.recipes = new Vector<>();
         this.ingredients = new Vector<>();
         this.utensils = new Vector<>();
@@ -25,10 +28,10 @@ public class SearchHandler {
 
     /* Quick and dirty search - don't look at it too hard */
     public List<Recipe> doSearch(Search search) {
-        System.out.println("===== Doing search =====");
-        System.out.println("Keyword: " + search.getQuery());
-        System.out.println("Ingredients: " + search.getIngredients());
-        System.out.println("Allergens: " + search.getAllergens());
+        log.print("Doing search...");
+        log.print("...for query " + search.getQuery());
+        log.print("...for ingredients " + search.getIngredients());
+        log.print("...for allergens " + search.getAllergens());
 
         Vector<Recipe> searchResults = new Vector<>();
         for(Recipe i : recipes) {
@@ -36,6 +39,7 @@ public class SearchHandler {
                 searchResults.add(i);
             }
         }
+        log.print("Got " + searchResults.size() + " results.");
         return searchResults;
     }
 
@@ -57,7 +61,6 @@ public class SearchHandler {
         for(String i : recipe.getAllergens()) {
             for(String j : allergens) {
                 if(match_strings(i, j)) {
-                    System.out.println("Has allergen " + j);
                     allergen_free = false;
                     break;
                 }
@@ -74,7 +77,6 @@ public class SearchHandler {
                     has_j = true;
                 }
                 if(!has_j) {
-                    System.out.println("Missing ingredient " + j);
                     ingredients_missing++;
                 }
             }

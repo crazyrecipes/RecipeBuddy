@@ -64,19 +64,22 @@
         <script>
             const ALLERGENS_URL = "api/allergens";
 
+            /* ===== TOAST MESSAGE ===== */
+            var toast_timeout;
             /* Show toast message */
             function show_toast(message) {
+                clearTimeout(toast_timeout);
                 var td = document.getElementById("TOAST_MESSAGE");
                 td.innerHTML = message;
                 td.className = "show";
-                setTimeout(hide_toast, 3400);
+                toast_timeout = setTimeout(hide_toast, 2900);
             }
-
             /* Hide toast message */
             function hide_toast() {
                 var td = document.getElementById("TOAST_MESSAGE");
                 td.className = td.className.replace("show", "hide");
             }
+            /* ===== END TOAST MESSAGE ===== */
 
             /* Handle name change (just a demo handler) */
             function handle_name_change()  {

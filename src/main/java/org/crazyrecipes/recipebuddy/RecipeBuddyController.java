@@ -6,31 +6,25 @@ import java.util.List;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
+import org.crazyrecipes.recipebuddy.database.DatabaseController;
+import org.crazyrecipes.recipebuddy.error.NotFoundException;
 import org.crazyrecipes.recipebuddy.error.RateLimitException;
 import org.crazyrecipes.recipebuddy.recipe.Recipe;
-import org.crazyrecipes.recipebuddy.recipe.RecipeRegistry;
-import org.crazyrecipes.recipebuddy.allergens.AllergenRegistry;
-import org.crazyrecipes.recipebuddy.ingredient.IngredientRegistry;
 import org.crazyrecipes.recipebuddy.search.Search;
 import org.crazyrecipes.recipebuddy.search.SearchHandler;
-import org.crazyrecipes.recipebuddy.utensil.UtensilRegistry;
+import org.crazyrecipes.recipebuddy.util.Log;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RecipeBuddyController {
 
     private final Bucket bucket;
-
-    private RecipeRegistry recipeRegistry;
-    private AllergenRegistry allergenRegistry;
-    private IngredientRegistry ingredientRegistry;
-    private UtensilRegistry utensilRegistry;
+    private Log log;
+    private DatabaseController databaseController;
 
     RecipeBuddyController() {
-        recipeRegistry = new RecipeRegistry();
-        allergenRegistry = new AllergenRegistry();
-        ingredientRegistry = new IngredientRegistry();
-        utensilRegistry = new UtensilRegistry();
+        this.log = new Log("RecipeBuddyController");
+        this.databaseController = new DatabaseController();
         Bandwidth limit = Bandwidth.classic(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE,
                 Refill.greedy(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE, Duration.ofMinutes(1)));
         this.bucket = Bucket.builder().addLimit(limit).build();
@@ -41,7 +35,7 @@ public class RecipeBuddyController {
     @GetMapping("/api/recipes")
     List<Recipe> readRecipes() {
         if(bucket.tryConsume(1)) {
-            return recipeRegistry.getAll();
+            return databaseController.getRecipes();
         }
         throw new RateLimitException();
 
@@ -50,7 +44,7 @@ public class RecipeBuddyController {
     @PostMapping("/api/recipes")
     Recipe createRecipe(@RequestBody Recipe newRecipe) {
         if(bucket.tryConsume(1)) {
-            return recipeRegistry.createRecipe(newRecipe);
+            return databaseController.createRecipe(newRecipe);
         }
         throw new RateLimitException();
 
@@ -59,7 +53,12 @@ public class RecipeBuddyController {
     @GetMapping("/api/recipe/{id}")
     Recipe readRecipe(@PathVariable String id) {
         if(bucket.tryConsume(1)) {
-            return recipeRegistry.getRecipe(id);
+            try {
+                return databaseController.getRecipe(id);
+            } catch(NotFoundException e) {
+                log.print("Couldn't find recipe " + id + " in database.");
+                throw new NotFoundException();
+            }
         }
         throw new RateLimitException();
     }
@@ -67,7 +66,14 @@ public class RecipeBuddyController {
     @PutMapping("/api/recipe/{id}")
     Recipe updateRecipe(@RequestBody Recipe newRecipe, @PathVariable String id) {
         if(bucket.tryConsume(1)) {
-            return recipeRegistry.editRecipe(id, newRecipe);
+            log.print("Handling update for recipe " + id);
+            try {
+                return databaseController.editRecipe(id, newRecipe);
+            } catch(NotFoundException e) {
+                log.print("Couldn't find recipe " + id + " in database.");
+                throw new NotFoundException();
+            }
+
         }
         throw new RateLimitException();
     }
@@ -75,8 +81,14 @@ public class RecipeBuddyController {
     @DeleteMapping("/api/recipe/{id}")
     void deleteRecipe(@PathVariable String id) {
         if(bucket.tryConsume(1)) {
-            recipeRegistry.deleteRecipe(id);
-            return;
+            log.print("Handling delete for recipe " + id);
+            try {
+                databaseController.deleteRecipe(id);
+                return;
+            } catch(NotFoundException e) {
+                log.print("Couldn't find recipe " + id + " in database.");
+                throw new NotFoundException();
+            }
         }
         throw new RateLimitException();
     }
@@ -86,7 +98,7 @@ public class RecipeBuddyController {
     @GetMapping("/api/allergens")
     List<String> readAllergens() {
         if(bucket.tryConsume(1)) {
-            return allergenRegistry.getAllergens();
+            return databaseController.readAllergens();
         }
         throw new RateLimitException();
     }
@@ -94,7 +106,8 @@ public class RecipeBuddyController {
     @PostMapping("api/allergens")
     List<String> updateAllergens(@RequestBody List<String> newAllergens) {
         if(bucket.tryConsume(1)) {
-            return allergenRegistry.postAllergens(newAllergens);
+            log.print("Handling update of allergens.");
+            return databaseController.writeAllergens(newAllergens);
         }
         throw new RateLimitException();
     }
@@ -104,7 +117,7 @@ public class RecipeBuddyController {
     @GetMapping("/api/ingredients")
     List<String> readIngredients() {
         if(bucket.tryConsume(1)) {
-            return ingredientRegistry.getIngredients();
+            return databaseController.readIngredients();
         }
         throw new RateLimitException();
     }
@@ -112,7 +125,8 @@ public class RecipeBuddyController {
     @PostMapping("/api/ingredients")
     List<String> updateIngredients(@RequestBody List<String> newIngredients) {
         if(bucket.tryConsume(1)) {
-            return ingredientRegistry.postIngredients(newIngredients);
+            log.print("Handling update of ingredients.");
+            return databaseController.writeIngredients(newIngredients);
         }
         throw new RateLimitException();
     }
@@ -122,7 +136,7 @@ public class RecipeBuddyController {
     @GetMapping("/api/utensils")
     List<String> readUtensils() {
         if(bucket.tryConsume(1)) {
-            return utensilRegistry.getUtensils();
+            return databaseController.readUtensils();
         }
         throw new RateLimitException();
     }
@@ -130,17 +144,23 @@ public class RecipeBuddyController {
     @PostMapping("api/utensils")
     List<String> updateUtensils(@RequestBody List<String> newUtensils) {
         if(bucket.tryConsume(1)) {
-            return utensilRegistry.postUtensils(newUtensils);
+            log.print("Handling update of utensils.");
+            return databaseController.writeUtensils(newUtensils);
         }
         throw new RateLimitException();
     }
 
     /* ===== SEARCH ===== */
+
     @PostMapping("api/search")
     List<Recipe> doSearch(@RequestBody Search s_query) {
-        return (new SearchHandler(recipeRegistry.getAll(),
-                ingredientRegistry.getIngredients(),
-                utensilRegistry.getUtensils(),
-                allergenRegistry.getAllergens())).doSearch(s_query);
+        if(bucket.tryConsume(1)) {
+            log.print("Handling search.");
+            return (new SearchHandler(databaseController.getRecipes(),
+                    databaseController.readIngredients(),
+                    databaseController.readUtensils(),
+                    databaseController.readAllergens())).doSearch(s_query);
+        }
+        throw new RateLimitException();
     }
 }
