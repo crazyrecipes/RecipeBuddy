@@ -2,16 +2,17 @@ package org.crazyrecipes.recipebuddy;
 
 public class RecipeBuddyMap {
     /**
-     * Maximum amount of requests that we can process per minute.
+     * Maximum amount of requests that the API will process per minute.
      * Additional requests will generate HTTP 429 responses.
-     * Example: 1200
+     * Example: 2400 (~40 requests per second)
      */
-    public static final int MAX_REQUESTS_PER_MINUTE = 1200;
+    public static final int MAX_REQUESTS_PER_MINUTE = 2400;
 
     /**
-     * CORS filter allowed origins.
-     * Requests from origins not listed here will be refused.
-     * Example: "*", "site.org", "*.site.org"
+     * Logging level
+     * 0: Info
+     * 1: Warn
+     * 2: Error
      */
-    public static final String CORS_ALLOWED_ORIGINS = "*";
+    public static final int LOG_LEVEL = 0;
 }
