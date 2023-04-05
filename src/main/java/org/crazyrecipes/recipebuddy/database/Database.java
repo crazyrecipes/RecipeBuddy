@@ -16,13 +16,13 @@ public class Database {
     private Vector<String> ingredients;
     private Vector<String> utensils;
     private Vector<String> allergens;
-    private final String storeFileRecipies="recipes.dat";
+    private final String storeFileRecipes="recipes.dat";
     private final String storeFileIngredients="ingredients.dat";
     private final String storeFileUtensils="utensils.dat";
     private final String storeFileAllergens="allergens.dat";
 
     Database(){
-        recipes=loadRecipesFromFile(storeFileRecipies);
+        recipes=loadRecipesFromFile(storeFileRecipes);
         ingredients=loadFromFile(storeFileIngredients);
         utensils=loadFromFile(storeFileUtensils);
         allergens=loadFromFile(storeFileAllergens);
