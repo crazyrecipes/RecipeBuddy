@@ -116,12 +116,12 @@
                         show_toast("Removed ingredient.");
                     }).catch(error => {
                         console.log(error);
-                        show_toast("Error encountered! Please check the console for more details.");
+                        show_toast("Something went wrong removing this ingredient.");
                     });
 
                 }).catch(error => {
                     console.log(error);
-                    show_toast("Error encountered! Please check the console for more details.");
+                    show_toast("Something went wrong removing this ingredient.");
                 });
             }
 
@@ -171,12 +171,12 @@
                         show_toast("Removed utensil.");
                     }).catch(error => {
                         console.log(error);
-                        show_toast("Error encountered! Please check the console for more details.");
+                        show_toast("Something went wrong removing this utensil.");
                     });
 
                 }).catch(error => {
                     console.log(error);
-                    show_toast("Error encountered! Please check the console for more details.");
+                    show_toast("Something went wrong removing this utensil.");
                 });
             }
 
@@ -225,12 +225,12 @@
                         show_toast("Added ingredient.");
                     }).catch(error => {
                         console.log(error);
-                        show_toast("Error encountered! Please check the console for more details.");
+                        show_toast("Something went wrong adding this ingredient.");
                     });
 
                 }).catch(error => {
                     console.log(error);
-                    show_toast("Error encountered! Please check the console for more details.");
+                    show_toast("Something went wrong adding this ingredient.");
                 });
             }
 
@@ -279,12 +279,12 @@
                         show_toast("Added utensil.");
                     }).catch(error => {
                         console.log(error);
-                        show_toast("Error encountered! Please check the console for more details.");
+                        show_toast("Something went wrong adding this utensil.");
                     });
 
                 }).catch(error => {
                     console.log(error);
-                    show_toast("Error encountered! Please check the console for more details.");
+                    show_toast("Something went wrong adding this utensil.");
                 });
             }
             
@@ -320,7 +320,7 @@
                     document.getElementById("INGREDIENT_LIST").innerHTML = formatted_result;
                 }).catch(error => {
                     console.log(error);
-                    show_toast("Error encountered! Please check the console for more details.");
+                    show_toast("Something went wrong displaying your ingredients.");
                 });
             }
 
@@ -356,7 +356,7 @@
                     document.getElementById("UTENSIL_LIST").innerHTML = formatted_result;
                 }).catch(error => {
                     console.log(error);
-                    show_toast("Error encountered! Please check the console for more details.");
+                    show_toast("Something went wrong displaying your utensils.");
                 })
             }
 
