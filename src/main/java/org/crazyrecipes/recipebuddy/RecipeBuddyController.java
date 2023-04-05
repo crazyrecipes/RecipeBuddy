@@ -56,7 +56,7 @@ public class RecipeBuddyController {
             try {
                 return databaseController.getRecipe(id);
             } catch(NotFoundException e) {
-                log.print("Couldn't find recipe " + id + " in database.");
+                log.print(1, "Couldn't find recipe " + id + " in database.");
                 throw new NotFoundException();
             }
         }
@@ -70,7 +70,7 @@ public class RecipeBuddyController {
             try {
                 return databaseController.editRecipe(id, newRecipe);
             } catch(NotFoundException e) {
-                log.print("Couldn't find recipe " + id + " in database.");
+                log.print(1, "Couldn't find recipe " + id + " in database.");
                 throw new NotFoundException();
             }
 
@@ -86,7 +86,7 @@ public class RecipeBuddyController {
                 databaseController.deleteRecipe(id);
                 return;
             } catch(NotFoundException e) {
-                log.print("Couldn't find recipe " + id + " in database.");
+                log.print(1, "Couldn't find recipe " + id + " in database.");
                 throw new NotFoundException();
             }
         }
