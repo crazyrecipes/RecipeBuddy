@@ -170,7 +170,7 @@
                     }
                 }).catch(error => {
                     console.log(error);
-                    show_toast("Error encountered! Please check the console for more details.");
+                    show_toast("Something went wrong displaying your recipe.");
                 });
             }
 
@@ -250,7 +250,7 @@
                     window.location.href = VIEW_URL;
                 }).catch(error => {
                     console.log(error);
-                    show_toast("Error encountered! Please check the console for more details.");
+                    show_toast("Something went wrong saving your changes.");
                 });
             }
 
@@ -269,7 +269,7 @@
                     window.location.href = "list.html";
                 }).catch(error => {
                     console.log(error);
-                    show_toast("Error encountered! Please check the console for more details.");
+                    show_toast("Something went wrong deleting your recipe.");
                 })
             }
 
