@@ -48,7 +48,7 @@ public class DatabaseController {
                 return i;
             }
         }
-        log.print(1, "Recipe " + id + " not found in cache.");
+        log.print(1, "Recipe " + id + " not found in cache on read.");
         throw new NotFoundException();
     }
 
@@ -74,12 +74,12 @@ public class DatabaseController {
     public synchronized Recipe editRecipe(String id, Recipe recipe) throws NotFoundException {
         for(int i = 0; i < recipes.size(); i++) {
             if(recipes.get(i).getID().equals(id)) {
-                recipes.set(i, recipe);
+                recipes.get(i).duplicate_from(recipe);
                 saveRecipesToFile(recipes, RECIPES_STORE_FILE);
                 return recipe;
             }
         }
-        log.print(1, "Recipe " + id + " not found in cache.");
+        log.print(1, "Recipe " + id + " not found in cache on edit.");
         throw new NotFoundException();
     }
 
@@ -95,7 +95,7 @@ public class DatabaseController {
                 return;
             }
         }
-        log.print(1, "Recipe " + id + " not found in cache.");
+        log.print(1, "Recipe " + id + " not found in cache on delete.");
         throw new NotFoundException();
     }
 
