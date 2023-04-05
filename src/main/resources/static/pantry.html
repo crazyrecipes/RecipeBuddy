@@ -61,7 +61,7 @@
                 var td = document.getElementById("TOAST_MESSAGE");
                 td.innerHTML = message;
                 td.className = "show";
-                toast_timeout = setTimeout(hide_toast, 2900);
+                toast_timeout = setTimeout(hide_toast, 3000);
             }
             /* Hide toast message */
             function hide_toast() {
@@ -72,6 +72,7 @@
 
             /* Remove an ingredient from the pantry */
             function handle_remove_ingredient(name) {
+                show_toast("Removing ingredient...");
                 console.log(`Handling REMOVE ingredient "${name}"`);
 
                 /* Get current ingredients */
@@ -127,6 +128,7 @@
 
             /* Remove a utensil from the pantry */
             function handle_remove_utensil(name) {
+                show_toast("Removing utensil...");
                 console.log(`Handling REMOVE utensil "${name}"`);
 
                 /* Get current utensils */
@@ -182,6 +184,7 @@
 
             /* Add an ingredient to the pantry */
             function handle_add_ingredient() {
+                show_toast("Adding ingredient...");
                 let ingredient_name = document.getElementById("INGREDIENT_ADD_INPUT").value;
                 console.log(`Handling ADD ingredient "${ingredient_name}"`);
 
@@ -236,6 +239,7 @@
 
             /* Add a utensil to the pantry */
             function handle_add_utensil() {
+                show_toast("Adding utensil...");
                 let utensil_name = document.getElementById("UTENSIL_ADD_INPUT").value;
                 console.log(`Handling ADD utensil "${utensil_name}"`);
 

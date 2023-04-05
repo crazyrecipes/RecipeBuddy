@@ -48,7 +48,7 @@
                 var td = document.getElementById("TOAST_MESSAGE");
                 td.innerHTML = message;
                 td.className = "show";
-                toast_timeout = setTimeout(hide_toast, 2900);
+                toast_timeout = setTimeout(hide_toast, 3000);
             }
             /* Hide toast message */
             function hide_toast() {
@@ -57,37 +57,60 @@
             }
             /* ===== END TOAST MESSAGE ===== */
             
-            /* Hours:minutes:seconds to seconds */
+            /* ===== TIMER ===== */
+            /* HH:MM:SS to s */
             function hms_to_s(hms) {
                 let h = parseInt(hms.split(":")[0]);
                 let m = parseInt(hms.split(":")[1]);
                 let s = parseInt(hms.split(":")[2]);
-                console.log(`h: ${h}, m: ${m}, s: ${s}`);
                 return h * 3600 + m * 60 + s;
             }
-            
-            /* Seconds to hours:minutes:seconds */
+            /* Seconds to HH:MM:SS */
             function s_to_hms(ts) {
                 let h = Math.floor(ts / 3600).toString().padStart(2, '0');
                 let m = Math.floor((ts % 3600) / 60).toString().padStart(2, '0');
                 let s = Math.floor((ts % 3600) % 60).toString().padStart(2, '0');
                 return `${h}:${m}:${s}`;
             }
-
-            /* Check if a word is a valid time */
-            function is_time(word) {
+            /* MM:SS to seconds */
+            function ms_to_s(hms) {
+                let m = parseInt(hms.split(":")[0]);
+                let s = parseInt(hms.split(":")[1]);
+                return m * 60 + s;
+            }
+            /* Check if a word is a valid time in HH:MM:SS */
+            function is_hms(word) {
                 s_word = word.replace(/[^a-zA-Z0-9:]/g, '');
                 let r = new RegExp("^[0-9][0-9]:[0-5][0-9]:[0-5][0-9]$");
                 return r.test(s_word);
             }
+            /* Check if a word is a valid time in MM:SS */
+            function is_ms(word) {
+                s_word = word.replace(/[^a-zA-Z0-9:]/g, '');
+                let r = new RegExp("^[0-5][0-9]:[0-5][0-9]$");
+                return r.test(s_word);
+            }
+            /* Check if a word is a valid time */
+            function is_time(word) {
+                return is_hms(word) || is_ms(word);
+            }
+            /* Time to seconds */
+            function time_to_s(ts) {
+                if(is_hms(ts)) {
+                    return hms_to_s(ts);
+                }
+                if(is_ms(ts)) {
+                    return ms_to_s(ts);
+                }
+                return 0;
+            }
 
             /* Set timer */
-            function set_timer(hms) {
-                console.log("Setting timer... to " + hms);
-                timer_value = hms_to_s(hms);
-                console.log(timer_value);
+            function set_timer(ts) {
+                console.log("Setting timer... to " + ts);
+                timer_value = time_to_s(ts);
                 display_timer();
-                show_toast(`Set timer to ${hms}`);
+                show_toast(`Set timer to ${ts}`);
             }
 
             /* Update timer display */
@@ -132,16 +155,13 @@
                         throw new Error("GET request failed!");
                     }
                     const data = await response.json();
-                    console.log(data);
 
+                    /* parse steps for times */
                     for(i in data.steps) {
-                        console.log(data.steps[i]);
                         j = data.steps[i].split(" ");
-                        console.log(j);
                         for(k in j) {
-                            console.log(j[k]);
                             if(is_time(j[k])) {
-                                console.log("HIT!");
+                                console.log("Steps Parser: Found a time.");
                                 data.steps[i] += `&nbsp<button onclick="set_timer('${j[k]}')">Set Timer</button>`;
                             }
                         }

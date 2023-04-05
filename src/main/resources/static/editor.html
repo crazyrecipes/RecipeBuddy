@@ -120,7 +120,7 @@
                 var td = document.getElementById("TOAST_MESSAGE");
                 td.innerHTML = message;
                 td.className = "show";
-                toast_timeout = setTimeout(hide_toast, 2900);
+                toast_timeout = setTimeout(hide_toast, 3000);
             }
             /* Hide toast message */
             function hide_toast() {
@@ -176,6 +176,7 @@
 
             /* Save user edits to the recipe */
             function do_edit() {
+                show_toast("Saving your edits...");
                 console.log("Handling CREATE recipe...");
                 /* Get parameters */
                 var recipe_name = document.getElementById("RECIPE_NAME").value;

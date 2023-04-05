@@ -72,7 +72,7 @@
                 var td = document.getElementById("TOAST_MESSAGE");
                 td.innerHTML = message;
                 td.className = "show";
-                toast_timeout = setTimeout(hide_toast, 2900);
+                toast_timeout = setTimeout(hide_toast, 3000);
             }
             /* Hide toast message */
             function hide_toast() {
@@ -91,6 +91,7 @@
 
             /* Grab and display current user allergens */
             function display_allergens() {
+                show_toast("Updating your allergens...");
                 console.log("Handle DISPLAY allergens...");
                 /* Send request */
                 fetch(ALLERGENS_URL, {
