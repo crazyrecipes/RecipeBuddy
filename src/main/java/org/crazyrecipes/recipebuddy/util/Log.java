@@ -5,6 +5,7 @@ import org.crazyrecipes.recipebuddy.RecipeBuddyMap;
 import java.util.Date;
 
 public class Log {
+    private final String PREFIX = "(RecipeBuddyApplication) ";
     private final String LOG_OK = " [  OK  ] ";
     private final String LOG_WARN = " [ WARN ] ";
     private final String LOG_ERROR = " [ERROR!] ";
@@ -19,7 +20,7 @@ public class Log {
     public void print(String entry) {
         if(LOG_LEVEL < 1) {
             StringBuilder sb = new StringBuilder();
-            sb.append("--- ");
+            sb.append(PREFIX);
             sb.append(new Date());
             sb.append(LOG_OK);
             sb.append(className);
@@ -32,7 +33,7 @@ public class Log {
     public void print(int level, String entry) {
         if(level >= LOG_LEVEL) {
             StringBuilder sb = new StringBuilder();
-            sb.append("--- ");
+            sb.append(PREFIX);
             sb.append(new Date());
             switch(level) {
                 case 1:

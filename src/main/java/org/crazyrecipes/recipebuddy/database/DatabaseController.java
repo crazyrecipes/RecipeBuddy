@@ -23,10 +23,12 @@ public class DatabaseController {
 
     public DatabaseController() {
         this.log = new Log("DatabaseController");
+        log.print("Creating cached database...");
         this.recipes = loadRecipesFromFile(RECIPES_STORE_FILE);
         this.ingredients = loadStringsFromFile(INGREDIENTS_STORE_FILE);
         this.utensils = loadStringsFromFile(UTENSILS_STORE_FILE);
         this.allergens = loadStringsFromFile(ALLERGENS_STORE_FILE);
+        log.print("Init completed.");
     }
 
     /**
@@ -176,7 +178,7 @@ public class DatabaseController {
             f.close();
             return output;
         } catch(FileNotFoundException e) {
-            log.print(2, "Couldn't find " + STORE_FILE + ".");
+            log.print(1, "Couldn't find " + STORE_FILE + ". Will attempt to create it on write.");
             return new Vector<>();
         } catch(IOException e) {
             log.print(2, "Error reading " + STORE_FILE + ".");
@@ -201,9 +203,9 @@ public class DatabaseController {
             o.close();
             f.close();
         } catch(FileNotFoundException e) {
-            log.print(2, "Couldn't find " + STORE_FILE + ".");
+            log.print(2, "Couldn't find " + STORE_FILE + " on write.");
         } catch(IOException e) {
-            log.print(2, "Error writing " + STORE_FILE + ".");
+            log.print(2, "I/O error writing " + STORE_FILE + ".");
         }
     }
 
@@ -222,10 +224,10 @@ public class DatabaseController {
             f.close();
             return output;
         } catch(FileNotFoundException e) {
-            log.print(2, "Couldn't find " + STORE_FILE + ".");
+            log.print(1, "Couldn't find " + STORE_FILE + ". Will attempt to create it on write.");
             return new Vector<>();
         } catch(IOException e) {
-            log.print(2, "Error reading " + STORE_FILE + ".");
+            log.print(2, "I/O error reading " + STORE_FILE + ".");
             return new Vector<>();
         } catch(ClassNotFoundException e) {
             log.print(2, "Class mismatch reading from " + STORE_FILE + ".");
@@ -247,9 +249,9 @@ public class DatabaseController {
             o.close();
             f.close();
         } catch(FileNotFoundException e) {
-            log.print(2, "Couldn't find " + STORE_FILE + ".");
+            log.print(2, "Couldn't find " + STORE_FILE + " on write.");
         } catch(IOException e) {
-            log.print(2, "Error writing " + STORE_FILE + ".");
+            log.print(2, "I/O error writing " + STORE_FILE + ".");
         }
     }
 }

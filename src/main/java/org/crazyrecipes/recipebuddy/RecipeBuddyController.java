@@ -24,10 +24,12 @@ public class RecipeBuddyController {
 
     RecipeBuddyController() {
         this.log = new Log("RecipeBuddyController");
+        log.print("Starting up...");
         this.databaseController = new DatabaseController();
         Bandwidth limit = Bandwidth.classic(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE,
                 Refill.greedy(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE, Duration.ofMinutes(1)));
         this.bucket = Bucket.builder().addLimit(limit).build();
+        log.print("Init completed. Welcome to RecipeBuddy.");
     };
 
     /* ===== RECIPES ===== */
