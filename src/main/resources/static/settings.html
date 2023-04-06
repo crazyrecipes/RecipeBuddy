@@ -91,7 +91,6 @@
 
             /* Grab and display current user allergens */
             function display_allergens() {
-                show_toast("Updating your allergens...");
                 console.log("Handle DISPLAY allergens...");
                 /* Send request */
                 fetch(ALLERGENS_URL, {
@@ -122,6 +121,7 @@
 
             /* Push user allergen changes */
             function handle_allergen_change() {
+                show_toast("Updating your allergens...");
                 console.log("Handle UPDATE allergens...");
                 var allergens_inputs = document.getElementsByName("ALLERGENS_INPUT");
                 var user_allergens = [];
