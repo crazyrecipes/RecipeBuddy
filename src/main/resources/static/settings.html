@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Settings</title>
+        <title>Settings - RecipeBuddy</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div class="navbar">
-            <a href="index.html"><div class="navbar_item">Home</div></a>
-            <a href="list.html"><div class="navbar_item">My Recipes</div></a>
+            <a href="list.html"><div class="navbar_item">Home</div></a>
             <a href="search.html"><div class="navbar_item">Search</div></a>
             <a href="create.html"><div class="navbar_item">Create</div></a>
             <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
             <a href="settings.html"><div class="navbar_item">Settings</div></a>
+            <a href="help.html"><div class="navbar_item">Help</div></a>
         </div>
 
         <div class="app_main">
@@ -22,14 +22,7 @@
 
                     <div class="spacer"></div>
 
-                    <h3>Name</h3>
-                    <p>Your current name is "<span id="NAME_CURRENT"></span>".</p>
-                    <div><input class="text_field" id="NAME_INPUT" placeholder="Enter new name here..."></div>
-                    <button class="inline_button" onclick="handle_name_change()">Change Name</button>
-                    
-                    <div class="spacer"></div>
-
-                    <h3>Allergens</h3>
+                    <h2>Allergens</h2>
                     <input type="checkbox" id="ALLERGEN_PEANUTS" name="ALLERGENS_INPUT" value="Peanuts">
                     <label for="ALLERGEN_PEANUTS">Peanuts</label><br>
                     <input type="checkbox" id="ALLERGEN_TREE_NUTS" name="ALLERGENS_INPUT" value="Tree Nuts">
@@ -81,14 +74,6 @@
             }
             /* ===== END TOAST MESSAGE ===== */
 
-            /* Handle name change (just a demo handler) */
-            function handle_name_change()  {
-                console.log("Handle CHANGE name...");
-                var name = document.getElementById("NAME_INPUT").value;
-                document.getElementById("NAME_CURRENT").innerHTML = name;
-                show_toast("Updated name.");
-            }
-
             /* Grab and display current user allergens */
             function display_allergens() {
                 console.log("Handle DISPLAY allergens...");
@@ -115,7 +100,7 @@
                     }
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Error encountered! Check the console for more details.");
+                    show_toast("Something went wrong displaying your allergens.");
                 });
             }
 
@@ -152,7 +137,7 @@
                     show_toast("Updated allergens.");
                 }).catch(error => {
                     console.log(error);
-                    window.alert("Something went wrong updating your allergens.");
+                    show_toast("Something went wrong updating your allergens.");
                 });
             }
 

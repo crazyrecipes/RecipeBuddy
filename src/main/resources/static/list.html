@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>My Recipes - RecipeBuddy</title>
+        <title>Home - RecipeBuddy</title>
         <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
         <div class="navbar">
-            <a href="index.html"><div class="navbar_item">Home</div></a>
-            <a href="list.html"><div class="navbar_item">My Recipes</div></a>
+            <a href="list.html"><div class="navbar_item">Home</div></a>
             <a href="search.html"><div class="navbar_item">Search</div></a>
             <a href="create.html"><div class="navbar_item">Create</div></a>
             <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
             <a href="settings.html"><div class="navbar_item">Settings</div></a>
+            <a href="help.html"><div class="navbar_item">Help</div></a>
         </div>
 
         <div class="app_main">
@@ -20,8 +20,8 @@
 
             <div class="content_container">
                 <div class="content_inner">
-                    <h1>My Recipes</h1>
-                    <p>Below are all your recipes, sorted with RecipeBuddy magic.</p>
+                    <h1 id="GREETING">Hello!</h1>
+                    <p>Here's what you can make today.</p>
                 </div>
             </div>
 
@@ -49,6 +49,22 @@
                 td.className = td.className.replace("show", "hide");
             }
             /* ===== END TOAST MESSAGE ===== */
+
+            /* ===== GREETING ===== */
+            function greet() {
+                const greeting = document.getElementById("GREETING");
+                let d = new Date();
+                let h = d.getHours();
+                let intro;
+                if(h < 12) {
+                    greeting.innerHTML = "Good morning!";
+                } else if(h < 17) {
+                    greeting.innerHTML = "Good afternoon!";
+                } else {
+                    greeting.innerHTML = "Good evening!";
+                }
+            }
+            /* ===== END GREETING ===== */
             
             /* Get all recipes and display them */
             function display_recipe_list() {
@@ -61,11 +77,11 @@
                 }).then(async response => {
                     const data = await response.json();
                     console.log(data);
-                    formatted_result = "";
+                    let formatted_result = "";
                     for(let i in data) {
                         let recipe = data[i];
                         console.log(recipe);
-                        var recipeHTML = `
+                        let recipeHTML = `
                         <div class="recipepreview_container">
                             <img class="recipepreview_photo" src="${recipe.photo}">
                             <div class="recipepreview_content">
@@ -88,6 +104,7 @@
             }
         
             /* ===== On page load: ===== */
+            greet();
             display_recipe_list();
         </script>
     </body>
