@@ -254,7 +254,7 @@ public class Recipe implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "id='" + this.id + "', name='" + this.name + "', desc='" +
+        return "Recipe{" + "id='" + this.id + "', name='" + this.name + "', desc='" +
                 this.desc + "'}";
     }
 }

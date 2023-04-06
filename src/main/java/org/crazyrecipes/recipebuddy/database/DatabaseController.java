@@ -163,6 +163,19 @@ public class DatabaseController {
         return allergens;
     }
 
+    public synchronized void reset() {
+        log.print(1, "RESETTING DATABASE!");
+        recipes = new Vector<>();
+        ingredients = new Vector<>();
+        utensils = new Vector<>();
+        allergens = new Vector<>();
+        saveRecipesToFile(recipes, RECIPES_STORE_FILE);
+        saveStringsToFile(ingredients, INGREDIENTS_STORE_FILE);
+        saveStringsToFile(utensils, UTENSILS_STORE_FILE);
+        saveStringsToFile(allergens, ALLERGENS_STORE_FILE);
+        log.print("Database reset complete.");
+    }
+
     /**
      * Loads a vector of strings from a file.
      * @param STORE_FILE Filename to load strings from
