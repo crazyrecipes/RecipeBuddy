@@ -135,6 +135,8 @@
             function tick_timer() {
                 timer_value -= 1;
                 if(timer_value < 1) {
+                    var audio = new Audio("media/timer_done.mp3");
+                    audio.play();
                     show_toast("Time's up!");
                     window.alert("Time's up!");
                     clearInterval(timer_interval);
