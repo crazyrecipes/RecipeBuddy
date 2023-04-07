@@ -65,22 +65,25 @@ class RecipeBuddyApplicationTests {
 		System.out.println(dbc.readAllergens());
 
 		log.print("Populating database with test content...");
-		Recipe test_recipe = new Recipe();
-		test_recipe.setName("Test recipe 1");
-		test_recipe.setDesc("Test desc");
 		Vector<String> test_ingredients = new Vector<>();
-		test_ingredients.add("Test ingredient 1");
-		test_ingredients.add("Test ingredient 2");
-		test_ingredients.add("Test ingredient 3");
+		test_ingredients.add("Burger Buns");
+		test_ingredients.add("Ground Beef");
+		test_ingredients.add("American Cheese");
 		Vector<String> test_utensils = new Vector<>();
-		test_utensils.add("Test utensil 1");
-		test_utensils.add("Test utensil 2");
-		test_utensils.add("Test utensil 3");
+		test_utensils.add("Frying Pan");
+		test_utensils.add("Spatula");
 		Vector<String> test_allergens = new Vector<>();
-		test_allergens.add("Test allergen 1");
-		test_allergens.add("Test allergen 2");
-		test_allergens.add("Test allergen 3");
-
+		test_allergens.add("Gluten");
+		test_allergens.add("Dairy");
+		Recipe test_recipe = new Recipe();
+		test_recipe.setName("The Test Burger");
+		test_recipe.setDesc("This burger is generated when the testDatabase component test is executed.");
+		test_recipe.setPhoto("/media/burger.jpg");
+		test_recipe.setRating(4.5);
+		test_recipe.setCooked(2);
+		test_recipe.setIngredients(test_ingredients);
+		test_recipe.setAllergens(test_allergens);
+		test_recipe.setUtensils(test_utensils);
 		dbc.createRecipe(test_recipe);
 		dbc.writeIngredients(test_ingredients);
 		dbc.writeUtensils(test_utensils);
@@ -97,12 +100,12 @@ class RecipeBuddyApplicationTests {
 			log.print(2, "Adding ingredients to database failed!");
 		}
 		try {
-			assert dbc.readUtensils().size() == 3;
+			assert dbc.readUtensils().size() == 2;
 		} catch(AssertionError e) {
 			log.print(2, "Adding utensils to database failed!");
 		}
 		try {
-			assert dbc.readAllergens().size() == 3;
+			assert dbc.readAllergens().size() == 2;
 		} catch(AssertionError e) {
 			log.print(2, "Adding allergens to database failed!");
 		}
