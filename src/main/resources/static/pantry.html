@@ -29,7 +29,7 @@
                     <div id="INGREDIENT_LIST"></div>
                     <div class="spacer"></div>
                     <p>Add an ingredient:</p>
-                    <input class="text_field" id="INGREDIENT_ADD_INPUT" placeholder="Enter ingredient name here..." onkeydown="if(event.keyCode===13) handle_add_ingredient()">
+                    <input class="text_field" id="INGREDIENT_ADD_INPUT" placeholder="Enter ingredient name here..." onkeydown="if(event.keyCode===13) handle_add_ingredient()" >
                     <button class="inline_button" onclick="handle_add_ingredient()">Add</button>
 
                     <div class="spacer"></div>
@@ -48,6 +48,11 @@
         <div id="TOAST_MESSAGE"></div>
 
         <script>
+            /*resetText*/
+            function reset_input_field() {
+                document.getElementById('INGREDIENT_ADD_INPUT').value = "";
+            }
+
             /* API url to get and post ingredients */
             const INGREDIENTS_URL = "api/ingredients"
 
@@ -237,6 +242,7 @@
                     console.log(error);
                     show_toast("Something went wrong adding this ingredient.");
                 });
+                reset_input_field();
             }
 
             /* Add a utensil to the pantry */
