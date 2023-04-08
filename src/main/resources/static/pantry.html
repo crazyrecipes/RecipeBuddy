@@ -49,8 +49,11 @@
 
         <script>
             /*resetText*/
-            function reset_input_field() {
+            function reset_ingredient_field() {
                 document.getElementById('INGREDIENT_ADD_INPUT').value = "";
+            }
+            function reset_utensil_field() {
+                document.getElementById('UTENSIL_ADD_INPUT').value = "";
             }
 
             /* API url to get and post ingredients */
@@ -242,7 +245,7 @@
                     console.log(error);
                     show_toast("Something went wrong adding this ingredient.");
                 });
-                reset_input_field();
+                reset_ingredient_field();
             }
 
             /* Add a utensil to the pantry */
@@ -298,6 +301,7 @@
                     console.log(error);
                     show_toast("Something went wrong adding this utensil.");
                 });
+                reset_utensil_field();
             }
             
             /* Get and display all ingredients */
