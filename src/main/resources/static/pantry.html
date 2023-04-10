@@ -38,7 +38,7 @@
                     <div id="UTENSIL_LIST"></div>
                     <div class="spacer"></div>
                     <p>Add a utensil:</p>
-                    <input class="text_field" id="UTENSIL_ADD_INPUT" placeholder="Enter utensil name here..."onkeydown="if(event.keyCode===13) handle_add_utensil()">
+                    <input class="text_field" id="UTENSIL_ADD_INPUT" placeholder="Enter utensil name here..." onkeydown="if(event.keyCode===13) handle_add_utensil()">
                     <button class="inline_button" onclick="handle_add_utensil()">Add</button>
 
                 </div>
@@ -48,14 +48,6 @@
         <div id="TOAST_MESSAGE"></div>
 
         <script>
-            /*resetText*/
-            function reset_ingredient_field() {
-                document.getElementById('INGREDIENT_ADD_INPUT').value = "";
-            }
-            function reset_utensil_field() {
-                document.getElementById('UTENSIL_ADD_INPUT').value = "";
-            }
-
             /* API url to get and post ingredients */
             const INGREDIENTS_URL = "api/ingredients"
 
@@ -235,17 +227,16 @@
 
                         /* Refresh display */
                         display_ingredients();
+                        document.getElementById('INGREDIENT_ADD_INPUT').value = "";
                         show_toast("Added ingredient.");
                     }).catch(error => {
                         console.log(error);
                         show_toast("Something went wrong adding this ingredient.");
                     });
-
                 }).catch(error => {
                     console.log(error);
                     show_toast("Something went wrong adding this ingredient.");
                 });
-                reset_ingredient_field();
             }
 
             /* Add a utensil to the pantry */
@@ -291,6 +282,7 @@
 
                         /* Refresh display */
                         display_utensils();
+                        document.getElementById('UTENSIL_ADD_INPUT').value = "";
                         show_toast("Added utensil.");
                     }).catch(error => {
                         console.log(error);
@@ -301,7 +293,6 @@
                     console.log(error);
                     show_toast("Something went wrong adding this utensil.");
                 });
-                reset_utensil_field();
             }
             
             /* Get and display all ingredients */
