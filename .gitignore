@@ -18,7 +18,4 @@ target/
 .idea/workspace.xml
 .DS_Store
 
-allergens.dat
-ingredients.dat
-recipes.dat
-utensils.dat
+data/*

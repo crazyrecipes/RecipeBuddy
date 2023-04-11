@@ -31,8 +31,9 @@
                     <div class="spacer"></div>
 
                     <h3>Photo</h3>
-                    <input class="text_field" id="RECIPE_PHOTO" placeholder="Recipe photo URL (ex. /media/burger.jpg)"></input>
-
+                    <img id="RECIPE_PHOTO" class="recipepreview_photo">
+                    <p>Upload an image (Max size: 1MB)</p>
+                    <input type="file" id="RECIPE_UPLOADER" accept="image/png, image/jpeg", onchange="handle_photo_upload(this)">
                     <div class="spacer"></div>
 
                     <h3>Description</h3>
@@ -111,7 +112,10 @@
             /* API url to get single recipe from */
             const params = new URLSearchParams(decodeURI(window.location.search));
             const RECIPE_URL = "api/recipe/" + params.get("id");
+            const PHOTO_URL = "api/photo/" + params.get("id");
             const VIEW_URL = "viewer.html?id=" + params.get("id");
+            const MAX_UPLOAD_SIZE = 1024 * 1024;
+            var UPLOADED_PHOTO = "";
 
             /* ===== TOAST MESSAGE ===== */
             var toast_timeout;
@@ -129,6 +133,35 @@
                 td.className = td.className.replace("show", "hide");
             }
             /* ===== END TOAST MESSAGE ===== */
+
+            function handle_photo_upload(input) {
+                console.log(input.files[0].size);
+                if(input.files[0].size < MAX_UPLOAD_SIZE) {
+                    show_toast("Uploading photo...");
+                    const fr = new FileReader();
+                    fr.addEventListener("load", function(event) {
+                        fetch(PHOTO_URL, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "text/plain",
+                            },
+                            body: event.target.result,
+                        }).then(async response => {
+                            if(!response.ok) {
+                                throw new Error("POST request failed!");
+                            }
+                            show_toast("Photo uploaded.");
+                        }).catch(error => {
+                            console.log(error);
+                            show_toast("Something went wrong uploading your photo.");
+                        });
+                    });
+                    fr.readAsDataURL(input.files[0]);
+                } else {
+                    show_toast("Your photo is too large!");
+                }
+                
+            }
 
             /* Fetch single recipe and display data in editor */
             function display_recipe() {
@@ -153,7 +186,7 @@
 
                     document.getElementById("RECIPE_NAME").value = data.name;
                     document.getElementById("RECIPE_DESC").value = data.desc;
-                    document.getElementById("RECIPE_PHOTO").value = data.photo;
+                    document.getElementById("RECIPE_PHOTO").src = PHOTO_URL;
                     document.getElementById("RECIPE_RATING").value = data.rating;
                     document.getElementById("RECIPE_COOKED").value = data.cooked;
                     document.getElementById("RECIPE_INGREDIENTS").value = recipe_ingredients;
@@ -182,9 +215,6 @@
                 /* Get parameters */
                 var recipe_name = document.getElementById("RECIPE_NAME").value;
                 console.log(`..with name "${recipe_name}"`);
-                
-                var recipe_photo = document.getElementById("RECIPE_PHOTO").value;
-                console.log(`..with photo "${recipe_photo}"`);
                
                 var recipe_desc = document.getElementById("RECIPE_DESC").value;
                 console.log(`..with desc "${recipe_desc}"`);
@@ -221,7 +251,6 @@
                         "id": "0",
                         "name": recipe_name,
                         "desc": recipe_desc,
-                        "photo": recipe_photo,
                         "rating": recipe_rating,
                         "cooked": recipe_cooked,
                         "ingredients": recipe_ingredients.split('\n'),

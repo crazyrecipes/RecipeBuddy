@@ -22,6 +22,8 @@ class RecipeBuddyApplicationTests {
 		}
 	}
 
+	/* ===== Database Tests ===== */
+
 	@Test
 	void testDatabase() {
 		Log log = new Log("Tester");
@@ -122,4 +124,6 @@ class RecipeBuddyApplicationTests {
 
 		log.print("Database test completed.");
 	}
+
+	/* ===== End Database Tests ===== */
 }

@@ -28,9 +28,6 @@
                     <h3>Name</h3>
                     <input class="text_field" id="RECIPE_NAME" placeholder="Enter the recipe's name here..."></input>
 
-                    <h3>Photo</h3>
-                    <input class="text_field" id="RECIPE_PHOTO" placeholder="Path to photo of recipe..."></input>
-
                     <div class="spacer"></div>
 
                     <h3>Description</h3>
@@ -125,10 +122,6 @@
                 var recipe_name = document.getElementById("RECIPE_NAME").value;
                 console.log(`..with name "${recipe_name}"`);
 
-                /* Get photo */
-                var recipe_photo = document.getElementById("RECIPE_PHOTO").value;
-                console.log(`..with photo "${recipe_photo}"`);
-
                 /* Get desc */
                 var recipe_desc = document.getElementById("RECIPE_DESC").value;
                 console.log(`..with desc "${recipe_desc}"`);
@@ -164,7 +157,6 @@
                         "id": "0",
                         "name": recipe_name,
                         "desc": recipe_desc,
-                        "photo": recipe_photo,
                         "rating": "0.0",
                         "cooked": "0",
                         "ingredients": recipe_ingredients.split('\n'),

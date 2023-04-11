@@ -86,6 +86,22 @@ public class RecipeBuddyController {
             log.print("Handling delete for recipe " + id);
             try {
                 databaseController.deleteRecipe(id);
+                databaseController.deletePhoto(id);
+                return;
+            } catch(NotFoundException e) {
+                log.print(1, "Couldn't find recipe " + id + " in database.");
+                throw new NotFoundException();
+            }
+        }
+        throw new RateLimitException();
+    }
+
+    @PostMapping("/api/cook/{id}")
+    void cookRecipe(@PathVariable String id) {
+        if(bucket.tryConsume(1)) {
+            log.print("Handling increment times cooked for recipe " + id);
+            try {
+                databaseController.incrementRecipe(id);
                 return;
             } catch(NotFoundException e) {
                 log.print(1, "Couldn't find recipe " + id + " in database.");
@@ -162,6 +178,30 @@ public class RecipeBuddyController {
                     databaseController.readIngredients(),
                     databaseController.readUtensils(),
                     databaseController.readAllergens())).doSearch(s_query);
+        }
+        throw new RateLimitException();
+    }
+
+    /* ===== PHOTOS ===== */
+
+    @GetMapping(value = "api/photo/{id}")
+    byte[] getPhoto(@PathVariable String id) {
+        if(bucket.tryConsume(1)) {
+            try {
+                return databaseController.readPhoto(id);
+            } catch(NotFoundException e) {
+                log.print(1, "Couldn't find photo " + id + " in database.");
+                throw new NotFoundException();
+            }
+        }
+        throw new RateLimitException();
+    }
+
+    @PostMapping("api/photo/{id}")
+    void putPhoto(@RequestBody String item, @PathVariable String id) {
+        if(bucket.tryConsume(1)) {
+            databaseController.writePhoto(item, id);
+            return;
         }
         throw new RateLimitException();
     }

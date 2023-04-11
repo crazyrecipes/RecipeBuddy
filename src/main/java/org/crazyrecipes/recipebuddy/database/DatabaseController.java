@@ -5,14 +5,17 @@ import org.crazyrecipes.recipebuddy.recipe.*;
 import org.crazyrecipes.recipebuddy.util.Log;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.Vector;
 import java.util.List;
 
 public class DatabaseController {
-    private final String RECIPES_STORE_FILE = "recipes.dat";
-    private final String INGREDIENTS_STORE_FILE = "ingredients.dat";
-    private final String UTENSILS_STORE_FILE = "utensils.dat";
-    private final String ALLERGENS_STORE_FILE = "allergens.dat";
+    private final String RECIPES_STORE_FILE = "data/recipes.dat";
+    private final String INGREDIENTS_STORE_FILE = "data/ingredients.dat";
+    private final String UTENSILS_STORE_FILE = "data/utensils.dat";
+    private final String ALLERGENS_STORE_FILE = "data/allergens.dat";
 
     private Vector<Recipe> recipes;
     private Vector<String> ingredients;
@@ -23,6 +26,11 @@ public class DatabaseController {
 
     public DatabaseController() {
         this.log = new Log("DatabaseController");
+        try {
+            Files.createDirectories(Paths.get("data/photos/"));
+        } catch(IOException e) {
+            log.print(2, "Failed to ensure presence of database directories.");
+        }
         log.print("Creating cached database...");
         this.recipes = loadRecipesFromFile(RECIPES_STORE_FILE);
         this.ingredients = loadStringsFromFile(INGREDIENTS_STORE_FILE);
@@ -116,9 +124,7 @@ public class DatabaseController {
      */
     public synchronized List<String> writeIngredients(List<String> newIngredients) {
         ingredients = new Vector<String>();
-        for(String i : newIngredients) {
-            ingredients.add(i);
-        }
+        ingredients.addAll(newIngredients);
         saveStringsToFile(ingredients, INGREDIENTS_STORE_FILE);
         return ingredients;
     }
@@ -136,9 +142,7 @@ public class DatabaseController {
      */
     public synchronized List<String> writeUtensils(List<String> newUtensils) {
         utensils = new Vector<String>();
-        for(String i : newUtensils) {
-            utensils.add(i);
-        }
+        utensils.addAll(newUtensils);
         saveStringsToFile(utensils, UTENSILS_STORE_FILE);
         return utensils;
     }
@@ -156,11 +160,27 @@ public class DatabaseController {
      */
     public synchronized List<String> writeAllergens(List<String> newAllergens) {
         allergens = new Vector<String>();
-        for(String i : newAllergens) {
-            allergens.add(i);
-        }
+        allergens.addAll(newAllergens);
         saveStringsToFile(allergens, ALLERGENS_STORE_FILE);
         return allergens;
+    }
+
+    public synchronized byte[] readPhoto(String id) {
+        return loadBytesFromFile("data/photos/"+id);
+    }
+
+    public synchronized void writePhoto(String item, String id) {
+        try {
+            byte[] image = Base64.getDecoder().decode(item.split(",")[1]);
+            System.out.println(image);
+            saveBytesToFile(image, "data/photos/"+id);
+        } catch(RuntimeException e) {
+            log.print(2, "Failed to write image.");
+        }
+    }
+
+    public synchronized void deletePhoto(String id) {
+        deleteFile("data/photos/"+id);
     }
 
     public synchronized void reset() {
@@ -266,5 +286,55 @@ public class DatabaseController {
         } catch(IOException e) {
             log.print(2, "I/O error writing " + STORE_FILE + ".");
         }
+    }
+
+    /**
+     * Loads bytes from a file.
+     * @param STORE_FILE Filename to load bytes from
+     * @return The loaded bytes
+     */
+    private synchronized byte[] loadBytesFromFile(String STORE_FILE) {
+        try {
+            File f = new File(STORE_FILE);
+            log.print("Reading " + STORE_FILE + ".");
+            FileInputStream fis = new FileInputStream(f);
+            byte[] fb = new byte[(int) f.length()];
+            fis.read(fb);
+            return fb;
+        } catch(FileNotFoundException e) {
+            log.print(1, "Couldn't find " + STORE_FILE + ". Will attempt to create it on write.");
+            return new byte[0];
+        } catch(IOException e) {
+            log.print(2, "Error reading " + STORE_FILE + ".");
+            return new byte[0];
+        }
+    }
+
+    /**
+     * Saves bytes to a file.
+     * @param item Bytes to save
+     * @param STORE_FILE Filename to save to
+     */
+    private synchronized void saveBytesToFile(byte[] item, String STORE_FILE) {
+        try {
+            log.print("Writing " + STORE_FILE + ".");
+            FileOutputStream f = new FileOutputStream(STORE_FILE);
+            f.write(item);
+            f.close();
+        } catch(FileNotFoundException e) {
+            log.print(2, "Couldn't find " + STORE_FILE + " on write.");
+        } catch(IOException e) {
+            log.print(2, "I/O error writing " + STORE_FILE + ".");
+        }
+    }
+
+    /**
+     * Deletes a file.
+     * @param STORE_FILE File to delete
+     */
+    private synchronized void deleteFile(String STORE_FILE) {
+        File f = new File(STORE_FILE);
+        if(f.delete()) { return; }
+        log.print(2, "I/O error deleting " + STORE_FILE + ".");
     }
 }

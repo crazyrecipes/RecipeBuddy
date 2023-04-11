@@ -37,6 +37,7 @@
             /* API url to get single recipe from */
             const params = new URLSearchParams(decodeURI(window.location.search));
             const RECIPE_URL = "api/recipe/" + params.get("id");
+            const PHOTO_URL = "api/photo/" + params.get("id");
             var timer_interval;
             var timer_value;
 
@@ -177,7 +178,7 @@
                     recipe_tags = data.tags.join(",");
                     
                     var recipeHTML = `
-                        <img class="recipeviewer_photo" src="${data.photo}">
+                        <img class="recipeviewer_photo" src="${PHOTO_URL}">
                         <h1>${data.name}</h1>
                         <p>${data.desc}</p>
                         <p>${data.rating}&#9733; - Cooked ${data.cooked} times.</p>

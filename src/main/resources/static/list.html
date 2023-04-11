@@ -84,7 +84,7 @@
                         console.log(recipe);
                         let recipeHTML = `
                         <div class="recipepreview_container">
-                            <img class="recipepreview_photo" src="${recipe.photo}">
+                            <img class="recipepreview_photo" src="api/photo/${recipe.id}">
                             <div class="recipepreview_content">
                                 <h1>${recipe.name}</h1>
                                 <p>${recipe.rating}&#9733; - Cooked ${recipe.cooked} times.</p>

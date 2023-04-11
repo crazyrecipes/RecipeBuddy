@@ -16,7 +16,6 @@ public class Recipe implements Serializable {
     private String id;
     private String name;
     private String desc;
-    private String photo;
     private double rating;
     private int cooked;
     private Vector<String> ingredients;
@@ -40,7 +39,6 @@ public class Recipe implements Serializable {
         this.id = sb.toString();
         this.name = "";
         this.desc = "";
-        this.photo = "";
         this.rating = 0.0;
         this.cooked = 0;
         this.ingredients = new Vector<String>();
@@ -73,12 +71,6 @@ public class Recipe implements Serializable {
     public String getDesc() {
         return this.desc;
     }
-
-    /**
-     * Returns this Recipe's photo URL.
-     * @return this Recipe's photo URL
-     */
-    public String getPhoto() { return this.photo; }
 
     /**
      * Returns this Recipe's rating.
@@ -145,12 +137,6 @@ public class Recipe implements Serializable {
     public void setDesc(String desc) {
         this.desc = desc;
     }
-
-    /**
-     * Sets this Recipe's photo URL.
-     * @param photo this Recipe's photo URL
-     */
-    public void setPhoto(String photo) { this.photo = photo; }
 
     /**
      * Sets this Recipe's rating.
@@ -227,7 +213,6 @@ public class Recipe implements Serializable {
     public void duplicate_from(Recipe other) {
         this.setName(other.getName());
         this.setDesc(other.getDesc());
-        this.setPhoto(other.getPhoto());
         this.setRating(other.getRating());
         this.setCooked(other.getCooked());
         this.setIngredients(other.getIngredients());
@@ -249,7 +234,7 @@ public class Recipe implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.name, this.desc);
+        return Objects.hash(this.id, this.name, this.desc, this.ingredients, this.allergens, this.utensils, this.steps);
     }
 
     @Override

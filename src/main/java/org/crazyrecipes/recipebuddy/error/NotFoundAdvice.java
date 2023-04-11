@@ -15,7 +15,7 @@ public class NotFoundAdvice {
     @ResponseBody
     @ExceptionHandler(RateLimitException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String rateLimitHandler(RateLimitException e) {
+    String notFoundHandler(NotFoundException e) {
         return e.getMessage();
     }
 }
