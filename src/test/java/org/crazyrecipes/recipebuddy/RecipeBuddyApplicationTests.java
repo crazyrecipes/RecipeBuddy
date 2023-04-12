@@ -80,7 +80,6 @@ class RecipeBuddyApplicationTests {
 		Recipe test_recipe = new Recipe();
 		test_recipe.setName("The Test Burger");
 		test_recipe.setDesc("This burger is generated when the testDatabase component test is executed.");
-		test_recipe.setPhoto("/media/burger.jpg");
 		test_recipe.setRating(4.5);
 		test_recipe.setCooked(2);
 		test_recipe.setIngredients(test_ingredients);
