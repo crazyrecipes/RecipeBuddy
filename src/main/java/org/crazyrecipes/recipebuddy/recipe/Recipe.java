@@ -8,11 +8,10 @@ import java.util.Vector;
 
 /**
  * Recipe stores a single recipe. Each recipe has an ID, a name, a description,
- *   a photo URL, a rating, a times cooked counter, a list of ingredients,
+ *   a rating, a times cooked counter, a list of ingredients,
  *   a list of utensils, a list of allergens, a list of steps, and a list of tags.
  */
 public class Recipe implements Serializable {
-
     private String id;
     private String name;
     private String desc;
@@ -23,7 +22,6 @@ public class Recipe implements Serializable {
     private Vector<String> allergens;
     private Vector<String> steps;
     private Vector<String> tags;
-
 
     /**
      * Constructs a Recipe.

@@ -3,7 +3,6 @@ package org.crazyrecipes.recipebuddy.database;
 import org.crazyrecipes.recipebuddy.error.NotFoundException;
 import org.crazyrecipes.recipebuddy.recipe.*;
 import org.crazyrecipes.recipebuddy.util.Log;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;

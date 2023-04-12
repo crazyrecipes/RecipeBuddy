@@ -4,6 +4,9 @@ import org.crazyrecipes.recipebuddy.RecipeBuddyMap;
 
 import java.util.Date;
 
+/**
+ * Log provides functionality for logging events
+ */
 public class Log {
     private final String PREFIX = "(RecipeBuddyApplication) ";
     private final String LOG_OK = " [  OK  ] ";
@@ -13,10 +16,18 @@ public class Log {
     private String className;
     private final int LOG_LEVEL = RecipeBuddyMap.LOG_LEVEL;
 
+    /**
+     * Instantiates a Log for this class
+     * @param className This class's name
+     */
     public Log(String className) {
         this.className = className;
     }
 
+    /**
+     * Logs an event with severity 0
+     * @param entry Event to log
+     */
     public void print(String entry) {
         if(LOG_LEVEL < 1) {
             StringBuilder sb = new StringBuilder();
@@ -30,6 +41,11 @@ public class Log {
         }
     }
 
+    /**
+     * Logs an event with a specified severity
+     * @param level Severity
+     * @param entry Event to log
+     */
     public void print(int level, String entry) {
         if(level >= LOG_LEVEL) {
             StringBuilder sb = new StringBuilder();

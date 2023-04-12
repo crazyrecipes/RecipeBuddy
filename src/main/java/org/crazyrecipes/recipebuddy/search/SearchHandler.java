@@ -6,6 +6,9 @@ import org.crazyrecipes.recipebuddy.util.Log;
 import java.util.List;
 import java.util.Vector;
 
+/**
+ * SearchHandler provides functionality for searching recipes.
+ */
 public class SearchHandler {
     Vector<Recipe> recipes;
     Vector<String> ingredients;
@@ -13,6 +16,13 @@ public class SearchHandler {
     Vector<String> allergens;
     Log log;
 
+    /**
+     * Instantiates a SearchHandler
+     * @param recipes Recipes to search
+     * @param ingredients Ingredients to search
+     * @param utensils Utensils to search
+     * @param allergens Allergens to search
+     */
     public SearchHandler(List<Recipe> recipes, List<String> ingredients,
                          List<String> utensils, List<String> allergens) {
         this.log = new Log("SearchHandler");
@@ -20,13 +30,17 @@ public class SearchHandler {
         this.ingredients = new Vector<>();
         this.utensils = new Vector<>();
         this.allergens = new Vector<>();
-        for(Recipe i : recipes) { this.recipes.add(i); }
-        for(String i : ingredients) { this.ingredients.add(i); }
-        for(String i : utensils) { this.utensils.add(i); }
-        for(String i : allergens) { this.allergens.add(i); }
+        this.recipes.addAll(recipes);
+        this.ingredients.addAll(ingredients);
+        this.utensils.addAll(utensils);
+        this.allergens.addAll(allergens);
     }
 
-    /* Quick and dirty search - don't look at it too hard */
+    /**
+     * Executes a search and returns the results.
+     * @param search Search parameters to use
+     * @return Search results
+     */
     public List<Recipe> doSearch(Search search) {
         log.print("Doing search...");
         log.print("...for query " + search.getQuery());
@@ -40,10 +54,16 @@ public class SearchHandler {
             }
         }
         log.print("Got " + searchResults.size() + " results.");
-        return rank(searchResults, search);
+        return rank(searchResults);
     }
 
-    boolean match(Search search, Recipe recipe) {
+    /**
+     * Checks if a recipe matches search criteria
+     * @param search Search criteria
+     * @param recipe Recipe to match
+     * @return True if recipe matches
+     */
+    private boolean match(Search search, Recipe recipe) {
         /* Filter by title */
         boolean title_match = match_strings(recipe.getName(), search.getQuery());
 
@@ -71,19 +91,20 @@ public class SearchHandler {
         int ingredients_missing = 0;
         boolean has_ingredients = false;
         for(String i : recipe.getIngredients()) {
+            boolean has_j = false;
             for(String j : ingredients) {
-                boolean has_j = false;
                 if(match_strings(i, j)) {
                     has_j = true;
                 }
-                if(!has_j) {
-                    ingredients_missing++;
-                }
+                break;
+            }
+            if(!has_j) {
+                ingredients_missing++;
             }
         }
 
         /* Handle choice for showing allergens */
-        if(search.allergens.equals("SHOW") && allergen_free == false) {
+        if(search.allergens.equals("SHOW") && !allergen_free) {
             allergen_free = true;
         }
 
@@ -104,7 +125,12 @@ public class SearchHandler {
         return (title_match || tags_match) && allergen_free && has_ingredients;
     }
 
-    Vector<Recipe> rank(Vector<Recipe> results, Search search) {
+    /**
+     * Ranks search results by quality
+     * @param results Results to rank
+     * @return Ranked results
+     */
+    private Vector<Recipe> rank(Vector<Recipe> results) {
         Vector<Result> ranked_results = new Vector<>();
         Vector<Recipe> output = new Vector<>();
         boolean firstElement = true;
@@ -130,6 +156,12 @@ public class SearchHandler {
         return output;
     }
 
+    /**
+     * Matches strings
+     * @param base Base string
+     * @param find String to search for
+     * @return True if strings match
+     */
     boolean match_strings(String base, String find) {
         /* match any occurrence of base in find */
         String pattern = (new StringBuilder()).append("(.*)").append(find).append("(.*)").toString();
