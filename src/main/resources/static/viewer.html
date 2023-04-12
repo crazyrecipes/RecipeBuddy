@@ -37,6 +37,7 @@
             /* API url to get single recipe from */
             const params = new URLSearchParams(decodeURI(window.location.search));
             const RECIPE_URL = "api/recipe/" + params.get("id");
+            const COOK_URL = "api/cook/" + params.get("id");
             const PHOTO_URL = "api/photo/" + params.get("id");
             var timer_interval;
             var timer_value;
@@ -146,6 +147,22 @@
                 display_timer();
             }
 
+            /* Increment the recipe's cooked counter */
+            function increment_cooked() {
+                console.log(`Handle COOK for ${COOK_URL}...`);
+                fetch(COOK_URL, {
+                    method: "POST",
+                }).then(async response => {
+                    if(!response.ok) {
+                        throw new Error("POST request failed!");
+                    }
+                    display_recipe();
+                }).catch(error => {
+                    console.log(error);
+                    window.alert("Something went wrong displaying your recipe.");
+                });
+            }
+
             /* Grab a single recipe and display it */
             function display_recipe() {
                 console.log(`Handle DISPLAY recipe ${RECIPE_URL}...`);
@@ -194,6 +211,7 @@
                         <h2>Allergens</h2>
                         <p>${recipe_allergens}</p>
                         <a href="editor.html?id=${data.id}"><div class="inline_button">Edit this recipe</div></a>
+                        <button class="inline_button" onclick="increment_cooked()">I cooked this recipe</button>
                     `
                     document.getElementById("RECIPE_CONTENT").innerHTML = recipeHTML;
                 }).catch(error => {
