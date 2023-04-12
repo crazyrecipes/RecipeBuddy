@@ -95,12 +95,10 @@ public class SearchHandler {
             for(String j : ingredients) {
                 if(match_strings(i, j)) {
                     has_j = true;
+                    break;
                 }
-                break;
             }
-            if(!has_j) {
-                ingredients_missing++;
-            }
+            if(!has_j) { ingredients_missing++; }
         }
 
         /* Handle choice for showing allergens */
@@ -113,7 +111,7 @@ public class SearchHandler {
             has_ingredients = true;
         }
         /* Handle choice for showing recipes missing a couple ingredients */
-        else if(search.ingredients.equals("SOME") && ingredients_missing < 3) {
+        else if(search.ingredients.equals("SOME") && ingredients_missing < 4) {
             has_ingredients = true;
         }
         /* Handle choice for not caring about ingredients */
