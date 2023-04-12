@@ -187,7 +187,6 @@ public class DatabaseController {
     public synchronized void writePhoto(String item, String id) {
         try {
             byte[] image = Base64.getDecoder().decode(item.split(",")[1]);
-            System.out.println(image);
             saveBytesToFile(image, "data/photos/"+id);
         } catch(RuntimeException e) {
             log.print(2, "Failed to write image.");
