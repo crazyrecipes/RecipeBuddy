@@ -94,6 +94,22 @@ public class DatabaseController {
     }
 
     /**
+     * Increment a Recipe's cooked counter
+     * @param id The Recipe ID to update
+     */
+    public synchronized void cookRecipe(String id) throws NotFoundException {
+        for(int i = 0; i < recipes.size(); i++) {
+            if(recipes.get(i).getID().equals(id)) {
+                recipes.get(i).cook();
+                saveRecipesToFile(recipes, RECIPES_STORE_FILE);
+                return;
+            }
+        }
+        log.print(1, "Recipe " + id + " not found in cache on edit.");
+        throw new NotFoundException();
+    }
+
+    /**
      * Deletes a Recipe.
      * @param id Recipe ID to delete
      */
@@ -296,7 +312,6 @@ public class DatabaseController {
     private synchronized byte[] loadBytesFromFile(String STORE_FILE) {
         try {
             File f = new File(STORE_FILE);
-            log.print("Reading " + STORE_FILE + ".");
             FileInputStream fis = new FileInputStream(f);
             byte[] fb = new byte[(int) f.length()];
             fis.read(fb);

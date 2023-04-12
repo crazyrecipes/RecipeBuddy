@@ -21,7 +21,6 @@ public class Search {
 
     public void setQuery(String query) { this.query = query; }
 
-
     public void setIngredients(String ingredients) { this.ingredients = ingredients; }
 
     public void setAllergens(String allergens) { this.allergens = allergens; }

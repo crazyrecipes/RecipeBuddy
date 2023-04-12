@@ -222,6 +222,13 @@ public class Recipe implements Serializable {
         this.setTags(other.getTags());
     }
 
+    /**
+     * Increment this recipe's times cooked counter.
+     */
+    public void cook() {
+        this.cooked++;
+    }
+
     @Override
     public boolean equals(Object other) {
         if(!(other instanceof Recipe)) {

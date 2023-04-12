@@ -101,7 +101,7 @@ public class RecipeBuddyController {
         if(bucket.tryConsume(1)) {
             log.print("Handling increment times cooked for recipe " + id);
             try {
-                databaseController.incrementRecipe(id);
+                databaseController.cookRecipe(id);
                 return;
             } catch(NotFoundException e) {
                 log.print(1, "Couldn't find recipe " + id + " in database.");

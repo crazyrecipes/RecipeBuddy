@@ -40,7 +40,7 @@ public class SearchHandler {
             }
         }
         log.print("Got " + searchResults.size() + " results.");
-        return searchResults;
+        return rank(searchResults, search);
     }
 
     boolean match(Search search, Recipe recipe) {
@@ -102,6 +102,32 @@ public class SearchHandler {
 
         /* See if we match */
         return (title_match || tags_match) && allergen_free && has_ingredients;
+    }
+
+    Vector<Recipe> rank(Vector<Recipe> results, Search search) {
+        Vector<Result> ranked_results = new Vector<>();
+        Vector<Recipe> output = new Vector<>();
+        boolean firstElement = true;
+        for(Recipe i : results) {
+            double score = 0;
+            score += i.getRating() * 20;
+            score += i.getCooked();
+            if(firstElement) {
+                ranked_results.add(new Result(i, score));
+                firstElement = false;
+            } else {
+                for(int j = 0; j < ranked_results.size(); j++) {
+                    if(score >= ranked_results.get(j).score) {
+                        ranked_results.insertElementAt(new Result(i, score), j);
+                        break;
+                    }
+                }
+            }
+        }
+        for(Result i : ranked_results) {
+            output.add(i.recipe);
+        }
+        return output;
     }
 
     boolean match_strings(String base, String find) {
