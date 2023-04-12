@@ -46,7 +46,9 @@ public class RecipeBuddyController {
     @PostMapping("/api/recipes")
     Recipe createRecipe(@RequestBody Recipe newRecipe) {
         if(bucket.tryConsume(1)) {
-            return databaseController.createRecipe(newRecipe);
+            Recipe r = databaseController.createRecipe(newRecipe);
+            databaseController.writePhoto(RecipeBuddyMap.FALLBACK_THUMBNAIL, r.getID());
+            return r;
         }
         throw new RateLimitException();
 

@@ -54,7 +54,9 @@ public class SearchHandler {
             }
         }
         log.print("Got " + searchResults.size() + " results.");
-        return rank(searchResults);
+        Vector<Recipe> rankedResults  = rank(searchResults);
+        log.print("Ranked " + rankedResults.size() + " results.");
+        return rankedResults;
     }
 
     /**
@@ -134,18 +136,17 @@ public class SearchHandler {
         boolean firstElement = true;
         for(Recipe i : results) {
             double score = 0;
-            score += i.getRating() * 20;
+            score += i.getRating() * 100;
             score += i.getCooked();
-            if(firstElement) {
-                ranked_results.add(new Result(i, score));
-                firstElement = false;
-            } else {
-                for(int j = 0; j < ranked_results.size(); j++) {
-                    if(score >= ranked_results.get(j).score) {
-                        ranked_results.insertElementAt(new Result(i, score), j);
-                        break;
-                    }
+            int j;
+            for(j = 0; j < ranked_results.size(); j++) {
+                if(score >= ranked_results.get(j).score) {
+                    ranked_results.insertElementAt(new Result(i, score), j);
+                    break;
                 }
+            }
+            if(j == ranked_results.size()) {
+                ranked_results.add(new Result(i, score));
             }
         }
         for(Result i : ranked_results) {
