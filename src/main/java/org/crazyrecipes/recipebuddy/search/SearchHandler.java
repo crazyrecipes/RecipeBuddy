@@ -158,11 +158,10 @@ public class SearchHandler {
     /**
      * Matches strings
      * @param base Base string
-     * @param find String to search for
+     * @param find String to search base for
      * @return True if strings match
      */
     boolean match_strings(String base, String find) {
-        /* match any occurrence of base in find */
         String pattern = (new StringBuilder()).append("(.*)").append(find).append("(.*)").toString();
         return base.toLowerCase().matches(pattern.toLowerCase());
     }
