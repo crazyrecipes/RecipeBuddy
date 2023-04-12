@@ -56,7 +56,7 @@
 
         <script>
             /* API url to get search results from */
-            const RECIPELIST_URL = "api/search"
+            const SEARCH_URL = "api/search"
 
             /* ===== TOAST MESSAGE ===== */
             var toast_timeout;
@@ -116,7 +116,7 @@
                 show_toast("Searching...");
                 /* Send request and display results */
                 console.log("Getting results...");
-                fetch(RECIPELIST_URL, {
+                fetch(SEARCH_URL, {
                     method: "POST",
                     headers: {
                         "Accept": "application/json",
