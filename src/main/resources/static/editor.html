@@ -135,7 +135,6 @@
             /* ===== END TOAST MESSAGE ===== */
 
             function handle_photo_upload(input) {
-                console.log(input.files[0].size);
                 if(input.files[0].size < MAX_UPLOAD_SIZE) {
                     show_toast("Uploading photo...");
                     const fr = new FileReader();
@@ -176,7 +175,7 @@
                         throw new Error("GET request failed!");
                     }
                     const data = await response.json();
-                    console.log(data);
+                    //console.log(data);
 
                     recipe_ingredients = data.ingredients.join("\n");
                     recipe_utensils = data.utensils.join("\n");
@@ -211,7 +210,7 @@
             /* Save user edits to the recipe */
             function do_edit() {
                 show_toast("Saving your edits...");
-                console.log("Handling CREATE recipe...");
+                console.log("Handling EDIT recipe...");
                 /* Get parameters */
                 var recipe_name = document.getElementById("RECIPE_NAME").value;
                 console.log(`..with name "${recipe_name}"`);
@@ -275,8 +274,7 @@
                         throw new Error("PUT request failed!");
                     }
                     const data = await response.json();
-                    console.log("[DEBUG] Got data:");
-                    console.log(data);
+                    //console.log(data);
                     show_toast("Updated recipe.");
                     window.location.href = VIEW_URL;
                 }).catch(error => {

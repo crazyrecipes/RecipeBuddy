@@ -182,7 +182,7 @@
                         j = data.steps[i].split(" ");
                         for(k in j) {
                             if(is_time(j[k])) {
-                                console.log("Steps Parser: Found a time.");
+                                //console.log("[DEBUG] Steps Parser: Found a time.");
                                 data.steps[i] += `&nbsp<button onclick="set_timer('${j[k]}')">Set Timer</button>`;
                             }
                         }

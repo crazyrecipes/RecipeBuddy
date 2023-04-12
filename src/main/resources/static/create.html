@@ -166,8 +166,8 @@
                         "tags": recipe_tags.split(','),
                 }
                 
+                console.log("[DEBUG] New recipe:");
                 console.log(JSON.stringify(RECIPE_JSON));
-                console.log("Sending request...");
 
                 /* Send request */
                 fetch(RECIPES_URL, {
@@ -182,8 +182,7 @@
                         throw new Error("POST request failed!")
                     }
                     const data = await response.json();
-                    console.log("[DEBUG] Got data:");
-                    console.log(data);
+                    //console.log(data);
                     show_toast("Recipe created.");
                     window.location.href = "list.html";
                 }).catch(error => {

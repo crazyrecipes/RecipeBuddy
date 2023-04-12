@@ -125,16 +125,14 @@
                     body: SEARCH_JSON,
                 }).then(async response => {
                     const data = await response.json();
-                    console.log("[DEBUG] Got data:");
-                    console.log(data);
+                    //console.log(data);
                     formatted_result = "";
                     for(let i in data) {
                         let recipe = data[i];
-                        console.log("[DEBUG] Processing recipe:");
-                        console.log(recipe);
+                        //console.log(recipe);
                         var recipeHTML = `
                         <div class="recipepreview_container">
-                            <img class="recipepreview_photo" src="api/photo/${recipe.id}">
+                            <img class="recipepreview_photo" loading="lazy" src="api/photo/${recipe.id}">
                             <div class="recipepreview_content">
                                 <h2>${recipe.name}</h2>
                                 <p>${recipe.rating}&#9733; - Cooked ${recipe.cooked} times.</p>

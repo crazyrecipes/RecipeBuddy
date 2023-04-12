@@ -87,8 +87,7 @@
                         throw new Error("GET request failed!");
                     }
                     const data = await response.json();
-                    console.log("[DEBUG] Got data:");
-                    console.log(data);
+                    //console.log(data);
                     current_ingredients = [];
                     for(let i in data) {
                         current_ingredients.push(data[i]);
@@ -110,8 +109,7 @@
                         if(!response.ok) {
                             throw new Error("POST request failed.");
                         }
-                        console.log("[DEBUG] Got data:");
-                        console.log(data);
+                        //console.log(data);
 
                         /* Refresh display */
                         display_ingredients();
@@ -143,8 +141,7 @@
                         throw new Error("GET request failed!");
                     }
                     const data = await response.json();
-                    console.log("[DEBUG] Got data:");
-                    console.log(data);
+                    //console.log(data);
                     current_utensils = [];
                     for(let i in data) {
                         current_utensils.push(data[i]);
@@ -166,8 +163,7 @@
                         if(!response.ok) {
                             throw new Error("POST request failed.");
                         }
-                        console.log("[DEBUG] Got data:");
-                        console.log(data);
+                        //console.log(data);
 
                         /* Refresh display */
                         display_utensils();
@@ -201,8 +197,7 @@
                         throw new Error("GET request failed!");
                     }
                     const data = await response.json();
-                    console.log("[DEBUG] Got data:");
-                    console.log(data);
+                    //console.log(data);
                     new_ingredients = [];
                     for(let i in data) {
                         new_ingredients.push(data[i]);
@@ -222,8 +217,7 @@
                         if(!response.ok) {
                             throw new Error("POST request failed.");
                         }
-                        console.log("[DEBUG] Got data:");
-                        console.log(data);
+                        //console.log(data);
 
                         /* Refresh display */
                         display_ingredients();
@@ -256,8 +250,7 @@
                         throw new Error("GET request failed!");
                     }
                     const data = await response.json();
-                    console.log("[DEBUG] Got data:");
-                    console.log(data);
+                    //console.log(data);
                     current_utensils = [];
                     for(let i in data) {
                         current_utensils.push(data[i]);
@@ -277,8 +270,7 @@
                         if(!response.ok) {
                             throw new Error("POST request failed.");
                         }
-                        console.log("[DEBUG] Got data:");
-                        console.log(data);
+                        //console.log(data);
 
                         /* Refresh display */
                         display_utensils();
@@ -308,13 +300,11 @@
                         throw new Error("GET request failed!");
                     }
                     const data = await response.json();
-                    console.log("[DEBUG] Got data:");
-                    console.log(data);
+                    //console.log(data);
                     formatted_result = "";
                     for(let i in data) {
                         let ingredient = data[i];
-                        console.log("[DEBUG] Processing ingredient:");
-                        console.log(ingredient);
+                        //console.log(ingredient);
                         var ingredientHTML = `
                         <div class="pantry_entry">
                             ${ingredient}
@@ -344,13 +334,11 @@
                         throw new Error("GET request failed!");
                     }
                     const data = await response.json();
-                    console.log("[DEBUG] Got data:");
-                    console.log(data);
+                    //console.log(data);
                     formatted_result = "";
                     for(let i in data) {
                         let utensil = data[i];
-                        console.log("[DEBUG] Processing utensil:");
-                        console.log(utensil);
+                        //console.log(utensil);
                         var utensilHTML = `
                         <div class="pantry_entry">
                             ${utensil}

@@ -89,8 +89,8 @@
                         throw new Error("GET request failed!");
                     }
                     const data = await response.json();
-                    console.log("[DEBUG] Got data:");
-                    console.log(data);
+                    //console.log(data);
+                    
                     var allergens_inputs = document.getElementsByName("ALLERGENS_INPUT");
                     for(let i in data) {
                         for(j = 0; j < allergens_inputs.length; j++) {
@@ -131,8 +131,8 @@
                         throw new Error("POST request failed!");
                     }
                     const data = await response.json();
-                    console.log("[DEBUG] Got data:");
-                    console.log(data);
+                    //console.log(data);
+
                     /* Update display */
                     display_allergens();
                     show_toast("Updated allergens.");
