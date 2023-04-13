@@ -22,6 +22,7 @@ public class Recipe implements Serializable {
     private Vector<String> allergens;
     private Vector<String> steps;
     private Vector<String> tags;
+    private final String SANITIZER_REGEX = "[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]";
 
     /**
      * Constructs a Recipe.
@@ -117,7 +118,7 @@ public class Recipe implements Serializable {
      * @param id this Recipe's ID
      */
     public void setID(String id) {
-        this.id = id.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]","");
+        this.id = id.replaceAll(SANITIZER_REGEX,"");
     }
 
     /**
@@ -125,7 +126,7 @@ public class Recipe implements Serializable {
      * @param name this Recipe's name
      */
     public void setName(String name) {
-        this.name = name.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]","");
+        this.name = name.replaceAll(SANITIZER_REGEX,"");
     }
 
     /**
@@ -133,7 +134,7 @@ public class Recipe implements Serializable {
      * @param desc this Recipe's description
      */
     public void setDesc(String desc) {
-        this.desc = desc.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]","");
+        this.desc = desc.replaceAll(SANITIZER_REGEX,"");
     }
 
     /**
@@ -155,7 +156,7 @@ public class Recipe implements Serializable {
     public void setIngredients(List<String> ingredients) {
         this.ingredients.clear();
         for(String i : ingredients) {
-            this.ingredients.add(i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]",""));
+            this.ingredients.add(i.replaceAll(SANITIZER_REGEX,""));
         }
     }
 
@@ -166,7 +167,7 @@ public class Recipe implements Serializable {
     public void setUtensils(List<String> utensils) {
         this.utensils.clear();
         for(String i : utensils) {
-            this.utensils.add(i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]",""));
+            this.utensils.add(i.replaceAll(SANITIZER_REGEX,""));
         }
     }
 
@@ -177,7 +178,7 @@ public class Recipe implements Serializable {
     public void setAllergens(List<String> allergens) {
         this.allergens.clear();
         for(String i : allergens) {
-            this.allergens.add(i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]",""));
+            this.allergens.add(i.replaceAll(SANITIZER_REGEX,""));
         }
     }
 
@@ -188,7 +189,7 @@ public class Recipe implements Serializable {
     public void setSteps(List<String> steps) {
         this.steps.clear();
         for(String i : steps) {
-            this.steps.add(i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]",""));
+            this.steps.add(i.replaceAll(SANITIZER_REGEX,""));
         }
     }
 
@@ -199,7 +200,7 @@ public class Recipe implements Serializable {
     public void setTags(List<String> tags) {
         this.tags.clear();
         for(String i : tags) {
-            this.tags.add(i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]",""));
+            this.tags.add(i.replaceAll(SANITIZER_REGEX,""));
         }
     }
 
