@@ -10,6 +10,10 @@ import java.util.Base64;
 import java.util.Vector;
 import java.util.List;
 
+/**
+ * DatabaseController provides functionality for creating, reading, updating,
+ *   and deleting recipes, ingredients, utensils, allergens, and photos.
+ */
 public class DatabaseController {
     private final String RECIPES_STORE_FILE = "data/recipes.dat";
     private final String INGREDIENTS_STORE_FILE = "data/ingredients.dat";
@@ -20,9 +24,11 @@ public class DatabaseController {
     private Vector<String> ingredients;
     private Vector<String> utensils;
     private Vector<String> allergens;
-
     private Log log;
 
+    /**
+     * Instantiates a DatabaseController.
+     */
     public DatabaseController() {
         this.log = new Log("DatabaseController");
         try {
@@ -75,7 +81,7 @@ public class DatabaseController {
     }
 
     /**
-     * Updates a Recipe.
+     * Updates a specific Recipe.
      * @param id The Recipe ID to update
      * @param recipe The Recipe to replace with
      * @return The updated Recipe
@@ -93,7 +99,7 @@ public class DatabaseController {
     }
 
     /**
-     * Increment a Recipe's cooked counter
+     * Increments a Recipe's times cooked counter.
      * @param id The Recipe ID to update
      */
     public synchronized void cookRecipe(String id) throws NotFoundException {
@@ -125,7 +131,7 @@ public class DatabaseController {
     }
 
     /**
-     * Reads ingredients.
+     * Reads ingredients list.
      * @return All ingredients as a list
      */
     public synchronized List<String> readIngredients(){
@@ -133,7 +139,7 @@ public class DatabaseController {
     }
 
     /**
-     * Writes ingredients.
+     * Writes ingredients list.
      * @param newIngredients Ingredients list to write.
      * @return The posted ingredients.
      */
@@ -147,13 +153,13 @@ public class DatabaseController {
     }
 
     /**
-     * Reads utensils.
+     * Reads utensils list.
      * @return All utensils as a list
      */
     public synchronized List<String> readUtensils() { return utensils; }
 
     /**
-     * Writes utensils.
+     * Writes utensils list.
      * @param newUtensils Utensils list to post
      * @return The posted utensils
      */
@@ -167,13 +173,13 @@ public class DatabaseController {
     }
 
     /**
-     * Reads allergens.
+     * Reads allergens list.
      * @return All allergens as a list
      */
     public synchronized List<String> readAllergens() { return allergens; }
 
     /**
-     * Writes allergens.
+     * Writes allergens list.
      * @param newAllergens Allergens list to post
      * @return The posted allergens
      */
@@ -186,10 +192,20 @@ public class DatabaseController {
         return allergens;
     }
 
+    /**
+     * Reads a single photo with a given ID
+     * @param id The ID of the photo to read
+     * @return The photo as bytes
+     */
     public synchronized byte[] readPhoto(String id) {
         return loadBytesFromFile("data/photos/"+id);
     }
 
+    /**
+     * Writes a single photo with a given ID
+     * @param item The photo as bytes
+     * @param id The ID of the photo to write
+     */
     public synchronized void writePhoto(String item, String id) {
         try {
             byte[] image = Base64.getDecoder().decode(item.split(",")[1]);
@@ -199,10 +215,17 @@ public class DatabaseController {
         }
     }
 
+    /**
+     * Deletes a single photo with a given ID
+     * @param id The ID of the photo to delete
+     */
     public synchronized void deletePhoto(String id) {
         deleteFile("data/photos/"+id);
     }
 
+    /**
+     * Resets the database. Clears all items in the cache and on the disk.
+     */
     public synchronized void reset() {
         log.print(1, "RESETTING DATABASE!");
         recipes = new Vector<>();
