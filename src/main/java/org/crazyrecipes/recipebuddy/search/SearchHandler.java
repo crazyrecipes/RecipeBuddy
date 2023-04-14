@@ -3,6 +3,7 @@ package org.crazyrecipes.recipebuddy.search;
 import org.crazyrecipes.recipebuddy.recipe.Recipe;
 import org.crazyrecipes.recipebuddy.util.Log;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -37,26 +38,36 @@ public class SearchHandler {
     }
 
     /**
-     * Executes a search and returns the results.
+     * Runs a search and returns the results. The results are first filtered
+     *   and then ranked by relevance and quality.
      * @param search Search parameters to use
      * @return Search results
      */
     public List<Recipe> doSearch(Search search) {
+        Vector<Result> results = new Vector<>();
+        Vector<Recipe> output = new Vector<>();
+
         log.print("Doing search...");
         log.print("...for query " + search.getQuery());
         log.print("...for ingredients " + search.getIngredients());
         log.print("...for allergens " + search.getAllergens());
 
-        Vector<Recipe> searchResults = new Vector<>();
+        /* Filter and score recipes */
         for(Recipe i : recipes) {
-            if(match(search, i)) {
-                searchResults.add(i);
+            if(filter(search, i)) {
+                results.add(new Result(i, score(search, i)));
             }
         }
-        log.print("Got " + searchResults.size() + " results.");
-        Vector<Recipe> rankedResults  = rank(searchResults);
-        log.print("Ranked " + rankedResults.size() + " results.");
-        return rankedResults;
+        log.print("Got " + results.size() + " results. Ranking...");
+
+        /* Rank filtered recipes */
+        Collections.sort(results);
+        for(Result i : results) {
+            output.add(i.recipe);
+        }
+        log.print("Ranked " + output.size() + " results.");
+
+        return output;
     }
 
     /**
@@ -65,7 +76,7 @@ public class SearchHandler {
      * @param recipe Recipe to match
      * @return True if recipe matches
      */
-    private boolean match(Search search, Recipe recipe) {
+    private boolean filter(Search search, Recipe recipe) {
         /* Filter by title */
         boolean title_match = match_strings(recipe.getName(), search.getQuery());
 
@@ -126,32 +137,53 @@ public class SearchHandler {
     }
 
     /**
-     * Ranks search results by quality
-     * @param results Results to rank
-     * @return Ranked results
+     * Assign the given Recipe a quality score based on its relevance
+     *   to the search.
+     * @param search Search to score recipes with
+     * @param recipe Recipe to score
+     * @return The recipe's score
      */
-    private Vector<Recipe> rank(Vector<Recipe> results) {
-        Vector<Result> ranked_results = new Vector<>();
-        Vector<Recipe> output = new Vector<>();
-        boolean firstElement = true;
-        for(Recipe i : results) {
-            double score = 0;
-            score += i.getRating() * 100;
-            score += i.getCooked();
-            int j;
-            for(j = 0; j < ranked_results.size(); j++) {
-                if(score >= ranked_results.get(j).score) {
-                    ranked_results.insertElementAt(new Result(i, score), j);
+    private double score(Search search, Recipe recipe) {
+        double output = 0.0;
+
+        /* 1st priority - Recipes matching title */
+        if(match_strings(recipe.getName(), search.getQuery())) {
+            output += 1000.0;
+        }
+
+        /* 2nd priority - Recipes matching tags */
+        for(String i : recipe.getTags()) {
+            if(match_strings(i, search.getQuery())) {
+                output += 50.0;
+                break;
+            }
+        }
+
+        /* 3rd priority - Recipes with high ratings */
+        output += recipe.getRating() * 5.0;
+
+        /* Deduct points for missing ingredients */
+        for(String i : recipe.getIngredients()) {
+            boolean has_j = false;
+            for(String j : ingredients) {
+                if(match_strings(i, j)) {
+                    has_j = true;
                     break;
                 }
             }
-            if(j == ranked_results.size()) {
-                ranked_results.add(new Result(i, score));
+            if(!has_j) { output -= 10.0; }
+        }
+
+        /* Deduct points for allergens */
+        for(String i : recipe.getAllergens()) {
+            for(String j : allergens) {
+                if(match_strings(i, j)) {
+                    output -= 20.0;
+                    break;
+                }
             }
         }
-        for(Result i : ranked_results) {
-            output.add(i.recipe);
-        }
+
         return output;
     }
 

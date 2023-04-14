@@ -5,7 +5,7 @@ import org.crazyrecipes.recipebuddy.recipe.Recipe;
 /**
  * Result stores a single Recipe and its score as a double.
  */
-public class Result {
+public class Result implements Comparable<Result> {
     public Recipe recipe;
     public double score;
 
@@ -17,6 +17,17 @@ public class Result {
     public Result(Recipe recipe, double score) {
         this.recipe = recipe;
         this.score = score;
+    }
+
+    @Override
+    public int compareTo(Result other) {
+        if(this.score > other.score) {
+            return -1;
+        } else if(this.score < other.score) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }
