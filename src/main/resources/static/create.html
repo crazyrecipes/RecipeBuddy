@@ -21,68 +21,8 @@
 
             <div class="content_container">
                 <div class="content_inner">
-                    <h1>Create a Recipe</h1>
-
-                    <div class="spacer"></div>
-
-                    <h3>Name</h3>
-                    <input class="text_field" id="RECIPE_NAME" placeholder="Enter the recipe's name here..."></input>
-
-                    <div class="spacer"></div>
-
-                    <h3>Description</h3>
-                    <textarea class="text_field_big" id="RECIPE_DESC" rows="5" placeholder="Enter the recipe's description here..."></textarea>
-
-                    <div class="spacer"></div>
-                    
-                    <h3>Ingredients</h3>
-                    <textarea id="RECIPE_INGREDIENTS" class="text_field_big" rows="10" placeholder="Enter each ingredient on its own line..."></textarea>
-                    
-                    <div class="spacer"></div>
-                    
-
-                    <h3>Utensils</h3>
-                    <textarea id="RECIPE_UTENSILS" class="text_field_big" rows="5" placeholder="Enter each utensil on its own line..."></textarea>
-                    
-                    <div class="spacer"></div>
-
-                    <h3>Instructions</h3>
-                    <textarea id="RECIPE_STEPS" class="text_field_big" rows="10" placeholder="Enter each step on its own line..."></textarea>
-                    
-                    <div class="spacer"></div>
-
-                    <h3>Tags</h3>
-                    <input id="RECIPE_TAGS" class="text_field" rows="5" placeholder="Enter tags separated by commas..."></input>
-                    
-                    <div class="spacer"></div>
-                    
-                    <h3>Allergens</h3>
-                    <input type="checkbox" id="ALLERGEN_PEANUTS" name="ALLERGENS_INPUT" value="Peanuts">
-                    <label for="ALLERGEN_PEANUTS">Peanuts</label><br>
-                    <input type="checkbox" id="ALLERGEN_TREE_NUTS" name="ALLERGENS_INPUT" value="Tree Nuts">
-                    <label for="ALLERGEN_TREE_NUTS">Tree Nuts</label><br>
-                    <input type="checkbox" id="ALLERGEN_DAIRY" name="ALLERGENS_INPUT" value="Dairy">
-                    <label for="ALLERGEN_DAIRY">Dairy</label><br>
-                    <input type="checkbox" id="ALLERGEN_SOY" name="ALLERGENS_INPUT" value="Soy">
-                    <label for="ALLERGEN_SOY">Soy</label><br>
-                    <input type="checkbox" id="ALLERGEN_GLUTEN" name="ALLERGENS_INPUT" value="Gluten">
-                    <label for="ALLERGEN_GLUTEN">Gluten</label><br>
-                    <input type="checkbox" id="ALLERGEN_EGG" name="ALLERGENS_INPUT" value="Egg">
-                    <label for="ALLERGEN_EGG">Egg</label><br>
-                    <input type="checkbox" id="ALLERGEN_FISH" name="ALLERGENS_INPUT" value="Fish">
-                    <label for="ALLERGEN_FISH">Fish</label><br>
-                    <input type="checkbox" id="ALLERGEN_SHELLFISH" name="ALLERGENS_INPUT" value="Shellfish">
-                    <label for="ALLERGEN_SHELLFISH">Shellfish</label><br>
-                    <input type="checkbox" id="ALLERGEN_CORN" name="ALLERGENS_INPUT" value="Corn">
-                    <label for="ALLERGEN_CORN">Corn</label><br>
-                    <input type="checkbox" id="ALLERGEN_SESAME" name="ALLERGENS_INPUT" value="Sesame">
-                    <label for="ALLERGEN_SESAME">Sesame</label><br>
-                    <input type="checkbox" id="ALLERGEN_MUSTARD" name="ALLERGENS_INPUT" value="Mustard">
-                    <label for="ALLERGEN_MUSTARD">Mustard</label><br>
-
-                    <div class="spacer"></div>
-                    
-                    <button class="inline_button" onclick="do_create()">Create Recipe</button>
+                    <h1>Creating your recipe...</h1>
+                    <p>This may take a second. You'll be redirected to the recipe editor soon.</p>
                 </div>
             </div>
 
@@ -118,52 +58,18 @@
                 show_toast("Creating recipe...");
                 console.log("Handling CREATE recipe...");
                 
-                /* Get name */
-                var recipe_name = document.getElementById("RECIPE_NAME").value;
-                console.log(`..with name "${recipe_name}"`);
-
-                /* Get desc */
-                var recipe_desc = document.getElementById("RECIPE_DESC").value;
-                console.log(`..with desc "${recipe_desc}"`);
-
-                /* Get ingredients */
-                var recipe_ingredients = document.getElementById("RECIPE_INGREDIENTS").value;
-                console.log(`..with ingredients "${recipe_ingredients}"`);
-
-                /* Get utensils */
-                var recipe_utensils = document.getElementById("RECIPE_UTENSILS").value;
-                console.log(`..with utensils "${recipe_utensils}"`);
-
-                /* Get steps */
-                var recipe_steps = document.getElementById("RECIPE_STEPS").value;
-                console.log(`..with steps "${recipe_steps}"`);
-
-                /* Get allergens choice */
-                var allergens_inputs = document.getElementsByName("ALLERGENS_INPUT");
-                var recipe_allergens = "";
-                for(i = 0; i < allergens_inputs.length; i++) {
-                    if(allergens_inputs[i].checked) {
-                        recipe_allergens = recipe_allergens.concat(allergens_inputs[i].value, "\n");
-                    }
-                }
-                console.log(`..with allergens "${recipe_allergens}"`);
-
-                /* Get tags */
-                var recipe_tags = document.getElementById("RECIPE_TAGS").value;
-                console.log(`..with tags "${recipe_tags}"`);
-
                 /* Assemble recipe JSON */
                 const RECIPE_JSON = {
                         "id": "0",
-                        "name": recipe_name,
-                        "desc": recipe_desc,
+                        "name": "New Recipe",
+                        "desc": "The future home of a delicious recipe.",
                         "rating": "0.0",
                         "cooked": "0",
-                        "ingredients": recipe_ingredients.split('\n'),
-                        "utensils": recipe_utensils.split('\n'),
-                        "allergens": recipe_allergens.split('\n'),
-                        "steps": recipe_steps.split('\n'),
-                        "tags": recipe_tags.split(','),
+                        "ingredients": [],
+                        "utensils": [],
+                        "allergens": [],
+                        "steps": [],
+                        "tags": [],
                 }
                 
                 console.log("[DEBUG] New recipe:");
@@ -183,13 +89,16 @@
                     }
                     const data = await response.json();
                     //console.log(data);
-                    show_toast("Recipe created.");
-                    window.location.href = "list.html";
+                    show_toast("Recipe created. Taking you to the editor...");
+                    window.location.href = `editor.html?id=${data.id}`;
                 }).catch(error => {
                     console.log(error);
                     show_toast("Something went wrong creating your recipe.");
                 });
             }
+
+            /* ===== ON PAGE LOAD ===== */
+            do_create();
         </script>
     </body>
 </html>
