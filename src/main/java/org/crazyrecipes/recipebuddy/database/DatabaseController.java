@@ -138,7 +138,7 @@ public class DatabaseController {
      * @return The posted ingredients.
      */
     public synchronized List<String> writeIngredients(List<String> newIngredients) {
-        ingredients = new Vector<String>();
+        ingredients = new Vector<>();
         for(String i : newIngredients) {
             ingredients.add(i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]",""));
         }
@@ -158,7 +158,7 @@ public class DatabaseController {
      * @return The posted utensils
      */
     public synchronized List<String> writeUtensils(List<String> newUtensils) {
-        utensils = new Vector<String>();
+        utensils = new Vector<>();
         for(String i : newUtensils) {
             utensils.add(i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]",""));
         }
@@ -178,7 +178,7 @@ public class DatabaseController {
      * @return The posted allergens
      */
     public synchronized List<String> writeAllergens(List<String> newAllergens) {
-        allergens = new Vector<String>();
+        allergens = new Vector<>();
         for(String i : newAllergens) {
             allergens.add(i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]",""));
         }
@@ -319,6 +319,7 @@ public class DatabaseController {
             FileInputStream fis = new FileInputStream(f);
             byte[] fb = new byte[(int) f.length()];
             fis.read(fb);
+            fis.close();
             return fb;
         } catch(FileNotFoundException e) {
             log.print(1, "Couldn't find " + STORE_FILE + ". Will attempt to create it on write.");
