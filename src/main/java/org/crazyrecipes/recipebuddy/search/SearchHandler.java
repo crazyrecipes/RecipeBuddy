@@ -47,7 +47,7 @@ public class SearchHandler {
         Vector<Result> results = new Vector<>();
         Vector<Recipe> output = new Vector<>();
 
-        log.print("Doing search...");
+        log.print("Executing search...");
         log.print("...for query " + search.getQuery());
         log.print("...for ingredients " + search.getIngredients());
         log.print("...for allergens " + search.getAllergens());
@@ -58,14 +58,13 @@ public class SearchHandler {
                 results.add(new Result(i, score(search, i)));
             }
         }
-        log.print("Got " + results.size() + " results. Ranking...");
 
         /* Rank filtered recipes */
         Collections.sort(results);
         for(Result i : results) {
             output.add(i.recipe);
         }
-        log.print("Ranked " + output.size() + " results.");
+        log.print("Ranked " + output.size() + " search results.");
 
         return output;
     }
@@ -114,6 +113,20 @@ public class SearchHandler {
             if(!has_j) { ingredients_missing++; }
         }
 
+        /* Filter by utensils */
+        int utensils_missing = 0;
+        boolean has_utensils = false;
+        for(String i : recipe.getUtensils()) {
+            boolean has_j = false;
+            for(String j : utensils) {
+                if(match_strings(i, j)) {
+                    has_j = true;
+                    break;
+                }
+            }
+            if(!has_j) { utensils_missing++; }
+        }
+
         /* Handle choice for showing allergens */
         if(search.allergens.equals("SHOW") && !allergen_free) {
             allergen_free = true;
@@ -132,8 +145,21 @@ public class SearchHandler {
             has_ingredients = true;
         }
 
+        /* Handle choice for recipes only showing all utensils */
+        if(search.utensils.equals("ALL") && utensils_missing == 0) {
+            has_utensils = true;
+        }
+        /* Handle choice for showing recipes missing a couple utensils */
+        else if(search.utensils.equals("SOME") && utensils_missing < 4) {
+            has_utensils = true;
+        }
+        /* Handle choice for not caring about utensils */
+        else if(search.utensils.equals("NONE")) {
+            has_utensils = true;
+        }
+
         /* See if we match */
-        return (title_match || tags_match) && allergen_free && has_ingredients;
+        return (title_match || tags_match) && allergen_free && has_ingredients && has_utensils;
     }
 
     /**
@@ -166,6 +192,18 @@ public class SearchHandler {
         for(String i : recipe.getIngredients()) {
             boolean has_j = false;
             for(String j : ingredients) {
+                if(match_strings(i, j)) {
+                    has_j = true;
+                    break;
+                }
+            }
+            if(!has_j) { output -= 10.0; }
+        }
+
+        /* Deduct points for missing utensils */
+        for(String i : recipe.getUtensils()) {
+            boolean has_j = false;
+            for(String j : utensils) {
                 if(match_strings(i, j)) {
                     has_j = true;
                     break;

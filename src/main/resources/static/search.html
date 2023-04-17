@@ -24,7 +24,7 @@
                     <h1>Search Recipes</h1>
                     <input class="text_field" id="SEARCH_TEXT" placeholder="Enter search keyword here..."></input>
                     
-                    <h3>Ingredients</h3>
+                    <h3>Ingredients & Utensils</h3>
 
                     <input type="radio" name="INGREDIENTS_INPUT" value="ALL">
                     <label>Show only recipes I have everything for</label><br>
@@ -109,6 +109,7 @@
                 {
                     "query": "${search_text}",
                     "ingredients": "${search_ingredients}",
+                    "utensils": "${search_ingredients}",
                     "allergens": "${search_allergens}"
                 }
                 `
