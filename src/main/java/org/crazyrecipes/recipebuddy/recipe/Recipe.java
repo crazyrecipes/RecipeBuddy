@@ -1,5 +1,6 @@
 package org.crazyrecipes.recipebuddy.recipe;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +13,8 @@ import java.util.Vector;
  *   a list of utensils, a list of allergens, a list of steps, and a list of tags.
  */
 public class Recipe implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1802001L;
     private String id;
     private String name;
     private String desc;
