@@ -41,6 +41,7 @@ public class DatabaseController {
         this.ingredients = loadStringsFromFile(INGREDIENTS_STORE_FILE);
         this.utensils = loadStringsFromFile(UTENSILS_STORE_FILE);
         this.allergens = loadStringsFromFile(ALLERGENS_STORE_FILE);
+        cleanupPhotos();
         log.print("Init completed.");
     }
 
@@ -236,6 +237,7 @@ public class DatabaseController {
         saveStringsToFile(ingredients, INGREDIENTS_STORE_FILE);
         saveStringsToFile(utensils, UTENSILS_STORE_FILE);
         saveStringsToFile(allergens, ALLERGENS_STORE_FILE);
+        cleanupPhotos();
         log.print("Database reset complete.");
     }
 
@@ -379,5 +381,40 @@ public class DatabaseController {
         File f = new File(STORE_FILE);
         if(f.delete()) { return; }
         log.print(2, "I/O error deleting " + STORE_FILE + ".");
+    }
+
+    /**
+     * Deletes unused photos from disk.
+     */
+    private synchronized void cleanupPhotos() {
+        log.print(0, "Cleaning up photo database...");
+        Vector<String> recipe_ids = new Vector<>();
+        for(Recipe i : recipes) {
+            recipe_ids.add(i.getID());
+        }
+        File[] files = (new File("data/photos/")).listFiles();
+        if(files == null || files.length == 0) { return; }
+        int n_photos = 0;
+        for(File i : files) { if(i.isFile()) { n_photos++; } }
+        if(n_photos <= recipe_ids.size()) { return; }
+        log.print(1, "Found unused photos.");
+        for(File i : files) {
+            if(i.isFile()) {
+                boolean hasParentRecipe = false;
+                for(String j : recipe_ids) {
+                    if(i.getName().equals(j)) {
+                        hasParentRecipe = true;
+                        recipe_ids.remove(j);
+                        break;
+                    }
+                }
+                if(!hasParentRecipe) {
+                    log.print(0, "Deleting unused photo " + i.getName());
+                    if(!i.delete()) {
+                        log.print(1, "Failed to delete unused photo " + i.getName());
+                    }
+                }
+            }
+        }
     }
 }
