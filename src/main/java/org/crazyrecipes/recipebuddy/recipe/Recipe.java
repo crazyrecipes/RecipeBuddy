@@ -257,12 +257,18 @@ public class Recipe implements Serializable {
         }
         return Objects.equals(this.id, ((Recipe) other).getID()) &&
                 Objects.equals(this.name, ((Recipe) other).getName()) &&
-                Objects.equals(this.desc, ((Recipe) other).getDesc());
+                Objects.equals(this.desc, ((Recipe) other).getDesc()) &&
+                Objects.equals(this.rating, ((Recipe) other).getRating()) &&
+                Objects.equals(this.cooked, ((Recipe) other).getCooked()) &&
+                Objects.equals(this.ingredients, ((Recipe) other).getIngredients()) &&
+                Objects.equals(this.utensils, ((Recipe) other).getUtensils()) &&
+                Objects.equals(this.steps, ((Recipe) other).getSteps()) &&
+                Objects.equals(this.allergens, ((Recipe) other).getAllergens());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.name, this.desc, this.ingredients, this.allergens, this.utensils, this.steps);
+        return Objects.hash(this.id, this.name, this.desc, this.rating, this.cooked, this.ingredients, this.allergens, this.utensils, this.steps);
     }
 
     @Override
