@@ -231,6 +231,20 @@ public class Recipe implements Serializable {
         this.cooked++;
     }
 
+    private String vec_strings_to_json(Vector<String> s) {
+        if(s.size() == 0) { return "[]"; }
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for(String i : s) {
+            sb.append("\"");
+            sb.append(i);
+            sb.append("\",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append("]");
+        return sb.toString();
+    }
+
     @Override
     public boolean equals(Object other) {
         if(!(other instanceof Recipe)) {
@@ -248,7 +262,29 @@ public class Recipe implements Serializable {
 
     @Override
     public String toString() {
-        return "Recipe{" + "id='" + this.id + "', name='" + this.name + "', desc='" +
-                this.desc + "'}";
+        return String.format(
+                """
+                {
+                "id":"%s",
+                "name":"%s",
+                "desc":"%s",
+                "rating":"%f",
+                "cooked":"%d",
+                "ingredients":%s,
+                "utensils":%s,
+                "steps":%s,
+                "allergens":%s
+                }
+                """,
+                this.id,
+                this.name,
+                this.desc,
+                this.rating,
+                this.cooked,
+                vec_strings_to_json(this.ingredients),
+                vec_strings_to_json(this.utensils),
+                vec_strings_to_json(this.steps),
+                vec_strings_to_json(this.allergens)
+        );
     }
 }
