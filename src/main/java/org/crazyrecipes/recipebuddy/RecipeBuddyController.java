@@ -40,7 +40,6 @@ public class RecipeBuddyController {
             return databaseController.getRecipes();
         }
         throw new RateLimitException();
-
     }
 
     @PostMapping("/api/recipes")
@@ -51,7 +50,6 @@ public class RecipeBuddyController {
             return r;
         }
         throw new RateLimitException();
-
     }
 
     @GetMapping("/api/recipe/{id}")
@@ -77,7 +75,6 @@ public class RecipeBuddyController {
                 log.print(1, "Couldn't find recipe " + id + " in database.");
                 throw new NotFoundException();
             }
-
         }
         throw new RateLimitException();
     }
