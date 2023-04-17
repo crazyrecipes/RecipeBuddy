@@ -231,6 +231,11 @@ public class Recipe implements Serializable {
         this.cooked++;
     }
 
+    /**
+     * Convert a vector of strings to JSON
+     * @param s The vector to convert
+     * @return The vector converted to JSON
+     */
     private String vec_strings_to_json(Vector<String> s) {
         if(s.size() == 0) { return "[]"; }
         StringBuilder sb = new StringBuilder();
