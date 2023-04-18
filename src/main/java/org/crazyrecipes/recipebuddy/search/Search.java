@@ -78,18 +78,30 @@ public class Search {
         if(!(other instanceof Search)) { return false; }
         return Objects.equals(this.query, ((Search) other).getQuery()) &&
                 Objects.equals(this.ingredients, ((Search) other).getIngredients()) &&
+                Objects.equals(this.utensils, ((Search) other).getUtensils()) &&
                 Objects.equals(this.allergens, ((Search) other).getAllergens());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.query, this.ingredients, this.allergens);
+        return Objects.hash(this.query, this.ingredients, this.utensils, this.allergens);
     }
 
     @Override
     public String toString() {
-        return "Search{query='" + this.query + "', ingredients='" + this.ingredients +
-                "', allergens='" + this.allergens + "'}";
+        return String.format(
+                """
+                "query":"%s",
+                "ingredients":"%s",
+                "utensils":"%s",
+                "allergens":"%s"
+                }
+                """,
+                this.query,
+                this.ingredients,
+                this.utensils,
+                this.allergens
+        );
     }
 
 }

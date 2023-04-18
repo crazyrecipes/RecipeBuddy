@@ -255,8 +255,7 @@ public class Recipe implements Serializable {
         if(!(other instanceof Recipe)) {
             return false;
         }
-        return Objects.equals(this.id, ((Recipe) other).getID()) &&
-                Objects.equals(this.name, ((Recipe) other).getName()) &&
+        return Objects.equals(this.name, ((Recipe) other).getName()) &&
                 Objects.equals(this.desc, ((Recipe) other).getDesc()) &&
                 Objects.equals(this.rating, ((Recipe) other).getRating()) &&
                 Objects.equals(this.cooked, ((Recipe) other).getCooked()) &&
