@@ -23,7 +23,7 @@
 
                     <div class="spacer"></div>
 
-                    <h2>Allergens</h2>
+                    <h2>My Allergens</h2>
                     <input type="checkbox" id="ALLERGEN_PEANUTS" name="ALLERGENS_INPUT" value="Peanuts">
                     <label for="ALLERGEN_PEANUTS">Peanuts</label><br>
                     <input type="checkbox" id="ALLERGEN_TREE_NUTS" name="ALLERGENS_INPUT" value="Tree Nuts">
@@ -47,7 +47,22 @@
                     <input type="checkbox" id="ALLERGEN_MUSTARD" name="ALLERGENS_INPUT" value="Mustard">
                     <label for="ALLERGEN_MUSTARD">Mustard</label><br>
                     <div class="inline_button" onclick="handle_allergen_change()">Update Allergens</div>
+                    
                     <div class="spacer"></div>
+
+                    <h2>Back up Recipes</h2>
+                    <p>Click "Back Up Recipes" and copy the resulting text to somewhere safe.</p>
+                    <textarea id="RECIPE_BACKUP_TEXT" class="text_field_big" rows="10" placeholder="Paste recipe JSON here..."></textarea><br>
+                    <div class="inline_button" onclick="handle_backup_recipes()">Back Up Recipes</div>
+                    
+                    <div class="spacer"></div>
+
+                    <h2>Restore Recipes</h2>
+                    <p>Paste your recipe backup and click "Restore Recipes".</p>
+                    <p>This will update the information of recipes if they already exist or create new ones if they don't.</p>
+                    <textarea id="RECIPE_RESTORE_TEXT" class="text_field_big" rows="10" placeholder="Recipes will be exported here..."></textarea><br>
+                    <div class="inline_button" onclick="handle_restore_recipes()">Restore Recipes</div>
+
                     <p>Need help? <a href="https://crazyrecipes.github.io">Check out our website.</a></p>
                 </div>
             </div>
@@ -57,6 +72,8 @@
 
         <script>
             const ALLERGENS_URL = "api/allergens";
+            const BACKUP_URL = "api/backup";
+            const RESTORE_URL = "api/restore";
 
             /* ===== TOAST MESSAGE ===== */
             var toast_timeout;
@@ -139,6 +156,55 @@
                 }).catch(error => {
                     console.log(error);
                     show_toast("Something went wrong updating your allergens.");
+                });
+            }
+            
+            /* Back up recipes to JSON */
+            function handle_backup_recipes() {
+                console.log("Handle BACKUP recipes...");
+                show_toast("Backing up your recipes...");
+                /* Send request */
+                fetch(BACKUP_URL, {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                    },
+                }).then(async response => {
+                    if(!response.ok) {
+                        throw new Error("GET request failed!");
+                    }
+                    const data = await response.json();
+                    //console.log(data);
+                    document.getElementById("RECIPE_BACKUP_TEXT").value = JSON.stringify(data);
+                }).catch(error => {
+                    console.log(error);
+                    show_toast("Something went wrong backing up your recipes.");
+                });
+            }
+
+            /* Restore recipes from JSON */
+            function handle_restore_recipes() {
+                console.log("Handle RESTORE recipes...");
+                var recipes_json = document.getElementById("RECIPE_RESTORE_TEXT").value;
+
+                show_toast("Restoring your recipes...");
+                /* Send request */
+                fetch(RESTORE_URL, {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: recipes_json,
+                }).then(async response => {
+                    if(!response.ok) {
+                        throw new Error("GET request failed!");
+                    }
+                    //console.log(data);
+                    show_toast("Restored your recipes successfully.");
+                }).catch(error => {
+                    console.log(error);
+                    show_toast("Something went wrong restoring your recipes.");
                 });
             }
 
