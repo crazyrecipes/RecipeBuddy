@@ -7,15 +7,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * NotFoundAdvice provides HTTP 404 responses when requests attempt to access
- * or modify content that does not exist.
+ * ResourceUpdateAdvice provides HTTP 500 responses to failed requests.
  */
 @ControllerAdvice
-public class NotFoundAdvice {
+public class ResourceUpdateAdvice {
     @ResponseBody
-    @ExceptionHandler(RateLimitException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    String notFoundHandler(NotFoundException e) {
+    @ExceptionHandler(ResourceUpdateException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    String resourceUpdateHandler(ResourceUpdateException e) {
         return e.getMessage();
     }
 }

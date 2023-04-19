@@ -1,6 +1,7 @@
 package org.crazyrecipes.recipebuddy.database;
 
 import org.crazyrecipes.recipebuddy.error.NotFoundException;
+import org.crazyrecipes.recipebuddy.error.ResourceUpdateException;
 import org.crazyrecipes.recipebuddy.recipe.*;
 import org.crazyrecipes.recipebuddy.util.Log;
 import java.io.*;
@@ -213,6 +214,7 @@ public class DatabaseController {
             saveBytesToFile(image, "data/photos/"+id);
         } catch(RuntimeException e) {
             log.print(2, "Failed to write image.");
+            throw new ResourceUpdateException();
         }
     }
 
@@ -260,7 +262,8 @@ public class DatabaseController {
             return new Vector<>();
         } catch(IOException e) {
             log.print(2, "Error reading " + STORE_FILE + ".");
-            return new Vector<>();
+            throw new RuntimeException("Failed to read " + STORE_FILE + ".");
+            //return new Vector<>();
         } catch(ClassNotFoundException e) {
             log.print(2, "Class mismatch reading from " + STORE_FILE + ".");
             return new Vector<>();
@@ -282,8 +285,10 @@ public class DatabaseController {
             f.close();
         } catch(FileNotFoundException e) {
             log.print(2, "Couldn't find " + STORE_FILE + " on write.");
+            throw new ResourceUpdateException();
         } catch(IOException e) {
             log.print(2, "I/O error writing " + STORE_FILE + ".");
+            throw new ResourceUpdateException();
         }
     }
 
@@ -306,7 +311,8 @@ public class DatabaseController {
             return new Vector<>();
         } catch(IOException e) {
             log.print(2, "I/O error reading " + STORE_FILE + ".");
-            return new Vector<>();
+            throw new RuntimeException("Failed to read " + STORE_FILE + ".");
+            //return new Vector<>();
         } catch(ClassNotFoundException e) {
             log.print(2, "Class mismatch reading from " + STORE_FILE + ".");
             return new Vector<>();
@@ -328,8 +334,10 @@ public class DatabaseController {
             f.close();
         } catch(FileNotFoundException e) {
             log.print(2, "Couldn't find " + STORE_FILE + " on write.");
+            throw new ResourceUpdateException();
         } catch(IOException e) {
             log.print(2, "I/O error writing " + STORE_FILE + ".");
+            throw new ResourceUpdateException();
         }
     }
 
@@ -351,7 +359,8 @@ public class DatabaseController {
             return new byte[0];
         } catch(IOException e) {
             log.print(2, "Error reading " + STORE_FILE + ".");
-            return new byte[0];
+            throw new RuntimeException("Failed to read " + STORE_FILE + ".");
+            //return new byte[0];
         }
     }
 
@@ -368,8 +377,10 @@ public class DatabaseController {
             f.close();
         } catch(FileNotFoundException e) {
             log.print(2, "Couldn't find " + STORE_FILE + " on write.");
+            throw new ResourceUpdateException();
         } catch(IOException e) {
             log.print(2, "I/O error writing " + STORE_FILE + ".");
+            throw new ResourceUpdateException();
         }
     }
 
@@ -384,7 +395,7 @@ public class DatabaseController {
     }
 
     /**
-     * Deletes unused photos from disk.
+     * Cleans up unused photos from disk.
      */
     private synchronized void cleanupPhotos() {
         log.print(0, "Cleaning up photo database...");
