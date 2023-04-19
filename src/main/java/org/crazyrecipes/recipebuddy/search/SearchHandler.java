@@ -16,6 +16,7 @@ public class SearchHandler {
     Vector<String> utensils;
     Vector<String> allergens;
     Log log;
+    private final String SANITIZER_REGEX = "[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]";
 
     /**
      * Instantiates a SearchHandler
@@ -232,7 +233,9 @@ public class SearchHandler {
      * @return True if strings match
      */
     boolean match_strings(String base, String find) {
-        String pattern = (new StringBuilder()).append("(.*)").append(find).append("(.*)").toString();
-        return base.toLowerCase().matches(pattern.toLowerCase());
+        String s_base = base.replaceAll(SANITIZER_REGEX,"");
+        String s_find = find.replaceAll(SANITIZER_REGEX,"");
+        String pattern = (new StringBuilder()).append("(.*)").append(s_find).append("(.*)").toString();
+        return s_base.toLowerCase().matches(pattern.toLowerCase());
     }
 }
