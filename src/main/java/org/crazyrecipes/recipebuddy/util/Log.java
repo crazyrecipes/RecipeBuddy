@@ -5,7 +5,11 @@ import org.crazyrecipes.recipebuddy.RecipeBuddyMap;
 import java.util.Date;
 
 /**
- * Log provides functionality for logging events
+ * Log provides simple functionality for logging events by class.
+ * Log events can have one of three severity levels:
+ *  - 0: [  OK  ]
+ *  - 1: [ WARN ]
+ *  - 2: [ERROR!]
  */
 public class Log {
     private final String PREFIX = "(RecipeBuddyApplication) ";
