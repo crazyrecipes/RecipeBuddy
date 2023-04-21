@@ -25,7 +25,7 @@ public class Recipe implements Serializable {
     private Vector<String> allergens;
     private Vector<String> steps;
     private Vector<String> tags;
-    private final String SANITIZER_REGEX = "[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]";
+    private final String SANITIZER_REGEX = "[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()/_+-]";
 
     /**
      * Constructs a Recipe.

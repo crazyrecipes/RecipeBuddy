@@ -16,7 +16,7 @@ public class SearchHandler {
     Vector<String> utensils;
     Vector<String> allergens;
     Log log;
-    private final String SANITIZER_REGEX = "[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]";
+    private final String SANITIZER_REGEX = "[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()/_+-]";
 
     /**
      * Instantiates a SearchHandler

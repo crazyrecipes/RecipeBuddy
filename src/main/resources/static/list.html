@@ -7,13 +7,15 @@
     </head>
 
     <body>
-        <div class="navbar">
-            <a href="list.html"><div class="navbar_item">Home</div></a>
-            <a href="search.html"><div class="navbar_item">Search</div></a>
-            <a href="create.html"><div class="navbar_item">Create</div></a>
-            <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
-            <a href="settings.html"><div class="navbar_item">Settings</div></a>
-            <a href="help.html"><div class="navbar_item">Help</div></a>
+        <div class="navbar_container">
+            <div class="navbar">
+                <a href="list.html"><div class="navbar_item">Home</div></a>
+                <a href="search.html"><div class="navbar_item">Search</div></a>
+                <a href="create.html"><div class="navbar_item">Create</div></a>
+                <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
+                <a href="settings.html"><div class="navbar_item">Settings</div></a>
+                <a href="help.html"><div class="navbar_item">Help</div></a>
+            </div>
         </div>
 
         <div class="app_main">
@@ -93,6 +95,9 @@
                     formatted_result += recipeHTML;
                 }
                 document.getElementById("RECIPE_LIST").innerHTML = formatted_result;
+                if(recipe_json.length == 0) {
+                    show_toast("Couldn't find any matching recipes.");
+                }
             }
             
             /* Get and display relevant recipes */

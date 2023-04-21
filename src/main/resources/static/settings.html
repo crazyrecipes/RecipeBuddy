@@ -6,13 +6,15 @@
         <link rel="icon" type="image/png" href="media/favicon.png">
     </head>
     <body>
-        <div class="navbar">
-            <a href="list.html"><div class="navbar_item">Home</div></a>
-            <a href="search.html"><div class="navbar_item">Search</div></a>
-            <a href="create.html"><div class="navbar_item">Create</div></a>
-            <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
-            <a href="settings.html"><div class="navbar_item">Settings</div></a>
-            <a href="help.html"><div class="navbar_item">Help</div></a>
+        <div class="navbar_container">
+            <div class="navbar">
+                <a href="list.html"><div class="navbar_item">Home</div></a>
+                <a href="search.html"><div class="navbar_item">Search</div></a>
+                <a href="create.html"><div class="navbar_item">Create</div></a>
+                <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
+                <a href="settings.html"><div class="navbar_item">Settings</div></a>
+                <a href="help.html"><div class="navbar_item">Help</div></a>
+            </div>
         </div>
 
         <div class="app_main">
@@ -20,6 +22,7 @@
             <div class="content_container">
                 <div class="content_inner">
                     <h1>Settings</h1>
+                    <p>Select your allergens and back up your recipes here.</p>
 
                     <div class="spacer"></div>
 
@@ -52,20 +55,18 @@
 
                     <h2>Back up Recipes</h2>
                     <p>Click "Back Up Recipes" and copy the resulting text to somewhere safe.</p>
-                    <textarea id="RECIPE_BACKUP_TEXT" class="text_field_big" rows="10" placeholder="Paste recipe JSON here..."></textarea><br>
+                    <textarea id="RECIPE_BACKUP_TEXT" class="text_field_big" rows="10" placeholder="Recipes will be exported here..."></textarea><br>
                     <div class="inline_button" onclick="handle_backup_recipes()">Back Up Recipes</div>
                     
                     <div class="spacer"></div>
 
                     <h2>Restore Recipes</h2>
-                    <p>Paste your recipe backup and click "Restore Recipes".</p>
+                    <p>Paste your recipe backup JSON here and click "Restore Recipes".</p>
                     <p>This will update the information of recipes if they already exist or create new ones if they don't.</p>
-                    <textarea id="RECIPE_RESTORE_TEXT" class="text_field_big" rows="10" placeholder="Recipes will be exported here..."></textarea><br>
+                    <textarea id="RECIPE_RESTORE_TEXT" class="text_field_big" rows="10" placeholder="Paste recipes here to import..."></textarea><br>
                     <div class="inline_button" onclick="handle_restore_recipes()">Restore Recipes</div>
-
+                    
                     <div class="spacer"></div>
-
-                    <p>Need help? <a href="https://crazyrecipes.github.io">Check out our website.</a></p>
                 </div>
             </div>
         </div>
