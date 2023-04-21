@@ -185,7 +185,7 @@
                         for(k in j) {
                             if(is_time(j[k])) {
                                 //console.log("[DEBUG] Steps Parser: Found a time.");
-                                data.steps[i] += `&nbsp<button onclick="set_timer('${j[k]}')">Set Timer</button>`;
+                                data.steps[i] += `&nbsp<button class="timer_set_button" onclick="set_timer('${j[k]}')">Set Timer</button>`;
                             }
                         }
                     }

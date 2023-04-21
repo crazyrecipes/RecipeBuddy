@@ -95,6 +95,9 @@
                     formatted_result += recipeHTML;
                 }
                 document.getElementById("RECIPE_LIST").innerHTML = formatted_result;
+                if(recipe_json.length == 0) {
+                    show_toast("Couldn't find any matching recipes.");
+                }
             }
             
             /* Get and display relevant recipes */

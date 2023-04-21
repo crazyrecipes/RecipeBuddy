@@ -1,20 +1,20 @@
 /* ===== FONTS ===== */
 @font-face {
-    font-family: "Open Sans";
-    src: url("fonts/OpenSans-Medium.ttf");
+    font-family: "Source Sans Pro";
+    src: url("fonts/SourceSansPro-Regular.ttf");
 }
 @font-face {
-    font-family: "Open Sans Bold";
-    src: url("fonts/OpenSans-Bold.ttf");
+    font-family: "Source Sans Pro Bold";
+    src: url("fonts/SourceSansPro-Bold.ttf");
 }
 
 /* ===== GENERAL ===== */
 body {
-    font-family: "Open Sans", Verdana, sans-serif;
-    font-size: 16px;
+    font-family: "Source Sans Pro", Verdana, sans-serif;
+    font-size: 18px;
     background: rgb(229,232,236);
     background: linear-gradient(180deg, rgba(229,232,236,1) 0%, rgba(229,232,236,1) 80%, rgba(184,188,193,1) 100%);
-    color: black;
+    color: rgb(24,30,33);
     background-repeat: no-repeat;
     background-attachment: fixed;
     padding: 0;
@@ -22,7 +22,7 @@ body {
 }
 
 h1, h2, h3 {
-    font-family: "Open Sans Bold", Verdana, sans-serif;
+    font-family: "Source Sans Pro Bold", Verdana, sans-serif;
     margin: 8px 0px 0px 0px;
 }
 
@@ -60,26 +60,24 @@ a, a:hover {
     display: inline-block;
     margin: 8px 8px 0px 0px;
     padding: 6px 10px;
-    /*border: 1px solid black;*/
     border: none;
     border-radius: 5px;
-    color: black;
-    background: #d6dadc;
+    background: rgb(214,218,220);
+    color: rgb(24,30,33);
     transition-duration: 200ms;
 }
 
 .inline_button:hover {
-    background: black;
-    color: white;
+    background: rgb(24,30,33);
+    color: rgb(249,252,255);
 }
 
 .text_field {
     font: inherit;
     width: 500px;
     margin: 8px 0;
-    /*border: 1px solid black; */
     border: none;
-    background: #d6dadc;
+    background: rgb(214,218,220);
     padding: 6px;
     border-radius: 5px;
     overflow-x: scroll;
@@ -90,9 +88,8 @@ a, a:hover {
     font: inherit;
     width: 500px;
     margin: 8px 0;
-    /*border: 1px solid black; */
     border: none;
-    background: #d6dadc;
+    background: rgb(214,218,220);
     padding: 6px;
     border-radius: 5px;
     overflow-x: scroll;
@@ -103,9 +100,8 @@ a, a:hover {
     font: inherit;
     width: 40px;
     margin: 8px 0;
-    /*border: 1px solid black; */
     border: none;
-    background: #d6dadc;
+    background: rgb(214,218,220);
     padding: 6px;
     border-radius: 5px;
     overflow-x: scroll;
@@ -126,7 +122,7 @@ a, a:hover {
     width: 90%;
     max-width: 800px;
     min-width: 600px;
-    background: #d6dadc;
+    background: rgba(214,218,220,0.9);
     display: grid;
     border-radius: 5px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -137,17 +133,16 @@ a, a:hover {
 .navbar_item {
     margin: 4px;
     padding: 6px 10px;
-    color: black;
     background: none;
-    border: 1px solid rgba(0,0,0,0);
+    border: none;
     border-radius: 5px;
     transition-duration: 200ms;
     text-align: center;
-    text-decoration: none;
+    color: rgb(24,30,33);
 }
 
 .navbar_item:hover {
-    background: #bac1c4;
+    background: rgb(186,193,196);
 }
 
 /* ===== RECIPE PREVIEW ===== */
@@ -192,21 +187,17 @@ a, a:hover {
 
 .pantry_button {
     cursor: pointer;
-    font: inherit;
-    display: inline-block;
-    margin: 8px 8px 0px 0px;
-    padding: 0px 6px;
-    border-radius: 15px;
-    border: 1px solid black;
-    color: black;
-    background: none;
+    border-radius: 5px;
+    margin-left: 2px;
+    border: none;
+    color: inherit;
+    background: rgb(214,218,220);
     transition-duration: 200ms;
 }
 
 .pantry_button:hover {
-    border: 1px solid maroon;
-    background: maroon;
-    color: white;
+    background: rgb(24,30,33);
+    color: rgb(249,252,255);
 }
 
 /* ===== CONTENT ===== */
@@ -235,7 +226,6 @@ a, a:hover {
     width: auto;
     z-index: 997;
     box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
-    /*border: 1px solid black;*/
     border-radius: 5px;
     padding: 8px;
 }
@@ -244,13 +234,27 @@ a, a:hover {
     font: inherit;
     width: 140px;
     margin: 0;
-    /*border: 1px solid black*/;
     border: none;
-    background: #d6dadc;
+    background: rgb(214,218,220);
     padding: 4px;
     border-radius: 5px;
     overflow-x: scroll;
     overflow-y: hidden;
+}
+
+.timer_set_button {
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 2px;
+    border: none;
+    color: inherit;
+    background: rgb(214,218,220);
+    transition-duration: 200ms;
+}
+
+.timer_set_button:hover {
+    background: rgb(24,30,33);
+    color: rgb(249,252,255);
 }
 
 /* ===== TOAST ===== */
