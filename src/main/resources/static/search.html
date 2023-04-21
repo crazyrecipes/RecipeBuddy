@@ -7,13 +7,15 @@
     </head>
 
     <body>
-        <div class="navbar">
-            <a href="list.html"><div class="navbar_item">Home</div></a>
-            <a href="search.html"><div class="navbar_item">Search</div></a>
-            <a href="create.html"><div class="navbar_item">Create</div></a>
-            <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
-            <a href="settings.html"><div class="navbar_item">Settings</div></a>
-            <a href="help.html"><div class="navbar_item">Help</div></a>
+        <div class="navbar_container">
+            <div class="navbar">
+                <a href="list.html"><div class="navbar_item">Home</div></a>
+                <a href="search.html"><div class="navbar_item">Search</div></a>
+                <a href="create.html"><div class="navbar_item">Create</div></a>
+                <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
+                <a href="settings.html"><div class="navbar_item">Settings</div></a>
+                <a href="help.html"><div class="navbar_item">Help</div></a>
+            </div>
         </div>
 
         <div class="app_main">
@@ -75,6 +77,36 @@
             }
             /* ===== END TOAST MESSAGE ===== */
             
+            /* Show search results */
+            function show_results(results_json) {
+                formatted_result = "";
+                for(let i in results_json) {
+                    let recipe = results_json[i];
+                    //console.log(recipe);
+                    var recipeHTML = `
+                    <div class="recipepreview_container">
+                        <img class="recipepreview_photo" loading="lazy" src="api/photo/${recipe.id}">
+                        <div class="recipepreview_content">
+                            <h2>${recipe.name}</h2>
+                            <p>${recipe.rating}&#9733; - Cooked ${recipe.cooked} times.</p>
+                            <p>${recipe.desc}</p>
+                            <a href="viewer.html?id=${recipe.id}"><div class="inline_button">Make It</div></a>
+                            <a href="editor.html?id=${recipe.id}"><div class="inline_button">Edit</div></a>
+                        </div>
+                    </div>
+                    `
+                    formatted_result += recipeHTML;
+                }
+                if(results_json.length > 0) {
+                    console.log("Displaying results...");
+                    show_toast(`Found ${results_json.length} results.`);
+                    document.getElementById("SEARCH_RESULTS").innerHTML = formatted_result;
+                } else {
+                    console.log("No results!");
+                    show_toast("Your search didn't match any results.");
+                }
+            }
+
             /* Execute a search and display results */
             function do_search() {
                 console.log("Handling SEARCH...");
@@ -127,32 +159,7 @@
                 }).then(async response => {
                     const data = await response.json();
                     //console.log(data);
-                    formatted_result = "";
-                    for(let i in data) {
-                        let recipe = data[i];
-                        //console.log(recipe);
-                        var recipeHTML = `
-                        <div class="recipepreview_container">
-                            <img class="recipepreview_photo" loading="lazy" src="api/photo/${recipe.id}">
-                            <div class="recipepreview_content">
-                                <h2>${recipe.name}</h2>
-                                <p>${recipe.rating}&#9733; - Cooked ${recipe.cooked} times.</p>
-                                <p>${recipe.desc}</p>
-                                <a href="viewer.html?id=${recipe.id}"><div class="inline_button">Make It</div></a>
-                                <a href="editor.html?id=${recipe.id}"><div class="inline_button">Edit</div></a>
-                            </div>
-                        </div>
-                        `
-                        formatted_result += recipeHTML;
-                    }
-                    if(data.length > 0) {
-                        console.log("Displaying results...");
-                        show_toast(`Found ${data.length} results.`);
-                        document.getElementById("SEARCH_RESULTS").innerHTML = formatted_result;
-                    } else {
-                        console.log("No results!");
-                        show_toast("Your search didn't match any results.");
-                    }
+                    show_results(data);
                 }).catch(error => {
                     console.log(error);
                     show_toast("Something went wrong with your search.");

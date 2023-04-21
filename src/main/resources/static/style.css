@@ -12,8 +12,11 @@
 body {
     font-family: "Open Sans", Verdana, sans-serif;
     font-size: 16px;
-    background-color: rgb(220, 222, 225);
+    background: rgb(229,232,236);
+    background: linear-gradient(180deg, rgba(229,232,236,1) 0%, rgba(229,232,236,1) 80%, rgba(184,188,193,1) 100%);
     color: black;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     padding: 0;
     margin: 0;
 }
@@ -27,6 +30,10 @@ p {
     margin: 4px 0px;
 }
 
+a, a:hover {
+    text-decoration: inherit;
+}
+
 .spacer {
     height: 20px;
 }
@@ -34,8 +41,8 @@ p {
 .app_main {
     margin: 0;
     padding: 0;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 80px;
+    padding-bottom: 80px;
     min-width: 600px;
     overflow: visible;
 }
@@ -53,10 +60,11 @@ p {
     display: inline-block;
     margin: 8px 8px 0px 0px;
     padding: 6px 10px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
+    border: none;
     border-radius: 5px;
     color: black;
-    background: none;
+    background: #d6dadc;
     transition-duration: 200ms;
 }
 
@@ -69,7 +77,9 @@ p {
     font: inherit;
     width: 500px;
     margin: 8px 0;
-    border: 1px solid black;
+    /*border: 1px solid black; */
+    border: none;
+    background: #d6dadc;
     padding: 6px;
     border-radius: 5px;
     overflow-x: scroll;
@@ -80,7 +90,9 @@ p {
     font: inherit;
     width: 500px;
     margin: 8px 0;
-    border: 1px solid black;
+    /*border: 1px solid black; */
+    border: none;
+    background: #d6dadc;
     padding: 6px;
     border-radius: 5px;
     overflow-x: scroll;
@@ -91,7 +103,9 @@ p {
     font: inherit;
     width: 40px;
     margin: 8px 0;
-    border: 1px solid black;
+    /*border: 1px solid black; */
+    border: none;
+    background: #d6dadc;
     padding: 6px;
     border-radius: 5px;
     overflow-x: scroll;
@@ -100,43 +114,51 @@ p {
 
 /* ===== NAVBAR ===== */
 
-.navbar {
-    padding: 8px;
-    margin: 0;
+.navbar_container {
     position: fixed;
-    top: 0;
+    top: 12px;
     width: 100%;
     z-index: 998;
-    background: rgb(40,45,60);
-    color: white;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+}
+.navbar {
+    padding: 8px;
+    margin: 0 auto;
+    width: 90%;
+    max-width: 800px;
+    min-width: 600px;
+    background: #d6dadc;
+    display: grid;
+    border-radius: 5px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
 }
 
 .navbar_item {
-    display: inline-block;
-    margin: 4px 0px 4px 12px;
+    margin: 4px;
     padding: 6px 10px;
-    color: white;
+    color: black;
     background: none;
     border: 1px solid rgba(0,0,0,0);
     border-radius: 5px;
     transition-duration: 200ms;
+    text-align: center;
+    text-decoration: none;
 }
 
 .navbar_item:hover {
-    background: white;
-    color: black;
-    border: 1px solid white;
+    background: #bac1c4;
 }
 
 /* ===== RECIPE PREVIEW ===== */
 
 .recipepreview_container {
-    width: 80%;
+    width: 90%;
     max-width: 800px;
+    min-width: 600px;
     padding: 0;
     margin: 30px auto;
-    background: white;
+    background: rgb(249,252,255);
     box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
     border-radius: 5px;
     display: grid;
@@ -189,12 +211,12 @@ p {
 
 /* ===== CONTENT ===== */
 .content_container {
-    width: 80%;
+    width: 90%;
     max-width: 800px;
     min-width: 600px;
     padding: 0;
     margin: 0px auto;
-    background: white;
+    background: rgb(249,252,255);
     border-radius: 5px;
     box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
 }
@@ -208,12 +230,12 @@ p {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: white;
+    background: rgb(249,252,255);
     height: auto;
     width: auto;
     z-index: 997;
     box-shadow: 3px 3px 5px rgba(0,0,0,0.5);
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     border-radius: 5px;
     padding: 8px;
 }
@@ -222,7 +244,9 @@ p {
     font: inherit;
     width: 140px;
     margin: 0;
-    border: 1px solid black;
+    /*border: 1px solid black*/;
+    border: none;
+    background: #d6dadc;
     padding: 4px;
     border-radius: 5px;
     overflow-x: scroll;
