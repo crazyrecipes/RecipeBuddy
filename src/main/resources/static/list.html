@@ -22,7 +22,12 @@
             <div class="content_container">
                 <div class="content_inner">
                     <h1 id="GREETING">Hello!</h1>
-                    <p>Here's what you can make today.</p>
+                    <p>
+                        What can we help you make today?
+                    </p>
+                    <button class="inline_button" onclick="display_relevant_recipes()">Show most relevant recipes</button>
+                    <button class="inline_button" onclick="display_all_recipes()">Show all recipes</button>
+                    <a href="search.html"><button class="inline_button">Search for recipes</button></a>
                 </div>
             </div>
 
@@ -67,10 +72,31 @@
                 }
             }
             /* ===== END GREETING ===== */
-            
-            /* Get all recipes and display them */
 
-            function display_recipe_list() {
+            function show_recipes(recipe_json) {
+                let formatted_result = "";
+                for(let i in recipe_json) {
+                    let recipe = recipe_json[i];
+                    //console.log(recipe);
+                    let recipeHTML = `
+                    <div class="recipepreview_container">
+                        <img class="recipepreview_photo" loading="lazy" src="api/photo/${recipe.id}">
+                        <div class="recipepreview_content">
+                            <h1>${recipe.name}</h1>
+                            <p>${recipe.rating}&#9733; - Cooked ${recipe.cooked} times.</p>
+                            <p>${recipe.desc}</p>
+                            <a href="viewer.html?id=${recipe.id}"><div class="inline_button">Make It</div></a>
+                            <a href="editor.html?id=${recipe.id}"><div class="inline_button">Edit</div></a>
+                        </div>
+                    </div>
+                    `
+                    formatted_result += recipeHTML;
+                }
+                document.getElementById("RECIPE_LIST").innerHTML = formatted_result;
+            }
+            
+            /* Get and display relevant recipes */
+            function display_relevant_recipes() {
                 console.log("Handling DISPLAY recipes...");
                 const SEARCH_JSON = `
                 {
@@ -90,73 +116,46 @@
                 }).then(async response => {
                     const data = await response.json();
                     //console.log(data);
-                    let formatted_result = "";
-                    for(let i in data) {
-                        let recipe = data[i];
-                        //console.log(recipe);
-                        let recipeHTML = `
-                        <div class="recipepreview_container">
-                            <img class="recipepreview_photo" loading="lazy" src="api/photo/${recipe.id}">
-                            <div class="recipepreview_content">
-                                <h1>${recipe.name}</h1>
-                                <p>${recipe.rating}&#9733; - Cooked ${recipe.cooked} times.</p>
-                                <p>${recipe.desc}</p>
-                                <a href="viewer.html?id=${recipe.id}"><div class="inline_button">Make It</div></a>
-                                <a href="editor.html?id=${recipe.id}"><div class="inline_button">Edit</div></a>
-                            </div>
-                        </div>
-                        `
-                        formatted_result += recipeHTML;
-                    }
-
-                    document.getElementById("RECIPE_LIST").innerHTML = formatted_result;
+                    show_toast("Showing most relevant recipes.");
+                    show_recipes(data);
                 }).catch(error => {
                     console.log(error);
                     show_toast("Something went wrong fetching your recipes.");
                 });  
             }
 
-            /* [[ OLD RECIPE LIST FUNCTION ]]
-            function display_recipe_list() {
+            /* Get and display all recipes */
+            function display_all_recipes() {
                 console.log("Handling DISPLAY recipes...");
-                fetch(RECIPELIST_URL, {
-                    method: "GET",
+                const SEARCH_JSON = `
+                {
+                    "query": "",
+                    "ingredients": "NONE",
+                    "utensils": "NONE",
+                    "allergens": "SHOW"
+                }
+                `
+                fetch(SEARCH_URL, {
+                    method: "POST",
                     headers: {
                         "Accept": "application/json",
+                        "Content-Type": "application/json",
                     },
+                    body: SEARCH_JSON,
                 }).then(async response => {
                     const data = await response.json();
                     //console.log(data);
-                    let formatted_result = "";
-                    for(let i in data) {
-                        let recipe = data[i];
-                        //console.log(recipe);
-                        let recipeHTML = `
-                        <div class="recipepreview_container">
-                            <img class="recipepreview_photo" loading="lazy" src="api/photo/${recipe.id}">
-                            <div class="recipepreview_content">
-                                <h1>${recipe.name}</h1>
-                                <p>${recipe.rating}&#9733; - Cooked ${recipe.cooked} times.</p>
-                                <p>${recipe.desc}</p>
-                                <a href="viewer.html?id=${recipe.id}"><div class="inline_button">Make It</div></a>
-                                <a href="editor.html?id=${recipe.id}"><div class="inline_button">Edit</div></a>
-                            </div>
-                        </div>
-                        `
-                        formatted_result += recipeHTML;
-                    }
-
-                    document.getElementById("RECIPE_LIST").innerHTML = formatted_result;
+                    show_recipes(data);
+                    show_toast("Showing all recipes.");
                 }).catch(error => {
                     console.log(error);
                     show_toast("Something went wrong fetching your recipes.");
-                });
+                });  
             }
-            */
         
             /* ===== On page load: ===== */
             greet();
-            display_recipe_list();
+            display_relevant_recipes();
         </script>
     </body>
 </html>
