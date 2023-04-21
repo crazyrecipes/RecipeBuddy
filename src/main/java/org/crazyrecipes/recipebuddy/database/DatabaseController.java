@@ -1,5 +1,6 @@
 package org.crazyrecipes.recipebuddy.database;
 
+import org.crazyrecipes.recipebuddy.RecipeBuddyMap;
 import org.crazyrecipes.recipebuddy.error.NotFoundException;
 import org.crazyrecipes.recipebuddy.error.ResourceUpdateException;
 import org.crazyrecipes.recipebuddy.recipe.*;
@@ -78,6 +79,7 @@ public class DatabaseController {
         Recipe recipeToAdd = new Recipe();
         recipeToAdd.duplicate_from(newRecipe);
         recipes.add(recipeToAdd);
+        writePhoto(RecipeBuddyMap.FALLBACK_THUMBNAIL, recipeToAdd.getID());
         saveRecipesToFile(recipes, RECIPES_STORE_FILE);
         return recipeToAdd;
     }
@@ -125,6 +127,7 @@ public class DatabaseController {
             if(recipes.get(i).getID().equals(id)) {
                 recipes.remove(i);
                 saveRecipesToFile(recipes, RECIPES_STORE_FILE);
+                deletePhoto(id);
                 return;
             }
         }

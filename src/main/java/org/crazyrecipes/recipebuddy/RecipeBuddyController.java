@@ -65,9 +65,7 @@ public class RecipeBuddyController {
     @PostMapping("/api/recipes")
     Recipe createRecipe(@RequestBody Recipe newRecipe) {
         if(bucket.tryConsume(1)) {
-            Recipe r = databaseController.createRecipe(newRecipe);
-            databaseController.writePhoto(RecipeBuddyMap.FALLBACK_THUMBNAIL, r.getID());
-            return r;
+            return databaseController.createRecipe(newRecipe);
         }
         throw new RateLimitException();
     }
@@ -123,7 +121,6 @@ public class RecipeBuddyController {
             log.print("Handling delete for recipe " + id);
             try {
                 databaseController.deleteRecipe(id);
-                databaseController.deletePhoto(id);
             } catch(NotFoundException e) {
                 log.print(1, "Couldn't find recipe " + id + " in database.");
                 throw new NotFoundException();
