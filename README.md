@@ -1,5 +1,5 @@
 # RecipeBuddy
-Simple, powerful recipe cataloguing.
+Simple, powerful recipe cataloguing for busy people.
 
 # Contribution
 You can use VScode to edit individual files, but using IntelliJ is recommended because it integrates well with Maven and Spring.
