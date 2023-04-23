@@ -80,12 +80,16 @@
                 for(let i in recipe_json) {
                     let recipe = recipe_json[i];
                     //console.log(recipe);
+                    let rating_disp = "";
+                    for(i = 0; i < recipe.rating; i++) {
+                        rating_disp += "&#9733 ";
+                    }
                     let recipeHTML = `
                     <div class="recipepreview_container">
                         <img class="recipepreview_photo" loading="lazy" src="api/photo/${recipe.id}">
                         <div class="recipepreview_content">
                             <h1>${recipe.name}</h1>
-                            <p>${recipe.rating}&#9733; - Cooked ${recipe.cooked} times.</p>
+                            <p>${rating_disp} - Cooked ${recipe.cooked} times.</p>
                             <p>${recipe.desc}</p>
                             <a href="viewer.html?id=${recipe.id}"><div class="inline_button">Make It</div></a>
                             <a href="editor.html?id=${recipe.id}"><div class="inline_button">Edit</div></a>

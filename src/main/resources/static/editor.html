@@ -44,7 +44,10 @@
                     <div class="spacer"></div>
 
                     <h3>Rating</h3>
-                    <input class="text_field_small" id="RECIPE_RATING" placeholder="0-5"></input>&#9733;
+                    <p id="RECIPE_RATING"></p>
+                    <input type="range" id="RECIPE_RATING_INPUT" min="1" max="5" step="1">
+
+                    <!-- <input class="text_field_small" id="RECIPE_RATING" placeholder="0-5"></input>&#9733; -->
 
                     <div class="spacer"></div>
 
@@ -136,6 +139,7 @@
             }
             /* ===== END TOAST MESSAGE ===== */
 
+            /* Handle user upload of photos */
             function handle_photo_upload(input) {
                 if(input.files[0].size < MAX_UPLOAD_SIZE) {
                     show_toast("Uploading photo...");
@@ -161,7 +165,6 @@
                 } else {
                     show_toast("Your photo is too large!");
                 }
-                
             }
 
             /* Fetch single recipe and display data in editor */
@@ -188,13 +191,19 @@
                     document.getElementById("RECIPE_NAME").value = data.name;
                     document.getElementById("RECIPE_DESC").value = data.desc;
                     document.getElementById("RECIPE_PHOTO").src = PHOTO_URL;
-                    document.getElementById("RECIPE_RATING").value = data.rating;
                     document.getElementById("RECIPE_COOKED").value = data.cooked;
                     document.getElementById("RECIPE_INGREDIENTS").value = recipe_ingredients;
                     document.getElementById("RECIPE_UTENSILS").value = recipe_utensils;
                     document.getElementById("RECIPE_STEPS").value = recipe_steps;
                     document.getElementById("RECIPE_TAGS").value = recipe_tags;
-
+                    
+                    document.getElementById("RECIPE_RATING_INPUT").value = data.rating;
+                    let rating_disp = "";
+                    for(i = 0; i < data.rating; i++) {
+                        rating_disp += "&#9733 ";
+                    }
+                    document.getElementById("RECIPE_RATING").innerHTML = rating_disp;
+                    
                     var allergens_inputs = document.getElementsByName("ALLERGENS_INPUT");
                     for(let i in data.allergens) {
                         for(j = 0; j < allergens_inputs.length; j++) {
@@ -220,7 +229,7 @@
                 var recipe_desc = document.getElementById("RECIPE_DESC").value;
                 console.log(`..with desc "${recipe_desc}"`);
 
-                var recipe_rating = document.getElementById("RECIPE_RATING").value;
+                var recipe_rating = parseInt(document.getElementById("RECIPE_RATING_INPUT").value);
                 console.log(`..with rating "${recipe_rating}"`);
 
                 var recipe_cooked = document.getElementById("RECIPE_COOKED").value;
@@ -303,6 +312,16 @@
                     show_toast("Something went wrong deleting your recipe.");
                 })
             }
+
+            var ratingInput = document.getElementById("RECIPE_RATING_INPUT");
+            var ratingStatus = document.getElementById("RECIPE_RATING");
+            ratingInput.addEventListener("input", function() {
+                var output = "";
+                for(i = 0; i < ratingInput.value; i++) {
+                    output += "&#9733 ";
+                }
+                ratingStatus.innerHTML = output;
+            })
 
             /* ===== On page load ===== */
             display_recipe();

@@ -195,12 +195,16 @@
                     recipe_steps = data.steps.join("<br>");
                     recipe_allergens = data.allergens.join("<br>");
                     recipe_tags = data.tags.join(",");
+                    let rating_disp = "";
+                    for(i = 0; i < data.rating; i++) {
+                        rating_disp += "&#9733 ";
+                    }
                     
                     var recipeHTML = `
                         <img class="recipeviewer_photo" src="${PHOTO_URL}">
                         <h1>${data.name}</h1>
                         <p>${data.desc}</p>
-                        <p>${data.rating}&#9733; - Cooked ${data.cooked} times.</p>
+                        <p>${rating_disp} - Cooked ${data.cooked} times.</p>
                         <div class="spacer"></div>
                         <h2>Ingredients</h2>
                         <p>${recipe_ingredients}</p>
