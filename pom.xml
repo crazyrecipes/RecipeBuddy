@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.crazyrecipes</groupId>
 	<artifactId>recipebuddy</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.0-BETA</version>
 	<name>recipebuddy</name>
 	<description>recipebuddy</description>
 	<properties>
