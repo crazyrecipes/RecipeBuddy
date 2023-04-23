@@ -19,7 +19,7 @@ Simple, powerful recipe cataloguing for busy people.
 
 To set up RecipeBuddy, just download the latest release and extract the .zip. The result should look something like this:
 ```
-/ RecipeBuddy_v0.1.0
+/ RecipeBuddy_v1.0.0
   / RecipeBuddy.jar
   / data
     / ...
