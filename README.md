@@ -17,4 +17,13 @@ Simple, powerful recipe cataloguing for busy people.
 ## How To Use
 > RecipeBuddy requires Java 17 or newer. You can download it [here](https://www.oracle.com/java/technologies/downloads/#java17) if you don't already have it. (Linux users just need to install the package "openjdk-17-jre-headless")
 
-TODO finish readme
+To set up RecipeBuddy, just download the latest release and extract the .zip. The result should look something like this:
+```
+/ RecipeBuddy_v0.1.0
+  / RecipeBuddy.jar
+  / data
+    / ...
+```
+Double-click the .jar to run the app. A terminal should pop up with some log events showing the app has started up. (you can also run the .jar with the following command from a terminal: "java -jar RecipeBuddy.jar").
+
+Once the app has started, just open a browser to "http://localhost:8080", and you should see a screen letting you know you're in the right place.
