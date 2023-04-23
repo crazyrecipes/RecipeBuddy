@@ -156,6 +156,7 @@
                                 throw new Error("POST request failed!");
                             }
                             show_toast("Photo uploaded.");
+                            document.getElementById("RECIPE_PHOTO").src = event.target.result;
                         }).catch(error => {
                             console.log(error);
                             show_toast("Something went wrong uploading your photo.");
