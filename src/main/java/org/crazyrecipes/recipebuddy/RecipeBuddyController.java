@@ -32,15 +32,17 @@ public class RecipeBuddyController {
      * will exist. This will also instantiate a DatabaseController to handle the cache
      * and interactions with the filesystem.
      */
-    RecipeBuddyController() {
+    public RecipeBuddyController() {
         this.log = new Log("RecipeBuddyController");
         log.print("Starting up...");
         this.databaseController = new DatabaseController();
         Bandwidth limit = Bandwidth.classic(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE,
                 Refill.greedy(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE, Duration.ofMinutes(1)));
         this.bucket = Bucket.builder().addLimit(limit).build();
-        log.print("Init completed. Welcome to RecipeBuddy.");
-    };
+        log.print("=====                                         =====");
+        log.print("===== Init completed. Welcome to RecipeBuddy. =====");
+        log.print("=====                                         =====");
+    }
 
     /* ===== RECIPES ===== */
 
@@ -49,7 +51,7 @@ public class RecipeBuddyController {
      * @return A list of all recipes
      */
     @GetMapping("/api/recipes")
-    List<Recipe> readRecipes() {
+    public List<Recipe> readRecipes() {
         if(bucket.tryConsume(1)) {
             return databaseController.getRecipes();
         }
@@ -63,7 +65,7 @@ public class RecipeBuddyController {
      * @return the created Recipe with the assigned ID
      */
     @PostMapping("/api/recipes")
-    Recipe createRecipe(@RequestBody Recipe newRecipe) {
+    public Recipe createRecipe(@RequestBody Recipe newRecipe) {
         if(bucket.tryConsume(1)) {
             return databaseController.createRecipe(newRecipe);
         }
@@ -77,7 +79,7 @@ public class RecipeBuddyController {
      * @return The recipe with the given ID
      */
     @GetMapping("/api/recipe/{id}")
-    Recipe readRecipe(@PathVariable String id) {
+    public Recipe readRecipe(@PathVariable String id) {
         if(bucket.tryConsume(1)) {
             try {
                 return databaseController.getRecipe(id);
@@ -97,7 +99,7 @@ public class RecipeBuddyController {
      * @return The updated Recipe
      */
     @PutMapping("/api/recipe/{id}")
-    Recipe updateRecipe(@RequestBody Recipe newRecipe, @PathVariable String id) {
+    public Recipe updateRecipe(@RequestBody Recipe newRecipe, @PathVariable String id) {
         if(bucket.tryConsume(1)) {
             log.print("Handling update for recipe " + id);
             try {
@@ -116,7 +118,7 @@ public class RecipeBuddyController {
      * @param id The ID of the Recipe to delete
      */
     @DeleteMapping("/api/recipe/{id}")
-    void deleteRecipe(@PathVariable String id) {
+    public void deleteRecipe(@PathVariable String id) {
         if(bucket.tryConsume(1)) {
             log.print("Handling delete for recipe " + id);
             try {
@@ -136,7 +138,7 @@ public class RecipeBuddyController {
      * @param id The ID of the recipe to update
      */
     @PostMapping("/api/cook/{id}")
-    void cookRecipe(@PathVariable String id) {
+    public void cookRecipe(@PathVariable String id) {
         if(bucket.tryConsume(1)) {
             log.print("Handling increment times cooked for recipe " + id);
             try {
@@ -157,7 +159,7 @@ public class RecipeBuddyController {
      * @return The list of allergens
      */
     @GetMapping("/api/allergens")
-    List<String> readAllergens() {
+    public List<String> readAllergens() {
         if(bucket.tryConsume(1)) {
             return databaseController.readAllergens();
         }
@@ -171,7 +173,7 @@ public class RecipeBuddyController {
      * @return The new list of allergens
      */
     @PostMapping("api/allergens")
-    List<String> updateAllergens(@RequestBody List<String> newAllergens) {
+    public List<String> updateAllergens(@RequestBody List<String> newAllergens) {
         if(bucket.tryConsume(1)) {
             log.print("Handling update of allergens.");
             return databaseController.writeAllergens(newAllergens);
@@ -186,7 +188,7 @@ public class RecipeBuddyController {
      * @return The list of ingredients
      */
     @GetMapping("/api/ingredients")
-    List<String> readIngredients() {
+    public List<String> readIngredients() {
         if(bucket.tryConsume(1)) {
             return databaseController.readIngredients();
         }
@@ -199,7 +201,7 @@ public class RecipeBuddyController {
      * @return The new list of ingredients
      */
     @PostMapping("/api/ingredients")
-    List<String> updateIngredients(@RequestBody List<String> newIngredients) {
+    public List<String> updateIngredients(@RequestBody List<String> newIngredients) {
         if(bucket.tryConsume(1)) {
             log.print("Handling update of ingredients.");
             return databaseController.writeIngredients(newIngredients);
@@ -214,7 +216,7 @@ public class RecipeBuddyController {
      * @return The list of utensils
      */
     @GetMapping("/api/utensils")
-    List<String> readUtensils() {
+    public List<String> readUtensils() {
         if(bucket.tryConsume(1)) {
             return databaseController.readUtensils();
         }
@@ -227,7 +229,7 @@ public class RecipeBuddyController {
      * @return The new list of utensils
      */
     @PostMapping("api/utensils")
-    List<String> updateUtensils(@RequestBody List<String> newUtensils) {
+    public List<String> updateUtensils(@RequestBody List<String> newUtensils) {
         if(bucket.tryConsume(1)) {
             log.print("Handling update of utensils.");
             return databaseController.writeUtensils(newUtensils);
@@ -243,7 +245,7 @@ public class RecipeBuddyController {
      * @return Search results, ranked by relevance and quality
      */
     @PostMapping("api/search")
-    List<Recipe> doSearch(@RequestBody Search s_query) {
+    public List<Recipe> doSearch(@RequestBody Search s_query) {
         if(bucket.tryConsume(1)) {
             log.print("Handling search.");
             return (new SearchHandler(databaseController.getRecipes(),
@@ -263,7 +265,7 @@ public class RecipeBuddyController {
      * @return The photo with the specified ID
      */
     @GetMapping(value = "api/photo/{id}")
-    byte[] getPhoto(@PathVariable String id) {
+    public byte[] getPhoto(@PathVariable String id) {
         if(bucket.tryConsume(1)) {
             try {
                 return databaseController.readPhoto(id);
@@ -281,7 +283,7 @@ public class RecipeBuddyController {
      * @param id ID of the photo to update
      */
     @PostMapping("api/photo/{id}")
-    void putPhoto(@RequestBody String item, @PathVariable String id) {
+    public void putPhoto(@RequestBody String item, @PathVariable String id) {
         if(bucket.tryConsume(1)) {
             databaseController.writePhoto(item, id);
             return;
@@ -297,7 +299,7 @@ public class RecipeBuddyController {
      * @return List of all recipes
      */
     @GetMapping("api/backup")
-    List<Recipe> backupRecipes() {
+    public List<Recipe> backupRecipes() {
         if(bucket.tryConsume(1)) {
             return databaseController.getRecipes();
         }
@@ -310,7 +312,7 @@ public class RecipeBuddyController {
      * @param newRecipes List of recipes to restore
      */
     @PostMapping("/api/restore")
-    void restoreRecipes(@RequestBody List<Recipe> newRecipes) {
+    public void restoreRecipes(@RequestBody List<Recipe> newRecipes) {
         if(bucket.tryConsume(1)) {
             log.print("Restoring " + newRecipes.size() + " recipes from backup.");
             for(Recipe i : newRecipes) {
