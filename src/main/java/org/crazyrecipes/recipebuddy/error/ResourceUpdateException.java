@@ -5,6 +5,9 @@ package org.crazyrecipes.recipebuddy.error;
  * specified by a request fails.
  */
 public class ResourceUpdateException extends RuntimeException {
+    /**
+     * Instantiates a ResourceUpdateException.
+     */
     public ResourceUpdateException() {
         super("Failed to update resource.");
     }

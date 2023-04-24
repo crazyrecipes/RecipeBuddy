@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.crazyrecipes.recipebuddy"},{"l":"org.crazyrecipes.recipebuddy.database"},{"l":"org.crazyrecipes.recipebuddy.error"},{"l":"org.crazyrecipes.recipebuddy.recipe"},{"l":"org.crazyrecipes.recipebuddy.search"},{"l":"org.crazyrecipes.recipebuddy.util"}];updateSearchResults();

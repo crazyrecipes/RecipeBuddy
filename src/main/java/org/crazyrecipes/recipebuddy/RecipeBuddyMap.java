@@ -1,5 +1,8 @@
 package org.crazyrecipes.recipebuddy;
 
+/**
+ * Stores constants that are accessed by multiple classes
+ */
 public class RecipeBuddyMap {
     /**
      * Maximum amount of requests that the API will process per minute.

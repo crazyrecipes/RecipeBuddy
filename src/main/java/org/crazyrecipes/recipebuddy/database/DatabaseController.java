@@ -26,7 +26,7 @@ public class DatabaseController {
     private Vector<String> ingredients;
     private Vector<String> utensils;
     private Vector<String> allergens;
-    private Log log;
+    private final Log log;
 
     /**
      * Instantiates a DatabaseController.
@@ -145,7 +145,7 @@ public class DatabaseController {
 
     /**
      * Writes ingredients list.
-     * @param newIngredients Ingredients list to write.
+     * @param newIngredients Ingredients list to write
      * @return The posted ingredients.
      */
     public synchronized List<String> writeIngredients(List<String> newIngredients) {
@@ -165,7 +165,7 @@ public class DatabaseController {
 
     /**
      * Writes utensils list.
-     * @param newUtensils Utensils list to post
+     * @param newUtensils Utensils list to write
      * @return The posted utensils
      */
     public synchronized List<String> writeUtensils(List<String> newUtensils) {
@@ -185,7 +185,7 @@ public class DatabaseController {
 
     /**
      * Writes allergens list.
-     * @param newAllergens Allergens list to post
+     * @param newAllergens Allergens list to write
      * @return The posted allergens
      */
     public synchronized List<String> writeAllergens(List<String> newAllergens) {

@@ -6,7 +6,14 @@ import org.crazyrecipes.recipebuddy.recipe.Recipe;
  * Result stores a single Recipe and its score as a double.
  */
 public class Result implements Comparable<Result> {
+    /**
+     * This Result's contained Recipe
+     */
     public Recipe recipe;
+
+    /**
+     * This Result's contained score
+     */
     public double score;
 
     /**

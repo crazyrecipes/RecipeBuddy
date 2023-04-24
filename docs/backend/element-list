@@ -1,0 +1,6 @@
+org.crazyrecipes.recipebuddy
+org.crazyrecipes.recipebuddy.database
+org.crazyrecipes.recipebuddy.error
+org.crazyrecipes.recipebuddy.recipe
+org.crazyrecipes.recipebuddy.search
+org.crazyrecipes.recipebuddy.util

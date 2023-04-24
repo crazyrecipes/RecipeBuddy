@@ -6,10 +6,10 @@ import java.util.Objects;
  * Search holds the parameters of a single user search.
  */
 public class Search {
-    String query;
-    String ingredients;
-    String utensils;
-    String allergens;
+    private String query;
+    private String ingredients;
+    private String utensils;
+    private String allergens;
 
     /**
      * Instantiates a Search with the given parameters.

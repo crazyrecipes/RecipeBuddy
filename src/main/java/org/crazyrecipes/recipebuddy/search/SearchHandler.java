@@ -11,12 +11,12 @@ import java.util.Vector;
  * SearchHandler provides functionality for searching recipes.
  */
 public class SearchHandler {
-    Vector<Recipe> recipes;
-    Vector<String> ingredients;
-    Vector<String> utensils;
-    Vector<String> allergens;
-    Log log;
-    private final String SANITIZER_REGEX = "[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()/_+-]";
+    private final Vector<Recipe> recipes;
+    private final Vector<String> ingredients;
+    private final Vector<String> utensils;
+    private final Vector<String> allergens;
+    private final Log log;
+    private final String SANITIZER_REGEX;
 
     /**
      * Instantiates a SearchHandler
@@ -36,6 +36,7 @@ public class SearchHandler {
         this.ingredients.addAll(ingredients);
         this.utensils.addAll(utensils);
         this.allergens.addAll(allergens);
+        SANITIZER_REGEX = "[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()/_+-]";
     }
 
     /**
@@ -129,33 +130,33 @@ public class SearchHandler {
         }
 
         /* Handle choice for showing allergens */
-        if(search.allergens.equals("SHOW") && !allergen_free) {
+        if(search.getAllergens().equals("SHOW") && !allergen_free) {
             allergen_free = true;
         }
 
         /* Handle choice for recipes only showing all ingredients */
-        if(search.ingredients.equals("ALL") && ingredients_missing == 0) {
+        if(search.getIngredients().equals("ALL") && ingredients_missing == 0) {
             has_ingredients = true;
         }
         /* Handle choice for showing recipes missing a couple ingredients */
-        else if(search.ingredients.equals("SOME") && ingredients_missing < 4) {
+        else if(search.getIngredients().equals("SOME") && ingredients_missing < 4) {
             has_ingredients = true;
         }
         /* Handle choice for not caring about ingredients */
-        else if(search.ingredients.equals("NONE")) {
+        else if(search.getIngredients().equals("NONE")) {
             has_ingredients = true;
         }
 
         /* Handle choice for recipes only showing all utensils */
-        if(search.utensils.equals("ALL") && utensils_missing == 0) {
+        if(search.getUtensils().equals("ALL") && utensils_missing == 0) {
             has_utensils = true;
         }
         /* Handle choice for showing recipes missing a couple utensils */
-        else if(search.utensils.equals("SOME") && utensils_missing < 4) {
+        else if(search.getUtensils().equals("SOME") && utensils_missing < 4) {
             has_utensils = true;
         }
         /* Handle choice for not caring about utensils */
-        else if(search.utensils.equals("NONE")) {
+        else if(search.getUtensils().equals("NONE")) {
             has_utensils = true;
         }
 
@@ -235,7 +236,7 @@ public class SearchHandler {
     boolean match_strings(String base, String find) {
         String s_base = base.replaceAll(SANITIZER_REGEX,"");
         String s_find = find.replaceAll(SANITIZER_REGEX,"");
-        String pattern = (new StringBuilder()).append("(.*)").append(s_find).append("(.*)").toString();
+        String pattern = "(.*)" + s_find + "(.*)";
         return s_base.toLowerCase().matches(pattern.toLowerCase());
     }
 }

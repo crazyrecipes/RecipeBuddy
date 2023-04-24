@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ControllerAdvice
 public class RateLimitAdvice {
+    /**
+     * Tells Spring how to handle a RateLimitException
+     * @param e RateLimitException to handle
+     * @return The RateLimitException's message
+     */
     @ResponseBody
     @ExceptionHandler(RateLimitException.class)
     @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)

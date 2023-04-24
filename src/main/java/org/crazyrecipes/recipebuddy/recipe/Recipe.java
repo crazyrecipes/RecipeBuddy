@@ -15,16 +15,59 @@ import java.util.Vector;
 public class Recipe implements Serializable {
     @Serial
     private static final long serialVersionUID = 1802001L;
+    /**
+     * The Recipe's unique ID
+     */
     private String id;
+
+    /**
+     * The Recipe's name
+     */
     private String name;
+
+    /**
+     * The Recipe's description
+     */
     private String desc;
+
+    /**
+     * The Recipe's rating
+     */
     private double rating;
+
+    /**
+     * How many times the Recipe has been cooked
+     */
     private int cooked;
+
+    /**
+     * The Recipe's ingredients
+     */
     private Vector<String> ingredients;
+
+    /**
+     * The Recipe's utensils
+     */
     private Vector<String> utensils;
+
+    /**
+     * The Recipe's allergens
+     */
     private Vector<String> allergens;
+
+    /**
+     * The steps to make the Recipe
+     */
     private Vector<String> steps;
+
+    /**
+     * The Recipe's tags
+     */
     private Vector<String> tags;
+
+    /**
+     * Regex used to remove invalid characters from input
+     */
     private final String SANITIZER_REGEX = "[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()/_+-]";
 
     /**
@@ -81,8 +124,8 @@ public class Recipe implements Serializable {
     public double getRating() { return this.rating; }
 
     /**
-     * Returns this Recipe's cooked counter.
-     * @return this Recipe's cooked counter
+     * Returns this Recipe's times cooked counter.
+     * @return this Recipe's times cooked counter
      */
     public int getCooked() { return this.cooked; }
 
@@ -147,8 +190,8 @@ public class Recipe implements Serializable {
     public void setRating(double rating) { this.rating = rating; }
 
     /**
-     * Sets this Recipe's cooked counter.
-     * @param cooked this Recipe's cooked counter
+     * Sets this Recipe's times cooked counter.
+     * @param cooked this Recipe's times cooked counter
      */
     public void setCooked(int cooked) { this.cooked = cooked; }
 

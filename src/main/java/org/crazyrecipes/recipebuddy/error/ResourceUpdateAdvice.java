@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ControllerAdvice
 public class ResourceUpdateAdvice {
+    /**
+     * Tells Spring how to handle a ResourceUpdateException.
+     * @param e ResourceUpdateException to handle.
+     * @return The ResourceUpdateException's message.
+     */
     @ResponseBody
     @ExceptionHandler(ResourceUpdateException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

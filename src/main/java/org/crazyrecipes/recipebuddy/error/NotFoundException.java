@@ -5,6 +5,9 @@ package org.crazyrecipes.recipebuddy.error;
  * modify content that does not exist.
  */
 public class NotFoundException extends RuntimeException {
+    /**
+     * Instantiates a NotFoundException.
+     */
     public NotFoundException() {
         super("Not Found");
     }
