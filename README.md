@@ -24,6 +24,6 @@ To set up RecipeBuddy, just download the [latest release](https://github.com/cra
   / data
     / ...
 ```
-Double-click the .jar to run the app. A terminal should pop up with some log events showing the app has started up. (you can also run the .jar with the following command from a terminal: "java -jar RecipeBuddy.jar").
+Run RecipeBuddy.sh to start the app. A terminal should pop up with some log events showing the app has started up. (you can also run the .jar directly with the following command from a terminal: "java -jar recipebuddy-vXX.XX.XX.jar").
 
 Once the app has started, just open a browser to "http://localhost:8080", and you should see a screen letting you know you're in the right place.
