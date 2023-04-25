@@ -83,6 +83,7 @@
                     let rating_disp = "";
                     for(i = 0; i < recipe.rating; i++) {
                         rating_disp += "&#9733 ";
+                        if(i > 5) { break; }
                     }
                     let recipeHTML = `
                     <div class="recipepreview_container">

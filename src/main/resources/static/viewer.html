@@ -198,6 +198,7 @@
                     let rating_disp = "";
                     for(i = 0; i < data.rating; i++) {
                         rating_disp += "&#9733 ";
+                        if(i > 5) { break; }
                     }
                     
                     var recipeHTML = `
