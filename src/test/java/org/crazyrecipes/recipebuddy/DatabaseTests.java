@@ -1,6 +1,7 @@
 package org.crazyrecipes.recipebuddy;
 
 import org.crazyrecipes.recipebuddy.database.DatabaseController;
+import org.crazyrecipes.recipebuddy.error.NotFoundException;
 import org.crazyrecipes.recipebuddy.recipe.Recipe;
 import org.crazyrecipes.recipebuddy.util.Log;
 import org.junit.jupiter.api.Test;
@@ -185,12 +186,12 @@ class DatabaseTests {
     }
 
     /**
-     * Preloads database.
+     * Tests reading and writing photos
      */
     @Test
-    public void testPreload() {
+    public void testPhotos() {
         Log log = new Log("DatabaseTests");
-        log.print("===== Beginning database preload... =====");
+        log.print("===== Beginning database photos test. ====");
 
         log.print("Instantiating a DatabaseController...");
         DatabaseController dbc = new DatabaseController();
@@ -198,69 +199,25 @@ class DatabaseTests {
         log.print("Resetting database...");
         dbc.reset();
 
-        log.print("Checking recipe cache...");
-        assert dbc.getRecipes().size() == 0;
-
-        log.print("Database reset succeeded.");
-
         log.print("Populating database with test content...");
-        Vector<String> ingredients;
-        Vector<String> utensils;
-        Vector<String> allergens;
-        Vector<String> steps;
-        Vector<String> tags;
-        Recipe recipe;
+        Recipe r = dbc.createRecipe(new Recipe());
+        String photo_id = r.getID();
 
-        /* ===== FIRST PRELOADED RECIPE ===== */
+        log.print("Checking for presence of photo...");
+        dbc.readPhoto(photo_id);
 
-        /* Reset for new recipe */
-        ingredients = new Vector<>();
-        utensils = new Vector<>();
-        allergens = new Vector<>();
-        steps = new Vector<>();
-        tags = new Vector<>();
-        recipe = new Recipe();
-        /* Populate ingredients */
-        ingredients.add("Burger Buns");
-        ingredients.add("Ground Beef");
-        ingredients.add("Swiss Cheese");
-        ingredients.add("Tomato");
-        ingredients.add("Lettuce");
-        ingredients.add("Butter");
-        ingredients.add("Bacon");
-        ingredients.add("Mayonnaise");
-        /* Populate utensils */
-        utensils.add("Frying Pan");
-        utensils.add("Spatula");
-        /* Populate allergens */
-        allergens.add("Gluten");
-        allergens.add("Dairy");
-        /* Populate steps */
-        steps.add("Form ground beef into 1/4 lb patty. Season to taste.");
-        steps.add("Crisp buns in pan with light butter.");
-        steps.add("Sear patty in pan with light butter for 05:00 or until cooked to your preference.");
-        steps.add("Crisp up bacon in pan with leftover butter and juice from the patty.");
-        steps.add("Add lettuce, tomato, bacon, and mayonnaise.");
-        steps.add("Serve.");
-        /* Populate tags */
-        tags.add("burger");
-        tags.add("simple");
-        tags.add("preloaded");
-        /* Populate parameters */
-        recipe.setName("The RecipeBuddy BLT Burger");
-        recipe.setDesc("A simple example recipe to show what RecipeBuddy can do.");
-        recipe.setRating(4.5);
-        recipe.setCooked(0);
-        /* Write recipe */
-        recipe.setIngredients(ingredients);
-        recipe.setAllergens(allergens);
-        recipe.setUtensils(utensils);
-        recipe.setSteps(steps);
-        recipe.setTags(tags);
-        dbc.createRecipe(recipe);
+        log.print("Deleting associated recipe...");
+        dbc.deleteRecipe(r.getID());
 
-        /* ===== END FIRST PRELOADED RECIPE ===== */
+        log.print("Checking for proper deletion of photo...");
+        boolean photo_deleted = false;
+        try {
+            dbc.readPhoto(photo_id);
+        } catch(NotFoundException e) {
+            photo_deleted = true;
+        }
+        assert photo_deleted;
 
-        log.print("===== Database preload completed. =====");
+        log.print("===== Database photos test passed. ====");
     }
 }

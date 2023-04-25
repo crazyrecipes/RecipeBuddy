@@ -359,7 +359,7 @@ public class DatabaseController {
             return fb;
         } catch(FileNotFoundException e) {
             log.print(1, "Couldn't find " + STORE_FILE + ". Will attempt to create it on write.");
-            return new byte[0];
+            throw new NotFoundException();
         } catch(IOException e) {
             log.print(2, "Error reading " + STORE_FILE + ".");
             throw new RuntimeException("Failed to read " + STORE_FILE + ".");
