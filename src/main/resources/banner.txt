@@ -5,7 +5,7 @@
 #   |_| \___\__|_| .__/\___|_.__/\_,_\__,_\__,_|\_, |
 #                |_|                            |__/
 #
-#   RecipeBuddy version 0.1.0-BETA
+#   RecipeBuddy version 1.0.0
 #   Brought to you by the CrazyRecipes team
 #   https://crazyrecipes.github.io
 #
