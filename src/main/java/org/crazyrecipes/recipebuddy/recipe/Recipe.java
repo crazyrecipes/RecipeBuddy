@@ -68,7 +68,7 @@ public class Recipe implements Serializable {
     /**
      * Regex used to remove invalid characters from input
      */
-    private final String SANITIZER_REGEX = "[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()/_+-]";
+    private final String SANITIZER_REGEX = "[^a-zA-Z0-9¿-ÿ° !.,?:;'#$%^*()/_+-]";
 
     /**
      * Constructs a Recipe.
