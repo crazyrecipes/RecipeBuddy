@@ -43,7 +43,7 @@ a, a:hover {
     padding: 0;
     padding-top: 80px;
     padding-bottom: 80px;
-    min-width: 600px;
+    min-width: 650px;
     overflow: visible;
 }
 
@@ -51,7 +51,7 @@ a, a:hover {
     margin: 12px auto;
     display: block;
     width: 60%;
-    max-width: 400px;
+    max-width: 450px;
 }
 
 .inline_button {
@@ -120,8 +120,8 @@ a, a:hover {
     padding: 8px;
     margin: 0 auto;
     width: 90%;
-    max-width: 800px;
-    min-width: 600px;
+    max-width: 850px;
+    min-width: 650px;
     background: rgba(214,218,220,0.9);
     display: grid;
     border-radius: 5px;
@@ -131,7 +131,7 @@ a, a:hover {
 }
 
 .navbar_item {
-    margin: 4px;
+    margin: 4px 2px;
     padding: 6px 10px;
     background: none;
     border: none;
@@ -149,8 +149,8 @@ a, a:hover {
 
 .recipepreview_container {
     width: 90%;
-    max-width: 800px;
-    min-width: 600px;
+    max-width: 850px;
+    min-width: 650px;
     padding: 0;
     margin: 30px auto;
     background: rgb(249,252,255);
@@ -203,8 +203,8 @@ a, a:hover {
 /* ===== CONTENT ===== */
 .content_container {
     width: 90%;
-    max-width: 800px;
-    min-width: 600px;
+    max-width: 850px;
+    min-width: 650px;
     padding: 0;
     margin: 0px auto;
     background: rgb(249,252,255);

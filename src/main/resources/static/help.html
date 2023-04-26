@@ -8,12 +8,12 @@
     <body>
         <div class="navbar_container">
             <div class="navbar">
-                <a href="list.html"><div class="navbar_item">Home</div></a>
-                <a href="search.html"><div class="navbar_item">Search</div></a>
-                <a href="create.html"><div class="navbar_item">Create</div></a>
-                <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
-                <a href="settings.html"><div class="navbar_item">Settings</div></a>
-                <a href="help.html"><div class="navbar_item">Help</div></a>
+                <a href="list.html"><div class="navbar_item">&#127968; Home</div></a>
+                <a href="search.html"><div class="navbar_item">&#128270; Search</div></a>
+                <a href="create.html"><div class="navbar_item">&#10133; Create</div></a>
+                <a href="pantry.html"><div class="navbar_item">&#129365; Pantry</div></a>
+                <a href="settings.html"><div class="navbar_item">&#9881; Settings</div></a>
+                <a href="help.html"><div class="navbar_item">&#128214; Help</div></a>
             </div>
         </div>
 
@@ -29,7 +29,7 @@
                     <div class="spacer"></div>
 
                     <h2>Version Info</h2>
-                    <p>This is RecipeBuddy version 0.0.0.</p>
+                    <p>This is RecipeBuddy version 1.0.0.</p>
                     <p>For updates, please check out our website at <b><a href="https://crazyrecipes.github.io">https://crazyrecipes.github.io</a></b>.</p>
 
                     <div class="spacer"></div>
@@ -38,20 +38,22 @@
                     <p>
                         You can navigate with the links in the navbar on the top of the page.<br>
                         Some content will have links, which will show up as buttons.<br>
-                        You can always hit the back button in your browser to go to the previous page.
+                        You can always press the back button in your browser to go to the previous page.
                     </p>
                     <div class="spacer"></div>
                     <h2>Viewing recipes</h2>
                     <p>
-                        If you want to view a recipe, just click "View" on its preview card.<br>
+                        If you want to view a recipe, just click "Make It" on its preview card.<br>
                         This will take you to the recipe viewer, which allows you to see the 
-                        recipe's name, description, rating, times cooked, ingredients,
-                        utensils, steps, tags, and allergens.<br>You can also set and a timer
-                        that will flash the tab and play a sound to notify you when the time is up.
-                        <br>
+                        recipe's name, description, ohoto, rating, times cooked, ingredients,
+                        utensils, steps, tags, and allergens.<br>
+                        You can also set and a timer that will flash the tab and play a sound 
+                        to notify you when the time is up.
+                    </p>
+                    <p>
                         <i>
-                            Pro tip: Specify times like 05:00 (MM:SS) or 02:30:00 (HH:MM:SS)
-                            in your recipe and the viewer can automatically set the timer to them.
+                            Pro tip: Specify times like 05:00 (minutes:seconds) or 02:30:00 (hours:minutes:seconds)
+                            in your recipe and the viewer will insert quick links to set the timer to them.
                         </i>
                     </p>
                     <div class="spacer"></div>
@@ -69,7 +71,37 @@
                         you recipes that you're only missing a couple ingredients for, or tell
                         it to show you every recipe you have.
                     </p>
-
+                    <div class="spacer"></div>
+                    <h2>Creating Recipes</h2>
+                    <p>
+                        Pressing "Create" in the navbar will create a new recipe and take you
+                        to the recipe editor.
+                    </p>
+                    <div class="spacer"></div>
+                    <h2>Setting your allergens</h2>
+                    <p>
+                        You can set your allergens in the Settings page. <br>
+                        Recipes marked with your allergens will not be shown 
+                        unless you specifically request it.
+                    </p>
+                    <div class="spacer"></div>
+                    <h2>Backing up recipes</h2>
+                    <p>
+                        You can back up your recipes in the Settings page.<br>
+                        Pressing "Back up recipes" will export all your recipes as JSON.
+                        You can copy the generated output and save it in a file to restore later.
+                        Every field of a recipe except its photo is saved when a recipe is backed up.
+                    </p>
+                    <div class="spacer"></div>
+                    <h2>Restoring recipes</h2>
+                    <p>
+                        You can restore your recipes in the Settings page.<br>
+                        Just paste your recipe backup into the "Restore Recipes" 
+                        text box and press "Restore Recipes".<br>
+                        The restore process will add restored recipes if they do not
+                        already exist, and will update the fields of existing
+                        recipes if they are found.
+                    </p>
                 </div>
             </div>
         </div>

@@ -4,17 +4,18 @@
         <title>Search - RecipeBuddy</title>
         <link rel="stylesheet" href="style.css">
         <link rel="icon" type="image/png" href="media/favicon.png">
+        <meta charset="UTF-8">
     </head>
 
     <body>
         <div class="navbar_container">
             <div class="navbar">
-                <a href="list.html"><div class="navbar_item">Home</div></a>
-                <a href="search.html"><div class="navbar_item">Search</div></a>
-                <a href="create.html"><div class="navbar_item">Create</div></a>
-                <a href="pantry.html"><div class="navbar_item">Pantry</div></a>
-                <a href="settings.html"><div class="navbar_item">Settings</div></a>
-                <a href="help.html"><div class="navbar_item">Help</div></a>
+                <a href="list.html"><div class="navbar_item">&#127968; Home</div></a>
+                <a href="search.html"><div class="navbar_item">&#128270; Search</div></a>
+                <a href="create.html"><div class="navbar_item">&#10133; Create</div></a>
+                <a href="pantry.html"><div class="navbar_item">&#129365; Pantry</div></a>
+                <a href="settings.html"><div class="navbar_item">&#9881; Settings</div></a>
+                <a href="help.html"><div class="navbar_item">&#128214; Help</div></a>
             </div>
         </div>
 
@@ -93,7 +94,7 @@
                     <div class="recipepreview_container">
                         <img class="recipepreview_photo" loading="lazy" src="api/photo/${recipe.id}">
                         <div class="recipepreview_content">
-                            <h2>${recipe.name}</h2>
+                            <h1>${recipe.name}</h1>
                             <p>${rating_disp} - Cooked ${recipe.cooked} times.</p>
                             <p>${recipe.desc}</p>
                             <a href="viewer.html?id=${recipe.id}"><div class="inline_button">Make It</div></a>
