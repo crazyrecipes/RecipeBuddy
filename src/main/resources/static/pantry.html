@@ -23,6 +23,7 @@
 
             <div class="content_container">
                 <div class="content_inner">
+                    <noscript><h1>You need to enable JavaScript for Recipebuddy to work!</h1></noscript>
                     <h1>My Pantry</h1>
                     <p>
                         RecipeBuddy will filter recipes based on what you have in your pantry.<br>
@@ -188,8 +189,9 @@
             /* Add an ingredient to the pantry */
 
             function handle_add_ingredient() {
-                show_toast("Adding ingredient...");
                 let ingredient_name = document.getElementById("INGREDIENT_ADD_INPUT").value;
+                if(ingredient_name.length < 1) { return; }
+                show_toast("Adding ingredient...");
                 console.log(`Handling ADD ingredient "${ingredient_name}"`);
 
                 /* Get current ingredients */
@@ -241,8 +243,9 @@
 
             /* Add a utensil to the pantry */
             function handle_add_utensil() {
-                show_toast("Adding utensil...");
                 let utensil_name = document.getElementById("UTENSIL_ADD_INPUT").value;
+                if(utensil_name.length < 1) { return; }
+                show_toast("Adding utensil...");
                 console.log(`Handling ADD utensil "${utensil_name}"`);
 
                 /* Get current utensils */
