@@ -12,8 +12,8 @@
                 <a href="search.html"><div class="navbar_item">&#128270; Search</div></a>
                 <a href="create.html"><div class="navbar_item">&#10133; Create</div></a>
                 <a href="pantry.html"><div class="navbar_item">&#129365; Pantry</div></a>
-                <a href="settings.html"><div class="navbar_item">&#9881; Settings</div></a>
-                <a href="help.html"><div class="navbar_item">&#128214; Help</div></a>
+                <a href="settings.html"><div class="navbar_item">&#128295; Settings</div></a>
+                <a href="help.html"><div class="navbar_item">&#128735; Help</div></a>
             </div>
         </div>
 
@@ -141,6 +141,7 @@
             function tick_timer() {
                 timer_value -= 1;
                 if(timer_value < 1) {
+                    timer_value = 0;
                     var audio = new Audio("media/timer_done.mp3");
                     audio.play();
                     show_toast("Time's up!");
@@ -208,18 +209,18 @@
                         <p>${data.desc}</p>
                         <p>${rating_disp} - Cooked ${data.cooked} times.</p>
                         <div class="spacer"></div>
-                        <h2>Ingredients</h2>
+                        <h2>&#129365; Ingredients</h2>
                         <p>${recipe_ingredients}</p>
-                        <h2>Utensils</h2>
+                        <h2>&#129379; Utensils</h2>
                         <p>${recipe_utensils}</p>
-                        <h2>Steps</h2>
+                        <h2>&#9201; Steps</h2>
                         <p>${recipe_steps}</p>
-                        <h2>Tags</h2>
+                        <h2>&#127991; Tags</h2>
                         <p>${recipe_tags}</p>
-                        <h2>Allergens</h2>
+                        <h2>&#9940; Allergens</h2>
                         <p>${recipe_allergens}</p>
-                        <a href="editor.html?id=${data.id}"><div class="inline_button">Edit this recipe</div></a>
-                        <button class="inline_button" onclick="increment_cooked()">I cooked this recipe</button>
+                        <a href="editor.html?id=${data.id}"><div class="inline_button">&#128221; Edit this recipe</div></a>
+                        <button class="inline_button" onclick="increment_cooked()">&#128077; I cooked this recipe</button>
                     `
                     document.getElementById("RECIPE_CONTENT").innerHTML = recipeHTML;
                 }).catch(error => {

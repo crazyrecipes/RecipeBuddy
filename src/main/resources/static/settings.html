@@ -12,8 +12,8 @@
                 <a href="search.html"><div class="navbar_item">&#128270; Search</div></a>
                 <a href="create.html"><div class="navbar_item">&#10133; Create</div></a>
                 <a href="pantry.html"><div class="navbar_item">&#129365; Pantry</div></a>
-                <a href="settings.html"><div class="navbar_item">&#9881; Settings</div></a>
-                <a href="help.html"><div class="navbar_item">&#128214; Help</div></a>
+                <a href="settings.html"><div class="navbar_item">&#128295; Settings</div></a>
+                <a href="help.html"><div class="navbar_item">&#128735; Help</div></a>
             </div>
         </div>
 
@@ -22,12 +22,13 @@
             <div class="content_container">
                 <div class="content_inner">
                     <noscript><h1>You need to enable JavaScript for Recipebuddy to work!</h1></noscript>
-                    <h1>Settings</h1>
-                    <p>Select your allergens and back up your recipes here.</p>
+                    <h1>&#128295; Settings</h1>
+                    <p>Customize your RecipeBuddy and backup your recipes here.</p>
 
                     <div class="spacer"></div>
 
-                    <h2>My Allergens</h2>
+                    <h2>&#9940; My Allergens</h2>
+                    <p>We won't show recipes marked with these allergens unless you ask us to.</p>
                     <input type="checkbox" id="ALLERGEN_PEANUTS" name="ALLERGENS_INPUT" value="Peanuts">
                     <label for="ALLERGEN_PEANUTS">Peanuts</label><br>
                     <input type="checkbox" id="ALLERGEN_TREE_NUTS" name="ALLERGENS_INPUT" value="Tree Nuts">
@@ -54,14 +55,14 @@
                     
                     <div class="spacer"></div>
 
-                    <h2>Back up Recipes</h2>
+                    <h2>&#128190; Back up Recipes</h2>
                     <p>Click "Back Up Recipes" and copy the resulting text to somewhere safe.</p>
                     <textarea id="RECIPE_BACKUP_TEXT" class="text_field_big" rows="10" placeholder="Recipes will be exported here..."></textarea><br>
                     <div class="inline_button" onclick="handle_backup_recipes()">Back Up Recipes</div>
                     
                     <div class="spacer"></div>
 
-                    <h2>Restore Recipes</h2>
+                    <h2>&#128260; Restore Recipes</h2>
                     <p>Paste your recipe backup JSON here and click "Restore Recipes".</p>
                     <p>This will update the information of recipes if they already exist or create new ones if they don't.</p>
                     <textarea id="RECIPE_RESTORE_TEXT" class="text_field_big" rows="10" placeholder="Paste recipes here to import..."></textarea><br>

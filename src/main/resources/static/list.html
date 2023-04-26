@@ -13,8 +13,8 @@
                 <a href="search.html"><div class="navbar_item">&#128270; Search</div></a>
                 <a href="create.html"><div class="navbar_item">&#10133; Create</div></a>
                 <a href="pantry.html"><div class="navbar_item">&#129365; Pantry</div></a>
-                <a href="settings.html"><div class="navbar_item">&#9881; Settings</div></a>
-                <a href="help.html"><div class="navbar_item">&#128214; Help</div></a>
+                <a href="settings.html"><div class="navbar_item">&#128295; Settings</div></a>
+                <a href="help.html"><div class="navbar_item">&#128735; Help</div></a>
             </div>
         </div>
 
@@ -28,9 +28,9 @@
                     <p>
                         What can we help you make today?
                     </p>
-                    <button class="inline_button" onclick="display_relevant_recipes()">Show most relevant recipes</button>
-                    <button class="inline_button" onclick="display_all_recipes()">Show all recipes</button>
-                    <a href="search.html"><button class="inline_button">Search for recipes</button></a>
+                    <button class="inline_button" onclick="display_relevant_recipes()">&#127873; Show recommended recipes</button>
+                    <button class="inline_button" onclick="display_all_recipes()">&#128195; Show all recipes</button>
+                    <a href="search.html"><button class="inline_button">&#128270; Search for recipes</button></a>
                 </div>
             </div>
 
@@ -93,8 +93,8 @@
                             <h1>${recipe.name}</h1>
                             <p>${rating_disp} - Cooked ${recipe.cooked} times.</p>
                             <p>${recipe.desc}</p>
-                            <a href="viewer.html?id=${recipe.id}"><div class="inline_button">Make It</div></a>
-                            <a href="editor.html?id=${recipe.id}"><div class="inline_button">Edit</div></a>
+                            <a href="viewer.html?id=${recipe.id}"><div class="inline_button">&#128196; Make It</div></a>
+                            <a href="editor.html?id=${recipe.id}"><div class="inline_button">&#128221; Edit</div></a>
                         </div>
                     </div>
                     `
@@ -106,9 +106,9 @@
                 }
             }
             
-            /* Get and display relevant recipes */
+            /* Get and display recommended recipes */
             function display_relevant_recipes() {
-                console.log("Handling DISPLAY recipes...");
+                console.log("Handling DISPLAY recommended recipes...");
                 const SEARCH_JSON = `
                 {
                     "query": "",
@@ -127,7 +127,7 @@
                 }).then(async response => {
                     const data = await response.json();
                     //console.log(data);
-                    show_toast("Showing most relevant recipes.");
+                    show_toast("Showing recommended recipes.");
                     show_recipes(data);
                 }).catch(error => {
                     console.log(error);
@@ -137,7 +137,7 @@
 
             /* Get and display all recipes */
             function display_all_recipes() {
-                console.log("Handling DISPLAY recipes...");
+                console.log("Handling DISPLAY all recipes...");
                 const SEARCH_JSON = `
                 {
                     "query": "",

@@ -13,8 +13,8 @@
                 <a href="search.html"><div class="navbar_item">&#128270; Search</div></a>
                 <a href="create.html"><div class="navbar_item">&#10133; Create</div></a>
                 <a href="pantry.html"><div class="navbar_item">&#129365; Pantry</div></a>
-                <a href="settings.html"><div class="navbar_item">&#9881; Settings</div></a>
-                <a href="help.html"><div class="navbar_item">&#128214; Help</div></a>
+                <a href="settings.html"><div class="navbar_item">&#128295; Settings</div></a>
+                <a href="help.html"><div class="navbar_item">&#128735; Help</div></a>
             </div>
         </div>
 
@@ -24,27 +24,27 @@
             <div class="content_container">
                 <div class="content_inner">
                     <noscript><h1>You need to enable JavaScript for Recipebuddy to work!</h1></noscript>
-                    <h1>Edit Recipe</h1>
+                    <h1>&#128221; Edit Recipe</h1>
 
                     <div class="spacer"></div>
 
-                    <h3>Name</h3>
+                    <h3>&#128270; Name</h3>
                     <input class="text_field" id="RECIPE_NAME" placeholder="Recipe name"></input>
 
                     <div class="spacer"></div>
 
-                    <h3>Photo</h3>
+                    <h3>&#128247; Photo</h3>
                     <img id="RECIPE_PHOTO" class="recipepreview_photo">
                     <p>Upload an image (Max size: 1MB)</p>
                     <input type="file" id="RECIPE_UPLOADER" accept="image/png, image/jpeg", onchange="handle_photo_upload(this)">
                     <div class="spacer"></div>
 
-                    <h3>Description</h3>
+                    <h3>&#128196; Description</h3>
                     <textarea class="text_field_big" id="RECIPE_DESC" rows="5" placeholder="Recipe description"></textarea>
 
                     <div class="spacer"></div>
 
-                    <h3>Rating</h3>
+                    <h3>&#128077; Rating</h3>
                     <p id="RECIPE_RATING"></p>
                     <input type="range" id="RECIPE_RATING_INPUT" min="1" max="5" step="1">
 
@@ -52,32 +52,32 @@
 
                     <div class="spacer"></div>
 
-                    <h3>Times Cooked</h3>
+                    <h3>&#127859; Times Cooked</h3>
                     <input class="text_field_small" id="RECIPE_COOKED" placeholder="0+"></input>
 
                     <div class="spacer"></div>
                     
-                    <h3>Ingredients</h3>
+                    <h3>&#129365; Ingredients</h3>
                     <textarea id="RECIPE_INGREDIENTS" class="text_field_big" rows="10" placeholder="Enter each ingredient on its own line..."></textarea>
                     
                     <div class="spacer"></div>
 
-                    <h3>Utensils</h3>
+                    <h3>&#129379; Utensils</h3>
                     <textarea id="RECIPE_UTENSILS" class="text_field_big" rows="5" placeholder="Enter each utensil on its own line..."></textarea>
                     
                     <div class="spacer"></div>
 
-                    <h3>Steps</h3>
+                    <h3>&#9201; Steps</h3>
                     <textarea id="RECIPE_STEPS" class="text_field_big" rows="10" placeholder="Enter each step on its own line..."></textarea>
                     
                     <div class="spacer"></div>
 
-                    <h3>Tags</h3>
+                    <h3>&#127991; Tags</h3>
                     <input id="RECIPE_TAGS" class="text_field" rows="5" placeholder="Enter tags separated by commas..."></input>
                     
                     <div class="spacer"></div>
                     
-                    <h3>Allergens</h3>
+                    <h3>&#9940; Allergens</h3>
                     <input type="checkbox" id="ALLERGEN_PEANUTS" name="ALLERGENS_INPUT" value="Peanuts">
                     <label for="ALLERGEN_PEANUTS">Peanuts</label><br>
                     <input type="checkbox" id="ALLERGEN_TREE_NUTS" name="ALLERGENS_INPUT" value="Tree Nuts">
@@ -103,8 +103,8 @@
 
                     <div class="spacer"></div>
                     
-                    <button class="inline_button" onclick="do_edit()">Save Changes</button>
-                    <button class="inline_button" onclick="do_delete()">Delete Recipe</button>
+                    <button class="inline_button" onclick="do_edit()">&#128190; Save edits</button>
+                    <button class="inline_button" onclick="do_delete()">&#128465; Delete this recipe</button>
                 </div>
             </div>
         </div>
