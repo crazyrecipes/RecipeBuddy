@@ -10,7 +10,9 @@ const MAX_UPLOAD_SIZE = 1024 * 1024;
 var UPLOADED_PHOTO = "";
 
 /* ===== TOAST MESSAGE ===== */
+
 var toast_timeout;
+
 /* Show toast message */
 function show_toast(message) {
     clearTimeout(toast_timeout);
@@ -19,14 +21,20 @@ function show_toast(message) {
     td.className = "show";
     toast_timeout = setTimeout(hide_toast, 3000);
 }
+
 /* Hide toast message */
 function hide_toast() {
     var td = document.getElementById("TOAST_MESSAGE");
     td.className = td.className.replace("show", "hide");
 }
+
 /* ===== END TOAST MESSAGE ===== */
 
-/* Handle user upload of photos */
+/* 
+    Handles a photo being uploaded by the user.
+    Sends the photo to the server while the user 
+    is editing the rest of the recipe.
+*/
 function handle_photo_upload(input) {
     if(input.files[0].size < MAX_UPLOAD_SIZE) {
         show_toast("Uploading photo...");
@@ -55,7 +63,9 @@ function handle_photo_upload(input) {
     }
 }
 
-/* Fetch single recipe and display data in editor */
+/* 
+    Fetches the parameters of a single recipe and loads them into the editor.
+*/
 function display_recipe() {
     console.log(`Handle DISPLAY recipe ${RECIPE_URL}...`);
     fetch(RECIPE_URL, {
@@ -106,7 +116,9 @@ function display_recipe() {
     });
 }
 
-/* Save user edits to the recipe */
+/* 
+    Saves user edits to this Recipe and sends them to the API.
+*/
 function do_edit() {
     show_toast("Saving your edits...");
     console.log("Handling EDIT recipe...");
@@ -182,7 +194,9 @@ function do_edit() {
     });
 }
 
-/* Delete this recipe */
+/* 
+    Delete this recipe 
+*/
 function do_delete() {
     if(!confirm("Are you sure you want to delete this recipe?")) {
         return;
@@ -201,6 +215,10 @@ function do_delete() {
     })
 }
 
+
+/* ===== On page load ===== */
+
+/* Add event listener to update rating display in page */
 var ratingInput = document.getElementById("RECIPE_RATING_INPUT");
 var ratingStatus = document.getElementById("RECIPE_RATING");
 ratingInput.addEventListener("input", function() {
@@ -211,5 +229,5 @@ ratingInput.addEventListener("input", function() {
     ratingStatus.innerHTML = output;
 })
 
-/* ===== On page load ===== */
+/* Load and display this recipes' parameters */
 display_recipe();

@@ -2,7 +2,9 @@
 const SEARCH_URL = "api/search"
 
 /* ===== TOAST MESSAGE ===== */
+
 var toast_timeout;
+
 /* Show toast message */
 function show_toast(message) {
     clearTimeout(toast_timeout);
@@ -10,15 +12,20 @@ function show_toast(message) {
     td.innerHTML = message;
     td.className = "show";
     toast_timeout = setTimeout(hide_toast, 3000);
+
 }
+
 /* Hide toast message */
 function hide_toast() {
     var td = document.getElementById("TOAST_MESSAGE");
     td.className = td.className.replace("show", "hide");
 }
+
 /* ===== END TOAST MESSAGE ===== */
 
-/* Show search results */
+/*
+    Process search and show results
+*/
 function show_results(results_json) {
     formatted_result = "";
     for(let i in results_json) {
@@ -53,7 +60,9 @@ function show_results(results_json) {
     }
 }
 
-/* Execute a search and display results */
+/*
+    Execute a search and display results
+*/
 function do_search() {
     console.log("Handling SEARCH...");
 

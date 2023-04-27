@@ -3,7 +3,9 @@ const BACKUP_URL = "api/backup";
 const RESTORE_URL = "api/restore";
 
 /* ===== TOAST MESSAGE ===== */
+
 var toast_timeout;
+
 /* Show toast message */
 function show_toast(message) {
     clearTimeout(toast_timeout);
@@ -12,14 +14,18 @@ function show_toast(message) {
     td.className = "show";
     toast_timeout = setTimeout(hide_toast, 3000);
 }
+
 /* Hide toast message */
 function hide_toast() {
     var td = document.getElementById("TOAST_MESSAGE");
     td.className = td.className.replace("show", "hide");
 }
+
 /* ===== END TOAST MESSAGE ===== */
 
-/* Grab and display current user allergens */
+/*
+    Grab and display current user allergens
+*/
 function display_allergens() {
     console.log("Handle DISPLAY allergens...");
     /* Send request */
@@ -49,7 +55,9 @@ function display_allergens() {
     });
 }
 
-/* Push user allergen changes */
+/*
+    Push user allergen changes
+*/
 function handle_allergen_change() {
     show_toast("Updating your allergens...");
     console.log("Handle UPDATE allergens...");
@@ -86,7 +94,9 @@ function handle_allergen_change() {
     });
 }
 
-/* Back up recipes to JSON */
+/*
+    Back up recipes to JSON
+*/
 function handle_backup_recipes() {
     console.log("Handle BACKUP recipes...");
     show_toast("Backing up your recipes...");
@@ -109,7 +119,9 @@ function handle_backup_recipes() {
     });
 }
 
-/* Restore recipes from JSON */
+/*
+    Restore recipes from JSON
+*/
 function handle_restore_recipes() {
     console.log("Handle RESTORE recipes...");
     var recipes_json = document.getElementById("RECIPE_RESTORE_TEXT").value;

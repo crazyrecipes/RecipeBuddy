@@ -5,7 +5,9 @@ const INGREDIENTS_URL = "api/ingredients"
 const UTENSILS_URL = "api/utensils"
 
 /* ===== TOAST MESSAGE ===== */
+
 var toast_timeout;
+
 /* Show toast message */
 function show_toast(message) {
     clearTimeout(toast_timeout);
@@ -14,14 +16,18 @@ function show_toast(message) {
     td.className = "show";
     toast_timeout = setTimeout(hide_toast, 3000);
 }
+
 /* Hide toast message */
 function hide_toast() {
     var td = document.getElementById("TOAST_MESSAGE");
     td.className = td.className.replace("show", "hide");
 }
+
 /* ===== END TOAST MESSAGE ===== */
 
-/* Remove an ingredient from the pantry */
+/*
+    Remove an ingredient from the pantry
+*/
 function handle_remove_ingredient(name) {
     show_toast("Removing ingredient...");
     console.log(`Handling REMOVE ingredient "${name}"`);
@@ -75,7 +81,9 @@ function handle_remove_ingredient(name) {
     });
 }
 
-/* Remove a utensil from the pantry */
+/*
+    Remove a utensil from the pantry
+*/
 function handle_remove_utensil(name) {
     show_toast("Removing utensil...");
     console.log(`Handling REMOVE utensil "${name}"`);
@@ -129,8 +137,9 @@ function handle_remove_utensil(name) {
     });
 }
 
-/* Add an ingredient to the pantry */
-
+/*
+    Add an ingredient to the pantry
+*/
 function handle_add_ingredient() {
     let ingredient_name = document.getElementById("INGREDIENT_ADD_INPUT").value;
     if(ingredient_name.length < 1) { return; }
@@ -184,7 +193,9 @@ function handle_add_ingredient() {
     });
 }
 
-/* Add a utensil to the pantry */
+/*
+    Add a utensil to the pantry
+*/
 function handle_add_utensil() {
     let utensil_name = document.getElementById("UTENSIL_ADD_INPUT").value;
     if(utensil_name.length < 1) { return; }
@@ -239,7 +250,9 @@ function handle_add_utensil() {
     });
 }
 
-/* Get and display all ingredients */
+/*
+    Get and display all ingredients
+*/
 function display_ingredients() {
     console.log("Handling DISPLAY ingredients...");
     fetch(INGREDIENTS_URL, {
@@ -273,7 +286,9 @@ function display_ingredients() {
     });
 }
 
-/* Get and display all utensils */
+/*
+    Get and display all utensils
+*/
 function display_utensils() {
     console.log("Handling DISPLAY utensils...");
     fetch(UTENSILS_URL, {

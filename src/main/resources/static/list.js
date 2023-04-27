@@ -2,7 +2,9 @@ const RECIPELIST_URL = "api/recipes"
 const SEARCH_URL = "api/search"
 
 /* ===== TOAST MESSAGE ===== */
+
 var toast_timeout;
+
 /* Show toast message */
 function show_toast(message) {
     clearTimeout(toast_timeout);
@@ -11,14 +13,18 @@ function show_toast(message) {
     td.className = "show";
     toast_timeout = setTimeout(hide_toast, 3000);
 }
+
 /* Hide toast message */
 function hide_toast() {
     var td = document.getElementById("TOAST_MESSAGE");
     td.className = td.className.replace("show", "hide");
 }
+
 /* ===== END TOAST MESSAGE ===== */
 
-/* ===== GREETING ===== */
+/* 
+    Update the greeting in the page based on the time of day.
+*/
 function greet() {
     const greeting = document.getElementById("GREETING");
     let d = new Date();
@@ -32,39 +38,14 @@ function greet() {
         greeting.innerHTML = "&#127769; Good evening!";
     }
 }
-/* ===== END GREETING ===== */
 
-function show_recipes(recipe_json) {
-    let formatted_result = "";
-    for(let i in recipe_json) {
-        let recipe = recipe_json[i];
-        //console.log(recipe);
-        let rating_disp = "";
-        for(i = 0; i < recipe.rating; i++) {
-            rating_disp += "&#9733 ";
-            if(i > 5) { break; }
-        }
-        let recipeHTML = `
-        <div class="recipepreview_container">
-            <img class="recipepreview_photo" loading="lazy" src="api/photo/${recipe.id}">
-            <div class="recipepreview_content">
-                <h1>${recipe.name}</h1>
-                <p>${rating_disp} - Cooked ${recipe.cooked} times.</p>
-                <p>${recipe.desc}</p>
-                <a href="viewer.html?id=${recipe.id}"><div class="inline_button">&#128196; Make It</div></a>
-                <a href="editor.html?id=${recipe.id}"><div class="inline_button">&#128221; Edit</div></a>
-            </div>
-        </div>
-        `
-        formatted_result += recipeHTML;
-    }
-    document.getElementById("RECIPE_LIST").innerHTML = formatted_result;
-    if(recipe_json.length == 0) {
-        show_toast("Couldn't find any matching recipes.");
-    }
-}
-
-/* Get and display recommended recipes */
+/*
+    Get and display recommended recipes.
+    These are recipes that the user either has everything to make
+    or is only missing a couple things. They will not contain the user's allergens.
+    They are ranked by quality and relevance (what you have everything to make
+    and what is highly rated will be displayed first).
+*/
 function display_relevant_recipes() {
     console.log("Handling DISPLAY recommended recipes...");
     const SEARCH_JSON = `
@@ -93,7 +74,9 @@ function display_relevant_recipes() {
     });  
 }
 
-/* Get and display all recipes */
+/*
+    Get and display all recipes if the user asks us to
+*/
 function display_all_recipes() {
     console.log("Handling DISPLAY all recipes...");
     const SEARCH_JSON = `
