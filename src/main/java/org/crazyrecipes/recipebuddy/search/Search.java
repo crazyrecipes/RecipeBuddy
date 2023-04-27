@@ -20,10 +20,10 @@ public class Search {
      * @param allergens Allergens option (SHOW, HIDE)
      */
     public Search(String query, String ingredients, String utensils, String allergens) {
-        this.query = query;
-        this.ingredients = ingredients;
-        this.utensils = utensils;
-        this.allergens = allergens;
+        this.query = query.replaceAll(SANITIZER_REGEX, "");
+        this.ingredients = ingredients.replaceAll(SANITIZER_REGEX, "");
+        this.utensils = utensils.replaceAll(SANITIZER_REGEX, "");
+        this.allergens = allergens.replaceAll(SANITIZER_REGEX, "");
     }
 
     /**
