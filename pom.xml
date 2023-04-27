@@ -10,14 +10,13 @@
 	</parent>
 	<groupId>org.crazyrecipes</groupId>
 	<artifactId>recipebuddy</artifactId>
-	<version>0.1.0-BETA</version>
+	<version>1.0.0</version>
 	<name>recipebuddy</name>
 	<description>recipebuddy</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
