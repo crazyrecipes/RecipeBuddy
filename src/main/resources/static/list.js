@@ -22,6 +22,39 @@ function hide_toast() {
 
 /* ===== END TOAST MESSAGE ===== */
 
+/*
+    Display recipes in list
+*/
+function show_recipes(recipe_json) {
+    let formatted_result = "";
+    for(let i in recipe_json) {
+        let recipe = recipe_json[i];
+        //console.log(recipe);
+        let rating_disp = "";
+        for(i = 0; i < recipe.rating; i++) {
+            rating_disp += "&#9733 ";
+            if(i > 5) { break; }
+        }
+        let recipeHTML = `
+        <div class="recipepreview_container">
+            <img class="recipepreview_photo" loading="lazy" src="api/photo/${recipe.id}">
+            <div class="recipepreview_content">
+                <h1>${recipe.name}</h1>
+                <p>${rating_disp} - Cooked ${recipe.cooked} times.</p>
+                <p>${recipe.desc}</p>
+                <a href="viewer.html?id=${recipe.id}"><div class="inline_button">&#128196; Make It</div></a>
+                <a href="editor.html?id=${recipe.id}"><div class="inline_button">&#128221; Edit</div></a>
+            </div>
+        </div>
+        `
+        formatted_result += recipeHTML;
+    }
+    document.getElementById("RECIPE_LIST").innerHTML = formatted_result;
+    if(recipe_json.length == 0) {
+        show_toast("Couldn't find any matching recipes.");
+    }
+}
+
 /* 
     Update the greeting in the page based on the time of day.
 */
