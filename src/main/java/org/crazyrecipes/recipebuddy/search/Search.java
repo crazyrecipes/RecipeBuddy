@@ -10,6 +10,7 @@ public class Search {
     private String ingredients;
     private String utensils;
     private String allergens;
+    private final String SANITIZER_REGEX = "[^a-zA-Z0-9¿-ÿ° !.,?:;'#$%^*()/_+-]";
 
     /**
      * Instantiates a Search with the given parameters.
@@ -53,25 +54,33 @@ public class Search {
      * Sets this Search's query
      * @param query this Search's query
      */
-    public void setQuery(String query) { this.query = query; }
+    public void setQuery(String query) {
+        this.query = query.replaceAll(SANITIZER_REGEX, "");
+    }
 
     /**
      * Sets this Search's ingredients option
      * @param ingredients this Search's ingredients option
      */
-    public void setIngredients(String ingredients) { this.ingredients = ingredients; }
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients.replaceAll(SANITIZER_REGEX, "");
+    }
 
     /**
      * Sets this Search's utensils option
      * @param utensils this Search's utensils option
      */
-    public void setUtensils(String utensils) { this.utensils = utensils; }
+    public void setUtensils(String utensils) {
+        this.utensils = utensils.replaceAll(SANITIZER_REGEX, "");
+    }
 
     /**
      * Sets this Search's allergens option
      * @param allergens this Search's allergens option
      */
-    public void setAllergens(String allergens) { this.allergens = allergens; }
+    public void setAllergens(String allergens) {
+        this.allergens = allergens.replaceAll(SANITIZER_REGEX, "");
+    }
 
     @Override
     public boolean equals(Object other) {
