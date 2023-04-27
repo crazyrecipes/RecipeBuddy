@@ -36,7 +36,7 @@
                     <div id="INGREDIENT_LIST"></div>
                     <div class="spacer"></div>
                     <p>Add an ingredient:</p>
-                    <input class="text_field" id="INGREDIENT_ADD_INPUT" placeholder="Enter ingredient name here..." onkeydown="if(event.keyCode===13) handle_add_ingredient()" >
+                    <input class="text_field" id="INGREDIENT_ADD_INPUT" placeholder="Enter ingredient name here..." onkeydown="if(event.keyCode===13) handle_add_ingredient()" maxlength="40">
                     <button class="inline_button" onclick="handle_add_ingredient()">Add</button>
 
                     <div class="spacer"></div>
@@ -45,7 +45,7 @@
                     <div id="UTENSIL_LIST"></div>
                     <div class="spacer"></div>
                     <p>Add a utensil:</p>
-                    <input class="text_field" id="UTENSIL_ADD_INPUT" placeholder="Enter utensil name here..." onkeydown="if(event.keyCode===13) handle_add_utensil()">
+                    <input class="text_field" id="UTENSIL_ADD_INPUT" placeholder="Enter utensil name here..." onkeydown="if(event.keyCode===13) handle_add_utensil()" maxlength="40">
                     <button class="inline_button" onclick="handle_add_utensil()">Add</button>
 
                 </div>
