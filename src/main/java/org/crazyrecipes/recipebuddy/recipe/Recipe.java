@@ -86,11 +86,11 @@ public class Recipe implements Serializable {
         this.desc = "";
         this.rating = 0.0;
         this.cooked = 0;
-        this.ingredients = new Vector<String>();
-        this.utensils = new Vector<String>();
-        this.allergens = new Vector<String>();
-        this.steps = new Vector<String>();
-        this.tags = new Vector<String>();
+        this.ingredients = new Vector<>();
+        this.utensils = new Vector<>();
+        this.allergens = new Vector<>();
+        this.steps = new Vector<>();
+        this.tags = new Vector<>();
     }
 
     /**
@@ -202,7 +202,8 @@ public class Recipe implements Serializable {
     public void setIngredients(List<String> ingredients) {
         this.ingredients.clear();
         for(String i : ingredients) {
-            this.ingredients.add(i.replaceAll(SANITIZER_REGEX,""));
+            String j = i.replaceAll(SANITIZER_REGEX, "");
+            if(j.length() > 1) { this.ingredients.add(j); }
         }
     }
 
@@ -213,7 +214,8 @@ public class Recipe implements Serializable {
     public void setUtensils(List<String> utensils) {
         this.utensils.clear();
         for(String i : utensils) {
-            this.utensils.add(i.replaceAll(SANITIZER_REGEX,""));
+            String j = i.replaceAll(SANITIZER_REGEX, "");
+            if(j.length() > 1) { this.utensils.add(j); }
         }
     }
 
@@ -224,7 +226,8 @@ public class Recipe implements Serializable {
     public void setAllergens(List<String> allergens) {
         this.allergens.clear();
         for(String i : allergens) {
-            this.allergens.add(i.replaceAll(SANITIZER_REGEX,""));
+            String j = i.replaceAll(SANITIZER_REGEX, "");
+            if(j.length() > 1) { this.allergens.add(j); }
         }
     }
 
@@ -235,7 +238,8 @@ public class Recipe implements Serializable {
     public void setSteps(List<String> steps) {
         this.steps.clear();
         for(String i : steps) {
-            this.steps.add(i.replaceAll(SANITIZER_REGEX,""));
+            String j = i.replaceAll(SANITIZER_REGEX, "");
+            if(j.length() > 1) { this.steps.add(j); }
         }
     }
 
@@ -246,7 +250,8 @@ public class Recipe implements Serializable {
     public void setTags(List<String> tags) {
         this.tags.clear();
         for(String i : tags) {
-            this.tags.add(i.replaceAll(SANITIZER_REGEX,""));
+            String j = i.replaceAll(SANITIZER_REGEX, "");
+            if(j.length() > 1) { this.tags.add(j); }
         }
     }
 
