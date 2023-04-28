@@ -151,7 +151,10 @@ public class DatabaseController {
     public synchronized List<String> writeIngredients(List<String> newIngredients) {
         ingredients = new Vector<>();
         for(String i : newIngredients) {
-            ingredients.add(i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]",""));
+            String j = i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]","");
+            if(j.length() > 1) {
+                ingredients.add(j);
+            }
         }
         saveStringsToFile(ingredients, INGREDIENTS_STORE_FILE);
         return ingredients;
@@ -171,7 +174,10 @@ public class DatabaseController {
     public synchronized List<String> writeUtensils(List<String> newUtensils) {
         utensils = new Vector<>();
         for(String i : newUtensils) {
-            utensils.add(i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]",""));
+            String j = i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]","");
+            if(j.length() > 1) {
+                utensils.add(j);
+            }
         }
         saveStringsToFile(utensils, UTENSILS_STORE_FILE);
         return utensils;
@@ -191,7 +197,10 @@ public class DatabaseController {
     public synchronized List<String> writeAllergens(List<String> newAllergens) {
         allergens = new Vector<>();
         for(String i : newAllergens) {
-            allergens.add(i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]",""));
+            String j = i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]","");
+            if(j.length() > 1) {
+                allergens.add(j);
+            }
         }
         saveStringsToFile(allergens, ALLERGENS_STORE_FILE);
         return allergens;
