@@ -184,7 +184,9 @@ a, a:hover {
     display: grid;
     grid-template-columns: 200px auto;
     word-wrap: break-word;
+    overflow-wrap: anywhere;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .recipepreview_content {
