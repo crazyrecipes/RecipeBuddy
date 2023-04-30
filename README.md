@@ -19,11 +19,14 @@ Simple, powerful recipe cataloguing for busy people.
 
 To set up RecipeBuddy, just download the [latest release](https://github.com/crazyrecipes/RecipeBuddy/releases) and extract the .zip. The result should look something like this:
 ```
-/ RecipeBuddy_v1.0.0
-  / RecipeBuddy-v1.0.0.jar
+/ RecipeBuddy v1.0.0
+  / RecipeBuddy-1.0.0.jar
+  / recipebuddy-windows.bat
+  / recipebuddy-linux.sh
   / data
     / ...
 ```
-Run RecipeBuddy.sh to start the app. A terminal should pop up with some log events showing the app has started up. (you can also run the .jar directly with the following command from a terminal: "java -jar recipebuddy-vXX.XX.XX.jar").
+If you're on Windows, double-click recipebuddy-windows.bat to start the app. If you're on Linux or Mac, run recipebuddy-linux.sh.
+A console should pop up with some log events showing the app has started. (you can also run the .jar directly with the following command from a terminal: "java -jar recipebuddy-1.0.0.jar").
 
-Once the app has started, just open a browser to "http://localhost:8080", and you should see a screen letting you know you're in the right place.
+Once the app has started, just open a browser to "http://localhost:8080", and you should see a welcome screen letting you know you're in the right place.
