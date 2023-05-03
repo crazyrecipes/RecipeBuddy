@@ -1,0 +1,862 @@
+commit cd9bd29c3005c4414cfb02fe188a476a04320bc8
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 30 10:56:18 2023 -0400
+
+    Update README.md
+
+commit b4c137e282e3b70ee988c01d1e2cea0ff4871d49
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 28 15:13:10 2023 -0400
+
+    Fix preview cards displaying improperly
+
+commit fdd110a4ac27af9683eaf32f0ef6203a7ba27005
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 28 15:06:30 2023 -0400
+
+    Fix still being able to make empty ingredients, utensils, allergens, etc.
+
+commit a760ea1ff061e91bd223b0994142d5b940b115da
+Merge: 2dd35e4 67006a2
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 28 15:00:22 2023 -0400
+
+    Merge branch 'main' of https://github.com/crazyrecipes/RecipeBuddy
+
+commit 2dd35e41c1fc6b9ecd588d2f7d5de7da883f9385
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 28 15:00:17 2023 -0400
+
+    add tests for RecipeBuddyController
+
+commit 67006a25301c7c4d9367dcb36d1091cceb47b1aa
+Author: Andrew <114039784+a-tringali@users.noreply.github.com>
+Date:   Fri Apr 28 11:53:17 2023 -0400
+
+    Help button
+    
+    Just seemed like a good add
+
+commit 5376e365163859c570ddf00b25312ca7edc09239
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 27 16:03:33 2023 -0400
+
+    Re-add showRecipes (oops)
+
+commit 8aa22b633d8d96e94f194761006dc18fabe38643
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 27 10:38:44 2023 -0400
+
+    better comments in stylesheet
+
+commit a387aa3db7db68fd0c365e7bba57ae5a01d2e1af
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 27 10:33:10 2023 -0400
+
+    set version in pom.xml and remove from banner
+
+commit be6b67127cda7f908dccb0974342ae6638db8e00
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 27 10:26:20 2023 -0400
+
+    regenerate javadoc
+
+commit 52432a431c0d88e898374d094ced08aa7ef3632b
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 27 10:20:02 2023 -0400
+
+    add link to ofl in css
+
+commit e291b90a0ee6d5f4b3252d481791ba5792528b5d
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 27 10:05:50 2023 -0400
+
+    add max length to pantry inputs
+
+commit 1e2517349e5e53dc2c60d79bf78ed1e67e983479
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 27 09:26:41 2023 -0400
+
+    Nicer comments in js
+
+commit 9646798588dd41b2e9aa75e810c8e26bb095d588
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 27 09:06:04 2023 -0400
+
+    Sanitize parameters in Search constructor
+
+commit 435c39e916b0eef2de6ae11b70c833fbad9483db
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 27 09:05:25 2023 -0400
+
+    Sanitize Search input
+
+commit 79648df09511822549eaf27e5573f63c5e56d54d
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 27 09:01:04 2023 -0400
+
+    Prevent user from creating empty list entries in recipes
+
+commit 629135519c8617fc16f752c1fa05e093c3b0ff04
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 27 08:44:13 2023 -0400
+
+    Move JS out of pages
+
+commit 5112647319180cd436d843f407231f8f89c19c1e
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 26 17:26:19 2023 -0400
+
+    Add max length for user inputs and fix recipe cards displaying improperly
+
+commit bd2a0076a808a07fb733a8ea7d2e34959c220f94
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 26 17:09:58 2023 -0400
+
+    Fix recipes with longer descriptions displaying incorrectly
+
+commit 0c25315805ce019c9005e7f519408386683781b9
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 26 15:27:31 2023 -0400
+
+    add icons to search results and welcome page
+
+commit 8fd2bdad645e9da53d3182d0ccf2beb763a2246a
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 26 15:13:33 2023 -0400
+
+    Finish adding icons
+
+commit ef355ec7bf5b1328ba31c2e6e082070ce57e793a
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 26 14:39:57 2023 -0400
+
+    Allow times like 5:00 or 1:30:00 in viewer
+
+commit 11436fc329afe8a702b7ad66ff81d9a57bcf353a
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 26 14:29:19 2023 -0400
+
+    Add icons to headers and navbar
+
+commit e3b27e6f2407cd2f5be2214f32f4c0a737ac6438
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 26 14:05:33 2023 -0400
+
+    Add noscript warnings
+
+commit bcff02a6ab9db0ab0f7462e0a3981a5280285c02
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 26 14:05:24 2023 -0400
+
+    Fix a bug allowing users to create empty ingredients and utensils
+    
+    Also add noscript for pantry
+
+commit 827a6eb4856df4d3978cf490a00663aeeb9d72a8
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 25 18:53:07 2023 -0400
+
+    Fix a bug where ratings display would throw errors
+
+commit 382d8aadf487ca1d68e78aa6539927800d4e32f5
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 25 12:26:58 2023 -0400
+
+    Add database photos test and SearchHandler tests
+
+commit d5b55d2f5e8759708b51c9b93fda2fc5f2db519a
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 24 07:57:22 2023 -0700
+
+    Add OFL for font
+
+commit b4bdb05f6374890f75cfdb99b0a1187a8732216c
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 24 10:31:53 2023 -0400
+
+    Add proper timer done sound
+
+commit ed9884546caec066f1a95c43157921119b548812
+Merge: 178257b 6e74cc5
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 24 09:06:54 2023 -0400
+
+    Merge branch 'main' of https://github.com/crazyrecipes/RecipeBuddy
+
+commit 178257b0dd11024dd4d392a168764521783c1599
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 24 09:06:50 2023 -0400
+
+    Generate backend documentation
+
+commit 6e74cc572b9a390280724b18ca423ccf69c9fe42
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 24 08:24:12 2023 -0400
+
+    Update README.md
+
+commit e23db1af4e9a9b36b78299302864a79f2d50ae7b
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 24 08:23:39 2023 -0400
+
+    Update README.md
+
+commit efa68583811860c9e95086489602b4c7f3dcff70
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 17:57:20 2023 -0400
+
+    Update README.md
+
+commit 8e4f6f142408b90d221d1a3eb4bc8dba7ef14e36
+Merge: ddc1022 ad0cf88
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 17:22:34 2023 -0400
+
+    Merge branch 'main' of https://github.com/crazyrecipes/RecipeBuddy
+
+commit ddc10222d8209eba5138c8492c245600313ee2c3
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 17:22:28 2023 -0400
+
+    set version info for package
+
+commit ad0cf8846f7a37faba3b972043ee67e3c1f267e4
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 17:16:59 2023 -0400
+
+    Delete out directory
+
+commit 4e8b993b465d8a7b3a186e2c05eeb4c6a05e2537
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 17:16:46 2023 -0400
+
+    Update README.md
+
+commit 6c1a2528a141da0d277db570872630cd5b7ec3ec
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 17:15:59 2023 -0400
+
+    Fix issues building JARs
+
+commit f08ffb16951c39e9dc3a2e0cb2a088aeb48b1f77
+Merge: c5facc8 f371da8
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 13:15:20 2023 -0400
+
+    Merge branch 'main' of https://github.com/crazyrecipes/RecipeBuddy
+
+commit c5facc804b8bfa815d993cdaa71b62ef56041f35
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 13:15:13 2023 -0400
+
+    Show photo after upload in editor
+
+commit f371da8115cadf407b34a74cdd3e3f9bc1c7879c
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 13:13:09 2023 -0400
+
+    Update README.md
+
+commit 2cb2d3917ed4a654edfcab1766bd0785b4a74f00
+Merge: 65a27bd e0920af
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 13:06:00 2023 -0400
+
+    Merge branch 'main' of https://github.com/crazyrecipes/RecipeBuddy
+
+commit 65a27bd5d05a8095906cf1adbe1bbaba9fe61d71
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 13:05:59 2023 -0400
+
+    Add fancy display of ratings
+
+commit e0920af5e7101fe3b32464b53951d55d0b3859bf
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 10:29:15 2023 -0400
+
+    Delete utensils.dat
+
+commit 5e7ea14e6368faecec1f8925d7018397521127a7
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 23 10:10:53 2023 -0400
+
+    Don't set desc on create
+
+commit cd939a0f35e77071c437d4c7e489f62998d752df
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 21 15:23:16 2023 -0700
+
+    Start preparing readme for release
+
+commit 5acab4bec4648faeca4a5c6f1110e7c42094c050
+Merge: bbdfaa0 00f3b97
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 21 15:12:22 2023 -0700
+
+    Bring UI changes and regex fix to main from crazyrecipes/new_ui
+
+commit 00f3b976f4efb81816e574eca882e570bb07749e
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 21 15:11:40 2023 -0700
+
+    Fix regex in SearchHandler
+
+commit e6d066cdf84e5b1737be7aaa3ff3537ab5771e83
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 21 15:11:29 2023 -0700
+
+    Finish UI theme updates
+
+commit b75f733038510fbb40bd69a52dfcbe17f4cae98a
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 21 11:44:40 2023 -0400
+
+    massive theme update
+
+commit bbdfaa0693b6b4be1a548f1bace7210ce525d166
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 21 10:34:59 2023 -0400
+
+    Add database preload to test
+
+commit 7c794f56f932a731cf79348afb713ab383108abe
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 21 10:34:45 2023 -0400
+
+    Move recipe photo handling to DatabaseController
+
+commit 691db8ed83d4dd61e469e8257bca9c0b121b85f0
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 21 10:34:24 2023 -0400
+
+    More descriptions in frontend
+
+commit 356fe8c7c2e236ed2fb2f4489c706286a40e245c
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 20 21:35:27 2023 -0400
+
+    Update README.md
+
+commit 348a1745515c6a77139cb45aba160686ed87b9bb
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 20 21:35:02 2023 -0400
+
+    Add license and copyright info
+
+commit a42f6bba9463d7bd57c6dfe9dd0c86d719dccf48
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 19 20:06:55 2023 -0400
+
+    fix spacer
+
+commit c732db59f7eb9d54dce026ff7bb24be03834fdae
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 19 19:57:02 2023 -0400
+
+    improve string matcher for search
+
+commit b489e8e629d9aa40755d5b5310423dc5dcbb80a1
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 19 19:52:22 2023 -0400
+
+    Add recipe backup/restore to/from JSON
+
+commit f2cf1696d7a6946bb13fd62a5f46d11a62f2006e
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 19 19:52:00 2023 -0400
+
+    Add Search tests
+
+commit ce3f92d5fcffafdf8d5d018e2638b447a8b54c43
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 19 19:51:50 2023 -0400
+
+    comments, backup/restore in RecipeBuddyController
+
+commit 7fd0846cfb8d308ede48973146d6307cd6cab04d
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 19 11:31:01 2023 -0400
+
+    create exceptions for failed writes
+
+commit b150232d82ea5bc0f8dec13ccf0e57c363f1e31f
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 18 17:36:40 2023 -0400
+
+    .idea changes
+
+commit 30d38fbf1e10cb9364a2f9a087b216e12c65ee90
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 18 12:22:37 2023 -0400
+
+    Improve tests, equals() in Recipe
+
+commit 022492a7cd42a54419bee09a1f6e49ea2faf9991
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 17 11:27:14 2023 -0400
+
+    improve equals and hashCode in recipe
+
+commit f379e597502bec127bd5cb5241ddffad216b7b65
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 17 11:22:17 2023 -0400
+
+    add documentation for json converter in recipe
+
+commit cc5b4b088802cfd688afcaa7922cbdda85a04134
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 17 11:16:53 2023 -0400
+
+    clean up extra whitespace
+
+commit 9e58ac7030bfb2ebdc4f6db149c6b13df8e25f3b
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 17 10:41:59 2023 -0400
+
+    recipe toString now returns json
+
+commit 0c83d71dbb7d485484148d7144e0dc0b5843a3d4
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 17 10:26:29 2023 -0400
+
+    Add serialization version to Recipe
+
+commit 93a172201bf89eb521fa6cf653983219ffd2afe5
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 17 10:20:01 2023 -0400
+
+    Cleanup unused/orphaned photos on program startup
+
+commit cb3bbbe57b47b162f4c8d313d62aba80ff7029fb
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 17 10:19:44 2023 -0400
+
+    Add search filter for utensils
+
+commit 0966a93b45ddccf1bf99b6996d846e5558c4b02d
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 14 11:36:30 2023 -0400
+
+    Add comments in DatabaseController
+
+commit 959f67a9cc1ac033b162a850f3814eb8d1ad21c5
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 14 11:18:29 2023 -0400
+
+    add missing fileinputstream close
+
+commit 95c60db0dbf3ec469a6b50086d3523510639d7d9
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 14 11:16:21 2023 -0400
+
+    Creator now links to editor
+
+commit 8dd2a2ed16b0c786bc5016d09817fd9d73618235
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 14 09:52:23 2023 -0400
+
+    Search algorithm overhaul
+
+commit 7b0ec5396f0464d458f12c544a1b52256f570461
+Author: a-tringali <andytringali@gmail.com>
+Date:   Thu Apr 13 09:09:06 2023 -0400
+
+    cleanup
+
+commit 052b8b467d965c01c7fdf95d766e00fdef1a9780
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 12 19:43:05 2023 -0400
+
+    Make front page recipes more relevant to the user
+
+commit 42874500bfb4753ae300ab4690f4ba11d331d284
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 12 19:40:47 2023 -0400
+
+    Improve string sanitization
+
+commit 294395ec251cb5e1cf08f264c1cb752bf1ae9ad6
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 12 11:49:08 2023 -0400
+
+    Improve search+rank, add database fill test
+
+commit 20840534dedd3306f7a0df6b9bf5b7a46f49554f
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 12 11:46:47 2023 -0400
+
+    Clean up debug prints in frontend
+
+commit 7431b591fa6b431bc47eaaea7e0f5493e838d1db
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 11 23:29:52 2023 -0400
+
+    fix search ingredients filter
+
+commit 8d4e52c0ea772b35b5cf6f0911e31e4dab6f4fbb
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 11 21:59:09 2023 -0400
+
+    Remove unnecessary println
+
+commit 923f8856a0ccb2d2429ef0b3b32564e4afab74e7
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 11 21:57:15 2023 -0400
+
+    add missing documentation
+
+commit fe85b245b79dd4bcf62cc3ab8ba1a1376a6acc6e
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 11 21:35:55 2023 -0400
+
+    Remove photo in database test
+
+commit a078c397c82c3c3b5a26c5b7b97b04845a04e101
+Merge: 1715ba0 95f1154
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 11 21:35:36 2023 -0400
+
+    Merge branch 'main' into photo_uploader
+
+commit 1715ba0c76fe99b9407f3c87b19cc5d037036f12
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 11 21:34:21 2023 -0400
+
+    finished times cooked increment button
+
+commit 03ce486a50cab5a3ed1c2eff882f556616c200fd
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 11 21:27:02 2023 -0400
+
+    Add ranking to search
+
+commit bff49f0d0056492fa130a620e23ce548fa2094a0
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 11 16:13:05 2023 -0400
+
+    photo uploader and part of times cooked ticker
+
+commit 95f1154cfe63d995cabc33d2f537e9f7b1290d98
+Author: muccicj <muccicj@clarkson.edu>
+Date:   Tue Apr 11 14:39:46 2023 -0400
+
+    String Sanitizing in set methods in Recipe Class
+
+commit f2ed9ee1dc801d65c64037d3e36e6a9452814c76
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 10 08:20:20 2023 -0400
+
+    Move one-liner resets into add handlers
+
+commit 32a9415bca19f2d73629696e5f697cdd670d50f7
+Author: muccicj <muccicj@clarkson.edu>
+Date:   Sat Apr 8 13:14:51 2023 -0400
+
+    utensil input field reset
+
+commit 81962823c6cad562cf733f79df3eac08fc92e688
+Author: muccicj <muccicj@clarkson.edu>
+Date:   Sat Apr 8 13:12:02 2023 -0400
+
+    reset ingredient input field
+
+commit 63a428e3f9843bbb1e34dd7f13289724bf5df2d3
+Author: muccicj <muccicj@clarkson.edu>
+Date:   Sat Apr 8 12:58:33 2023 -0400
+
+    "enter" key also handles both add ingredient and utensil
+
+commit 6d62a887ac651b62f5b4042f39a57eb4fc168c36
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Apr 7 13:39:13 2023 -0400
+
+    improve database test data
+
+commit f836fa75f514cef1ea5ece3303e67908bafab1c7
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 6 14:35:42 2023 -0400
+
+    Begin writing unit tests
+
+commit 362904c994ab3c0588e3d2e3e8cf8f98499d33c1
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 6 12:18:23 2023 -0400
+
+    add favicon
+
+commit 55d53f7ec7a5571015826602888c8c414b5e4fdc
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 6 12:10:43 2023 -0400
+
+    Nicer log format, more logging of startup tasks
+
+commit 9828322d50ff76d517ab6efb138947b5239bf482
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 6 11:53:55 2023 -0400
+
+    add version info to help
+
+commit 18ef96b4a1093d519d8cd2f1f8c9d921c911887b
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 6 11:51:07 2023 -0400
+
+    Add help page
+
+commit 126f3a58a04471a2a30efd8ae872bdaa37453e30
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 6 11:04:53 2023 -0400
+
+    fix incorrect toast upon displaying allergens
+
+commit dc1adef30b4d80d73bac0c0f675f365ebd9bb07a
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Apr 6 11:02:21 2023 -0400
+
+    add sound to timer
+
+commit 96cde9fc39bea80d1532d5d434a447fd946002b3
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 5 18:14:20 2023 -0400
+
+    Improve toast messages in frontend
+
+commit 3b0e86476bece843bc49d00bd90381e7f869dd51
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 5 18:14:00 2023 -0400
+
+    Fix incorrect log levels in controller
+
+commit d68446158bc7360bc3364525fbbd2b289e8ad889
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 5 18:13:46 2023 -0400
+
+    Fix DatabaseController ID issues
+
+commit bf900e5cbc6f7d48fd740efc8735426c9a6be033
+Merge: 3f166bd d460588
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 5 17:25:57 2023 -0400
+
+    more user friendly error messages (oops wrong branch)
+
+commit d460588d8c6777c4c3f122bb2ab7bb81227e020f
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 5 17:25:16 2023 -0400
+
+    more user friendly error messages
+
+commit 3f166bdbea30cd9b3dbd579f9c0f256e058f18f5
+Merge: a625a1e c2ff323
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 5 17:14:27 2023 -0400
+
+    Merge pull request #1 from crazyrecipes/DatabaseCreation
+    
+    Bring database creation and UI improvements over
+
+commit c2ff323dfaa8aed567b7b22adee775968a233e91
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 5 17:09:45 2023 -0400
+
+    Improve DB controller and toasts
+
+commit 9ff82889fd5aac5234f5d15de128cd7c49f77779
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Apr 5 13:49:21 2023 -0400
+
+    Integration and testing of database
+
+commit 937706d77e7e6957f18a5375d032ebe6f7e5d6ac
+Author: CrazyHuman1 <94556102+CrazyHuman1@users.noreply.github.com>
+Date:   Wed Apr 5 12:04:58 2023 -0400
+
+    Fixed a spelling mistake
+
+commit 1e85c3ef5a2d8b4c20df3e60a4c709bba4afb933
+Author: CrazyHuman1 <94556102+CrazyHuman1@users.noreply.github.com>
+Date:   Tue Apr 4 23:20:26 2023 -0400
+
+    Start of implementation of Database
+
+commit a625a1ee44298533e1582f6a61187e1cb78ecd04
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 4 13:38:49 2023 -0400
+
+    more toast
+
+commit a185e6503b7a97be4f7f1fc718b34151069c3a20
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 4 12:35:51 2023 -0400
+
+    add more toasts
+
+commit 12113235dd91aa843bf2ba608eed4700af8eb735
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Apr 4 10:17:39 2023 -0400
+
+    Improve search
+
+commit 4e575749f837aff2a44313d96a1223f439b1ab1a
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 3 22:08:01 2023 -0400
+
+    Start working on search
+
+commit 69d59fa5de56d4b6af855f1a2927ac6cddd82a24
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 3 21:55:29 2023 -0400
+
+    Add timer functionality
+
+commit 0dadb2542c69f2afd3f1c4cd1804aba13c418b67
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Apr 3 09:38:21 2023 -0400
+
+    start work on search for tomorrow
+
+commit 8f70a62656c833810d2a68d6ca39821b7a2aec21
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Apr 2 17:52:04 2023 -0400
+
+    add stuff we need to do
+
+commit df5ae01eba99c7ddf56ab055b01cdf332054ff47
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Mar 31 09:00:36 2023 -0400
+
+    add banner
+
+commit 4df4faa5ad08a311f6b4c9c317ff57269e9bcd22
+Author: Juno <jvmeifert@gmail.com>
+Date:   Fri Mar 31 08:49:15 2023 -0400
+
+    rename recipe package to match others
+
+commit 22140690843eebe2c8206997643254c8afc8fe3e
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Mar 30 14:11:33 2023 -0400
+
+    Fix info not displaying in frontend
+
+commit 445c5f318a34860bc827beca94ba25ab3f737400
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Mar 30 14:11:01 2023 -0400
+
+    Delete recipes.dat
+
+commit ae7311c6dfdc8c834dffca03e052eb2f2f679ab3
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Mar 30 14:10:56 2023 -0400
+
+    Delete utensils.dat
+
+commit 2ceaeb7caa0f3ba65c5bed3cb4d5e73d95656b92
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Mar 30 14:00:59 2023 -0400
+
+    Fix duplicate mappings
+
+commit d0d45f75d5893fc7ab70b6d75397b68d9a79b95c
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Mar 30 13:58:12 2023 -0400
+
+    Fix controller issues
+
+commit 386e28152a50a825783c1bc7bf01cd9bd8559b0a
+Author: muccicj <muccicj@clarkson.edu>
+Date:   Thu Mar 30 13:48:12 2023 -0400
+
+    Update RecipeBuddyController.java
+    
+    Ingredient API Hooks
+
+commit 8d7dd14116c361c83bf7f0c736088876dc9808a5
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Mar 30 11:14:13 2023 -0400
+
+    Create README.md
+
+commit fedd60322c70a99ddc009e7a94e7594290e34ec1
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Mar 30 11:07:02 2023 -0400
+
+    Update .gitignore
+
+commit 5f1142fade957252092a47d26d90f149e3bd885c
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Mar 30 11:06:40 2023 -0400
+
+    Add utensils registry
+
+commit 745d5c698622ec1881d32d36b70d156a0ff018d9
+Author: Juno <jvmeifert@gmail.com>
+Date:   Thu Mar 30 09:15:37 2023 -0400
+
+    Add API hooks for allergens
+
+commit 0f15ae4af5d606090d880b5903995510a3608328
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Mar 29 11:31:21 2023 -0400
+
+    Update controllers and add registries
+
+commit b72da0fbf02d942af34e4fbd58370fb0cf1bd625
+Author: Juno <jvmeifert@gmail.com>
+Date:   Wed Mar 29 11:26:12 2023 -0400
+
+    Change implements to utensils in frontend
+
+commit 760fc403f9b74c92d2d7c989195af607681fe5ca
+Author: Andrew <114039784+a-tringali@users.noreply.github.com>
+Date:   Mon Mar 27 11:11:05 2023 -0400
+
+    Update .gitignore
+
+commit bf38d1881da6d2d6ed94da4fb9923041190ce716
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Mar 26 12:58:48 2023 -0400
+
+    Add frontend to static resources dir
+
+commit a462ed4c65674cba528eaf7795221fa39a5f233b
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sun Mar 26 12:57:50 2023 -0400
+
+    Initialize framework for backend
+
+commit 4cf21280356d8eb1687c060b5e9f500eda2f0a4a
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sat Feb 25 08:45:09 2023 -0500
+
+    Update README.md
+
+commit 3d7bec73172608b21fd64e0675c31e5f57a9da1b
+Author: Juno <jvmeifert@gmail.com>
+Date:   Sat Feb 25 08:43:33 2023 -0500
+
+    Update README.md
+
+commit 6dfdf9c43f580f481762a0fd6a8203718f8f0273
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Feb 6 13:49:59 2023 -0500
+
+    Push new framework
+
+commit f437ce9dd294e9339086268b4291ad8c12ce6ead
+Author: Juno <jvmeifert@gmail.com>
+Date:   Mon Feb 6 13:07:39 2023 -0500
+
+    Clear out project for framework push
+
+commit f0cb2c67165ce450972c3c2f7cd7332d04918605
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Jan 31 12:22:43 2023 -0500
+
+    Bring over work from the old repo
+
+commit 444622b0ea46eb8a557e077ebe2705e86e09e878
+Author: Juno <jvmeifert@gmail.com>
+Date:   Tue Jan 31 12:21:46 2023 -0500
+
+    Initial commit
