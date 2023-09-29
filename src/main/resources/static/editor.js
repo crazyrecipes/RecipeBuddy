@@ -1,43 +1,31 @@
-/* API url to post recipe to */
-const RECIPES_URL = "api/recipes"
+/**
+ * editor.js
+ * Functionality for editor.html
+ */
 
-/* API url to get single recipe from */
 const params = new URLSearchParams(decodeURI(window.location.search));
+
+/* URL for this recipe */
 const RECIPE_URL = "api/recipe/" + params.get("id");
+
+/* URL for this recipe's photo */
 const PHOTO_URL = "api/photo/" + params.get("id");
+
+/* URL to open the viewer for this recipe */
 const VIEW_URL = "viewer.html?id=" + params.get("id");
+
+/* Maximum photo upload size in bytes */
 const MAX_UPLOAD_SIZE = 1024 * 1024;
-var UPLOADED_PHOTO = "";
 
-/* ===== TOAST MESSAGE ===== */
-
-var toast_timeout;
-
-/* Show toast message */
-function show_toast(message) {
-    clearTimeout(toast_timeout);
-    var td = document.getElementById("TOAST_MESSAGE");
-    td.innerHTML = message;
-    td.className = "show";
-    toast_timeout = setTimeout(hide_toast, 3000);
-}
-
-/* Hide toast message */
-function hide_toast() {
-    var td = document.getElementById("TOAST_MESSAGE");
-    td.className = td.className.replace("show", "hide");
-}
-
-/* ===== END TOAST MESSAGE ===== */
-
-/* 
-    Handles a photo being uploaded by the user.
-    Sends the photo to the server while the user 
-    is editing the rest of the recipe.
-*/
-function handle_photo_upload(input) {
+/**
+ * Handles a photo being uploaded by the user.
+ * Sends the photo to the server while the user
+ * is editing the rest of the recipe.
+ * @param {input} input - Input to get photo from
+ */
+function handlePhotoUpload(input) {
     if(input.files[0].size < MAX_UPLOAD_SIZE) {
-        show_toast("Uploading photo...");
+        showToast("Uploading photo...");
         const fr = new FileReader();
         fr.addEventListener("load", function(event) {
             fetch(PHOTO_URL, {
@@ -50,23 +38,23 @@ function handle_photo_upload(input) {
                 if(!response.ok) {
                     throw new Error("POST request failed!");
                 }
-                show_toast("Photo uploaded.");
+                showToast("Photo uploaded.");
                 document.getElementById("RECIPE_PHOTO").src = event.target.result;
             }).catch(error => {
                 console.log(error);
-                show_toast("Something went wrong uploading your photo.");
+                showToast("Something went wrong uploading your photo.");
             });
         });
         fr.readAsDataURL(input.files[0]);
     } else {
-        show_toast("Your photo is too large!");
+        showToast("Your photo is too large!");
     }
 }
 
-/* 
-    Fetches the parameters of a single recipe and loads them into the editor.
-*/
-function display_recipe() {
+/**
+ * Fetches the a single recipe's data and loads it into the editor. 
+ */ 
+function displayRecipe() {
     console.log(`Handle DISPLAY recipe ${RECIPE_URL}...`);
     fetch(RECIPE_URL, {
         method: "GET",
@@ -112,15 +100,15 @@ function display_recipe() {
         }
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong displaying your recipe.");
+        showToast("Something went wrong displaying your recipe.");
     });
 }
 
-/* 
-    Saves user edits to this Recipe and sends them to the API.
-*/
-function do_edit() {
-    show_toast("Saving your edits...");
+/** 
+ * Saves user edits to this Recipe and sends them to the server.
+ */
+function handleEdit() {
+    showToast("Saving your edits...");
     console.log("Handling EDIT recipe...");
     /* Get parameters */
     var recipe_name = document.getElementById("RECIPE_NAME").value;
@@ -186,18 +174,18 @@ function do_edit() {
         }
         const data = await response.json();
         //console.log(data);
-        show_toast("Updated recipe.");
+        showToast("Updated recipe.");
         window.location.href = VIEW_URL;
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong saving your changes.");
+        showToast("Something went wrong saving your changes.");
     });
 }
 
-/* 
-    Delete this recipe 
-*/
-function do_delete() {
+/**
+ * Delete this Recipe
+ */
+function handleDelete() {
     if(!confirm("Are you sure you want to delete this recipe?")) {
         return;
     }
@@ -211,12 +199,12 @@ function do_delete() {
         window.location.href = "list.html";
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong deleting your recipe.");
+        showToast("Something went wrong deleting your recipe.");
     })
 }
 
 
-/* ===== On page load ===== */
+/* ----- On page load ----- */
 
 /* Add event listener to update rating display in page */
 var ratingInput = document.getElementById("RECIPE_RATING_INPUT");
@@ -230,4 +218,4 @@ ratingInput.addEventListener("input", function() {
 })
 
 /* Load and display this recipes' parameters */
-display_recipe();
+displayRecipe();

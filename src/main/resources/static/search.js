@@ -1,32 +1,16 @@
-/* API url to get search results from */
+/**
+ * search.js
+ * Functionality for search.html
+ */
+
+/* URL for search queries */
 const SEARCH_URL = "api/search"
 
-/* ===== TOAST MESSAGE ===== */
-
-var toast_timeout;
-
-/* Show toast message */
-function show_toast(message) {
-    clearTimeout(toast_timeout);
-    var td = document.getElementById("TOAST_MESSAGE");
-    td.innerHTML = message;
-    td.className = "show";
-    toast_timeout = setTimeout(hide_toast, 3000);
-
-}
-
-/* Hide toast message */
-function hide_toast() {
-    var td = document.getElementById("TOAST_MESSAGE");
-    td.className = td.className.replace("show", "hide");
-}
-
-/* ===== END TOAST MESSAGE ===== */
-
-/*
-    Process search and show results
-*/
-function show_results(results_json) {
+/**
+ * Display given search results
+ * @param {Object} results_json - List of search results
+ */
+function showResults(results_json) {
     formatted_result = "";
     for(let i in results_json) {
         let recipe = results_json[i];
@@ -52,18 +36,18 @@ function show_results(results_json) {
     }
     if(results_json.length > 0) {
         console.log("Displaying results...");
-        show_toast(`Found ${results_json.length} results.`);
+        showToast(`Found ${results_json.length} results.`);
         document.getElementById("SEARCH_RESULTS").innerHTML = formatted_result;
     } else {
         console.log("No results!");
-        show_toast("Your search didn't match any results.");
+        showToast("Your search didn't match any results.");
     }
 }
 
-/*
-    Execute a search and display results
-*/
-function do_search() {
+/**
+ * Execute a search and display results
+ */
+function doSearch() {
     console.log("Handling SEARCH...");
 
     /* Get search parameters */
@@ -101,7 +85,7 @@ function do_search() {
     }
     `
     
-    show_toast("Searching...");
+    showToast("Searching...");
     /* Send request and display results */
     console.log("Getting results...");
     fetch(SEARCH_URL, {
@@ -114,11 +98,11 @@ function do_search() {
     }).then(async response => {
         const data = await response.json();
         //console.log(data);
-        show_results(data);
+        showResults(data);
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong with your search.");
+        showToast("Something went wrong with your search.");
     });
 }
 
-/* ===== On page load: ===== */
+/* ----- On page load: ----- */

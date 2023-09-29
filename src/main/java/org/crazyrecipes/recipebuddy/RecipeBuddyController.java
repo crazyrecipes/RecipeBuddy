@@ -20,12 +20,23 @@ import org.springframework.web.bind.annotation.*;
  * On startup, it instantiates a DatabaseController to synchronize filesystem operations.
  * It also implements rate limiting to throttle repeated requests.
  */
+@SuppressWarnings("unused")
 @RestController
 public class RecipeBuddyController {
-
+    /**
+     * bucket4j bucket for rate limiting
+     */
     private final Bucket bucket;
-    private Log log;
-    private DatabaseController databaseController;
+
+    /**
+     * This RecipeBuddyController's Log
+     */
+    private final Log log;
+
+    /**
+     * This RecipeBuddyController's DatabaseController
+     */
+    private final DatabaseController databaseController;
 
     /**
      * Instantiates a RecipeBuddyController. Only one instance of RecipeBuddyController
@@ -39,9 +50,7 @@ public class RecipeBuddyController {
         Bandwidth limit = Bandwidth.classic(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE,
                 Refill.greedy(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE, Duration.ofMinutes(1)));
         this.bucket = Bucket.builder().addLimit(limit).build();
-        log.print("=====                                         =====");
-        log.print("===== Init completed. Welcome to RecipeBuddy. =====");
-        log.print("=====                                         =====");
+        log.print("----- Init completed. Welcome to RecipeBuddy. -----");
     }
 
     /* ===== RECIPES ===== */

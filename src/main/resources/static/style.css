@@ -43,22 +43,9 @@ a, a:hover {
     height: 20px;
 }
 
-.app_main {
-    margin: 0;
-    padding: 0;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    min-width: 650px;
-    overflow: visible;
-}
-
-.logo {
-    margin: 12px auto;
-    display: block;
-    width: 60%;
-    max-width: 450px;
-}
-
+/*
+    Inputs
+*/
 .inline_button {
     cursor: pointer;
     font: inherit;
@@ -113,6 +100,25 @@ a, a:hover {
     overflow-y: hidden;
 }
 
+/*
+    Content
+*/
+.app_main {
+    margin: 0;
+    padding: 0;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    min-width: 650px;
+    overflow: visible;
+}
+
+.logo {
+    margin: 12px auto;
+    display: block;
+    width: 60%;
+    max-width: 450px;
+}
+
 .content_container {
     width: 90%;
     max-width: 800px;
@@ -132,7 +138,6 @@ a, a:hover {
 /*
     Fixed navbar at top of page
 */
-
 .navbar_container {
     position: fixed;
     top: 12px;
@@ -171,7 +176,6 @@ a, a:hover {
 /*
     Recipe preview cards in list and search
 */
-
 .recipepreview_container {
     width: 90%;
     max-width: 800px;
@@ -215,7 +219,6 @@ a, a:hover {
 /* 
     Pantry page
 */
-
 .pantry_entry {
     padding: 8px 0px 0px 16px;
 }

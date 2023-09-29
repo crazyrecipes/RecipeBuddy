@@ -1,35 +1,19 @@
-/* API url to get and post ingredients */
+/**
+ * pantry.js
+ * Functionality for pantry.html
+ */
+
+/* URL to get and post ingredients */
 const INGREDIENTS_URL = "api/ingredients"
 
-/* API url to get and post utensils */
+/* URL to get and post utensils */
 const UTENSILS_URL = "api/utensils"
 
-/* ===== TOAST MESSAGE ===== */
-
-var toast_timeout;
-
-/* Show toast message */
-function show_toast(message) {
-    clearTimeout(toast_timeout);
-    var td = document.getElementById("TOAST_MESSAGE");
-    td.innerHTML = message;
-    td.className = "show";
-    toast_timeout = setTimeout(hide_toast, 3000);
-}
-
-/* Hide toast message */
-function hide_toast() {
-    var td = document.getElementById("TOAST_MESSAGE");
-    td.className = td.className.replace("show", "hide");
-}
-
-/* ===== END TOAST MESSAGE ===== */
-
-/*
-    Remove an ingredient from the pantry
-*/
-function handle_remove_ingredient(name) {
-    show_toast("Removing ingredient...");
+/**
+ * Remove an ingredient from the pantry
+ */
+function removeIngredient(name) {
+    showToast("Removing ingredient...");
     console.log(`Handling REMOVE ingredient "${name}"`);
 
     /* Get current ingredients */
@@ -68,24 +52,24 @@ function handle_remove_ingredient(name) {
             //console.log(data);
 
             /* Refresh display */
-            display_ingredients();
-            show_toast("Removed ingredient.");
+            displayIngredients();
+            showToast("Removed ingredient.");
         }).catch(error => {
             console.log(error);
-            show_toast("Something went wrong removing this ingredient.");
+            showToast("Something went wrong removing this ingredient.");
         });
 
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong removing this ingredient.");
+        showToast("Something went wrong removing this ingredient.");
     });
 }
 
-/*
-    Remove a utensil from the pantry
-*/
-function handle_remove_utensil(name) {
-    show_toast("Removing utensil...");
+/**
+ * Remove a utensil from the pantry
+ */
+function removeUtensil(name) {
+    showToast("Removing utensil...");
     console.log(`Handling REMOVE utensil "${name}"`);
 
     /* Get current utensils */
@@ -124,26 +108,26 @@ function handle_remove_utensil(name) {
             //console.log(data);
 
             /* Refresh display */
-            display_utensils();
-            show_toast("Removed utensil.");
+            displayUtensils();
+            showToast("Removed utensil.");
         }).catch(error => {
             console.log(error);
-            show_toast("Something went wrong removing this utensil.");
+            showToast("Something went wrong removing this utensil.");
         });
 
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong removing this utensil.");
+        showToast("Something went wrong removing this utensil.");
     });
 }
 
-/*
-    Add an ingredient to the pantry
-*/
-function handle_add_ingredient() {
+/**
+ * Add an ingredient to the pantry
+ */
+function addIngredient() {
     let ingredient_name = document.getElementById("INGREDIENT_ADD_INPUT").value;
     if(ingredient_name.length < 1) { return; }
-    show_toast("Adding ingredient...");
+    showToast("Adding ingredient...");
     console.log(`Handling ADD ingredient "${ingredient_name}"`);
 
     /* Get current ingredients */
@@ -180,26 +164,26 @@ function handle_add_ingredient() {
             //console.log(data);
 
             /* Refresh display */
-            display_ingredients();
+            displayIngredients();
             document.getElementById('INGREDIENT_ADD_INPUT').value = "";
-            show_toast("Added ingredient.");
+            showToast("Added ingredient.");
         }).catch(error => {
             console.log(error);
-            show_toast("Something went wrong adding this ingredient.");
+            showToast("Something went wrong adding this ingredient.");
         });
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong adding this ingredient.");
+        showToast("Something went wrong adding this ingredient.");
     });
 }
 
-/*
-    Add a utensil to the pantry
-*/
-function handle_add_utensil() {
+/**
+ * Add a utensil to the pantry
+ */
+function addUtensil() {
     let utensil_name = document.getElementById("UTENSIL_ADD_INPUT").value;
     if(utensil_name.length < 1) { return; }
-    show_toast("Adding utensil...");
+    showToast("Adding utensil...");
     console.log(`Handling ADD utensil "${utensil_name}"`);
 
     /* Get current utensils */
@@ -236,24 +220,24 @@ function handle_add_utensil() {
             //console.log(data);
 
             /* Refresh display */
-            display_utensils();
+            displayUtensils();
             document.getElementById('UTENSIL_ADD_INPUT').value = "";
-            show_toast("Added utensil.");
+            showToast("Added utensil.");
         }).catch(error => {
             console.log(error);
-            show_toast("Something went wrong adding this utensil.");
+            showToast("Something went wrong adding this utensil.");
         });
 
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong adding this utensil.");
+        showToast("Something went wrong adding this utensil.");
     });
 }
 
-/*
-    Get and display all ingredients
-*/
-function display_ingredients() {
+/**
+ * Get and display all ingredients
+ */
+function displayIngredients() {
     console.log("Handling DISPLAY ingredients...");
     fetch(INGREDIENTS_URL, {
         method: "GET",
@@ -273,7 +257,7 @@ function display_ingredients() {
             var ingredientHTML = `
             <div class="pantry_entry">
                 ${ingredient}
-                <button class="pantry_button" onClick="handle_remove_ingredient('${ingredient}')">X</button>
+                <button class="pantry_button" onClick="removeIngredient('${ingredient}')">X</button>
             </div>
             `
             formatted_result += ingredientHTML;
@@ -282,14 +266,14 @@ function display_ingredients() {
         document.getElementById("INGREDIENT_LIST").innerHTML = formatted_result;
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong displaying your ingredients.");
+        showToast("Something went wrong displaying your ingredients.");
     });
 }
 
-/*
-    Get and display all utensils
-*/
-function display_utensils() {
+/**
+ * Get and display all utensils
+ */
+function displayUtensils() {
     console.log("Handling DISPLAY utensils...");
     fetch(UTENSILS_URL, {
         method: "GET",
@@ -309,7 +293,7 @@ function display_utensils() {
             var utensilHTML = `
             <div class="pantry_entry">
                 ${utensil}
-                <button class="pantry_button" onClick="handle_remove_utensil('${utensil}')">X</button>
+                <button class="pantry_button" onClick="removeUtensil('${utensil}')">X</button>
             </div>
             `
             formatted_result += utensilHTML;
@@ -318,10 +302,10 @@ function display_utensils() {
         document.getElementById("UTENSIL_LIST").innerHTML = formatted_result;
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong displaying your utensils.");
+        showToast("Something went wrong displaying your utensils.");
     })
 }
 
 /* ===== On page load: ===== */
-display_ingredients();
-display_utensils();
+displayIngredients();
+displayUtensils();
