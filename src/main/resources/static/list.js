@@ -1,31 +1,19 @@
+/**
+ * list.js
+ * Functionality for list.html
+ */
+
+/* URL for list of recipes */
 const RECIPELIST_URL = "api/recipes"
+
+/* URL for search queries */
 const SEARCH_URL = "api/search"
 
-/* ===== TOAST MESSAGE ===== */
-
-var toast_timeout;
-
-/* Show toast message */
-function show_toast(message) {
-    clearTimeout(toast_timeout);
-    var td = document.getElementById("TOAST_MESSAGE");
-    td.innerHTML = message;
-    td.className = "show";
-    toast_timeout = setTimeout(hide_toast, 3000);
-}
-
-/* Hide toast message */
-function hide_toast() {
-    var td = document.getElementById("TOAST_MESSAGE");
-    td.className = td.className.replace("show", "hide");
-}
-
-/* ===== END TOAST MESSAGE ===== */
-
-/*
-    Display recipes in list
-*/
-function show_recipes(recipe_json) {
+/**
+ * Displays given recipes 
+ * @param {Object} recipe_json - List of recipes to display
+ */
+function showRecipes(recipe_json) {
     let formatted_result = "";
     for(let i in recipe_json) {
         let recipe = recipe_json[i];
@@ -51,18 +39,17 @@ function show_recipes(recipe_json) {
     }
     document.getElementById("RECIPE_LIST").innerHTML = formatted_result;
     if(recipe_json.length == 0) {
-        show_toast("Couldn't find any matching recipes.");
+        showToast("Couldn't find any matching recipes.");
     }
 }
 
-/* 
-    Update the greeting in the page based on the time of day.
-*/
-function greet() {
+/**
+ * Update the greeting in the page based on the time of day.
+ */
+function displayGreeting() {
     const greeting = document.getElementById("GREETING");
     let d = new Date();
     let h = d.getHours();
-    let intro;
     if(h < 12) {
         greeting.innerHTML = "&#127749; Good morning!";
     } else if(h < 17) {
@@ -72,14 +59,14 @@ function greet() {
     }
 }
 
-/*
-    Get and display recommended recipes.
-    These are recipes that the user either has everything to make
-    or is only missing a couple things. They will not contain the user's allergens.
-    They are ranked by quality and relevance (what you have everything to make
-    and what is highly rated will be displayed first).
-*/
-function display_relevant_recipes() {
+/**
+ * Get and display recommended recipes.
+ * These are recipes that the user either has everything to make
+ * or is only missing a couple things. They will not contain the user's allergens.
+ * They are ranked by quality and relevance (what you have everything to make
+ * and what is highly rated will be displayed first).
+ */
+function displayRelevantRecipes() {
     console.log("Handling DISPLAY recommended recipes...");
     const SEARCH_JSON = `
     {
@@ -99,18 +86,18 @@ function display_relevant_recipes() {
     }).then(async response => {
         const data = await response.json();
         //console.log(data);
-        show_toast("Showing recommended recipes.");
-        show_recipes(data);
+        showToast("Showing recommended recipes.");
+        showRecipes(data);
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong fetching your recipes.");
+        showToast("Something went wrong fetching your recipes.");
     });  
 }
 
-/*
-    Get and display all recipes if the user asks us to
-*/
-function display_all_recipes() {
+/**
+ * Get and display all recipes if the user asks us to
+ */
+function displayAllRecipes() {
     console.log("Handling DISPLAY all recipes...");
     const SEARCH_JSON = `
     {
@@ -130,14 +117,14 @@ function display_all_recipes() {
     }).then(async response => {
         const data = await response.json();
         //console.log(data);
-        show_recipes(data);
-        show_toast("Showing all recipes.");
+        showRecipes(data);
+        showToast("Showing all recipes.");
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong fetching your recipes.");
+        showToast("Something went wrong fetching your recipes.");
     });  
 }
 
-/* ===== On page load: ===== */
-greet();
-display_relevant_recipes();
+/* ----- On page load: ----- */
+displayGreeting();
+displayRelevantRecipes();

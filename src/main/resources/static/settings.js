@@ -1,32 +1,21 @@
+/**
+ * settings.js
+ * Functionality for settings.html
+ */
+
+/* URL for allergens */
 const ALLERGENS_URL = "api/allergens";
+
+/* URL for backing up recipes */
 const BACKUP_URL = "api/backup";
+
+/* URL for restoring recipes */
 const RESTORE_URL = "api/restore";
 
-/* ===== TOAST MESSAGE ===== */
-
-var toast_timeout;
-
-/* Show toast message */
-function show_toast(message) {
-    clearTimeout(toast_timeout);
-    var td = document.getElementById("TOAST_MESSAGE");
-    td.innerHTML = message;
-    td.className = "show";
-    toast_timeout = setTimeout(hide_toast, 3000);
-}
-
-/* Hide toast message */
-function hide_toast() {
-    var td = document.getElementById("TOAST_MESSAGE");
-    td.className = td.className.replace("show", "hide");
-}
-
-/* ===== END TOAST MESSAGE ===== */
-
-/*
-    Grab and display current user allergens
-*/
-function display_allergens() {
+/**
+ * Grab and display current user allergens 
+ */
+function displayAllergens() {
     console.log("Handle DISPLAY allergens...");
     /* Send request */
     fetch(ALLERGENS_URL, {
@@ -51,15 +40,15 @@ function display_allergens() {
         }
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong displaying your allergens.");
+        showToast("Something went wrong displaying your allergens.");
     });
 }
 
-/*
-    Push user allergen changes
-*/
-function handle_allergen_change() {
-    show_toast("Updating your allergens...");
+/**
+ * Push user allergen changes
+ */
+function updateAllergens() {
+    showToast("Updating your allergens...");
     console.log("Handle UPDATE allergens...");
     var allergens_inputs = document.getElementsByName("ALLERGENS_INPUT");
     var user_allergens = [];
@@ -86,20 +75,20 @@ function handle_allergen_change() {
         //console.log(data);
 
         /* Update display */
-        display_allergens();
-        show_toast("Updated allergens.");
+        displayAllergens();
+        showToast("Updated allergens.");
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong updating your allergens.");
+        showToast("Something went wrong updating your allergens.");
     });
 }
 
-/*
-    Back up recipes to JSON
-*/
-function handle_backup_recipes() {
+/**
+ * Back up recipes to JSON
+ */
+function backupRecipes() {
     console.log("Handle BACKUP recipes...");
-    show_toast("Backing up your recipes...");
+    showToast("Backing up your recipes...");
     /* Send request */
     fetch(BACKUP_URL, {
         method: "GET",
@@ -115,18 +104,18 @@ function handle_backup_recipes() {
         document.getElementById("RECIPE_BACKUP_TEXT").value = JSON.stringify(data);
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong backing up your recipes.");
+        showToast("Something went wrong backing up your recipes.");
     });
 }
 
-/*
-    Restore recipes from JSON
-*/
-function handle_restore_recipes() {
+/**
+ * Restore recipes from JSON
+ */
+function restoreRecipes() {
     console.log("Handle RESTORE recipes...");
     var recipes_json = document.getElementById("RECIPE_RESTORE_TEXT").value;
 
-    show_toast("Restoring your recipes...");
+    showToast("Restoring your recipes...");
     /* Send request */
     fetch(RESTORE_URL, {
         method: "POST",
@@ -140,12 +129,12 @@ function handle_restore_recipes() {
             throw new Error("GET request failed!");
         }
         //console.log(data);
-        show_toast("Restored your recipes successfully.");
+        showToast("Restored your recipes successfully.");
     }).catch(error => {
         console.log(error);
-        show_toast("Something went wrong restoring your recipes.");
+        showToast("Something went wrong restoring your recipes.");
     });
 }
 
-/* ===== On page load: ===== */
-display_allergens();
+/* ----- On page load: ----- */
+displayAllergens();

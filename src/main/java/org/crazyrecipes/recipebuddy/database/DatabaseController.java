@@ -1,10 +1,5 @@
 package org.crazyrecipes.recipebuddy.database;
 
-import org.crazyrecipes.recipebuddy.RecipeBuddyMap;
-import org.crazyrecipes.recipebuddy.error.NotFoundException;
-import org.crazyrecipes.recipebuddy.error.ResourceUpdateException;
-import org.crazyrecipes.recipebuddy.recipe.*;
-import org.crazyrecipes.recipebuddy.util.Log;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,20 +7,60 @@ import java.util.Base64;
 import java.util.Vector;
 import java.util.List;
 
+import org.crazyrecipes.recipebuddy.RecipeBuddyMap;
+import org.crazyrecipes.recipebuddy.error.NotFoundException;
+import org.crazyrecipes.recipebuddy.error.ResourceUpdateException;
+import org.crazyrecipes.recipebuddy.recipe.*;
+import org.crazyrecipes.recipebuddy.util.Log;
+
 /**
  * DatabaseController provides functionality for creating, reading, updating,
  *   and deleting recipes, ingredients, utensils, allergens, and photos.
  */
 public class DatabaseController {
+    /**
+     * Path where recipes are stored
+     */
     private final String RECIPES_STORE_FILE = "data/recipes.dat";
+
+    /**
+     * Path where ingredients are stored
+     */
     private final String INGREDIENTS_STORE_FILE = "data/ingredients.dat";
+
+    /**
+     * Path where utensils are stored
+     */
     private final String UTENSILS_STORE_FILE = "data/utensils.dat";
+
+    /**
+     * Path where allergens are stored
+     */
     private final String ALLERGENS_STORE_FILE = "data/allergens.dat";
 
+    /**
+     * Currently loaded recipes
+     */
     private Vector<Recipe> recipes;
+
+    /**
+     * Currently loaded ingredients
+     */
     private Vector<String> ingredients;
+
+    /**
+     * Currently loaded utensils
+     */
     private Vector<String> utensils;
+
+    /**
+     * Currently loaded allergens
+     */
     private Vector<String> allergens;
+
+    /**
+     * This DatabaseController's Log
+     */
     private final Log log;
 
     /**
@@ -36,9 +71,9 @@ public class DatabaseController {
         try {
             Files.createDirectories(Paths.get("data/photos/"));
         } catch(IOException e) {
-            log.print(2, "Failed to ensure presence of database directories.");
+            log.print(2, "Failed to ensure presence of data directories.");
         }
-        log.print("Creating cached database...");
+        log.print("Loading data from disk...");
         this.recipes = loadRecipesFromFile(RECIPES_STORE_FILE);
         this.ingredients = loadStringsFromFile(INGREDIENTS_STORE_FILE);
         this.utensils = loadStringsFromFile(UTENSILS_STORE_FILE);
@@ -260,6 +295,7 @@ public class DatabaseController {
      * @param STORE_FILE Filename to load strings from
      * @return The loaded strings
      */
+    @SuppressWarnings("unchecked") // TODO save/load ingredients as JSON
     private synchronized Vector<String> loadStringsFromFile(String STORE_FILE) {
         try {
             log.print("Creating cache from " + STORE_FILE + ".");
@@ -306,9 +342,10 @@ public class DatabaseController {
 
     /**
      * Loads a vector of recipes from a file.
-     * @param STORE_FILE Filename to load recipes from
+     * @param STORE_FILE File path to load recipes from
      * @return Loaded recipes
      */
+    @SuppressWarnings("unchecked") // TODO save/load recipes as JSON
     private synchronized Vector<Recipe> loadRecipesFromFile(String STORE_FILE) {
         try {
             log.print("Creating cache from " + STORE_FILE + ".");

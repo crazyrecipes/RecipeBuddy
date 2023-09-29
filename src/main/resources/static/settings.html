@@ -51,14 +51,14 @@
                     <label for="ALLERGEN_SESAME">Sesame</label><br>
                     <input type="checkbox" id="ALLERGEN_MUSTARD" name="ALLERGENS_INPUT" value="Mustard">
                     <label for="ALLERGEN_MUSTARD">Mustard</label><br>
-                    <div class="inline_button" onclick="handle_allergen_change()">Update Allergens</div>
+                    <div class="inline_button" onclick="updateAllergens()">Update Allergens</div>
                     
                     <div class="spacer"></div>
 
                     <h2>&#128190; Back up Recipes</h2>
                     <p>Click "Back Up Recipes" and copy the resulting text to somewhere safe.</p>
                     <textarea id="RECIPE_BACKUP_TEXT" class="text_field_big" rows="10" placeholder="Recipes will be exported here..."></textarea><br>
-                    <div class="inline_button" onclick="handle_backup_recipes()">Back Up Recipes</div>
+                    <div class="inline_button" onclick="backupRecipes()">Back Up Recipes</div>
                     
                     <div class="spacer"></div>
 
@@ -66,7 +66,7 @@
                     <p>Paste your recipe backup JSON here and click "Restore Recipes".</p>
                     <p>This will update the information of recipes if they already exist or create new ones if they don't.</p>
                     <textarea id="RECIPE_RESTORE_TEXT" class="text_field_big" rows="10" placeholder="Paste recipes here to import..."></textarea><br>
-                    <div class="inline_button" onclick="handle_restore_recipes()">Restore Recipes</div>
+                    <div class="inline_button" onclick="restoreRecipes()">Restore Recipes</div>
                     
                     <div class="spacer"></div>
                 </div>
@@ -75,6 +75,7 @@
 
         <div class="toast" id="TOAST_MESSAGE"></div>
 
+        <script src="toast.js"></script>
         <script src="settings.js"></script>
     </body>
 </html>
