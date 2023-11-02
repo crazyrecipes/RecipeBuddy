@@ -56,7 +56,7 @@ class DatabaseTests {
      * Tests reading and writing utensils
      */
     @Test
-    public void testUtensils() {
+    public void testUtensils() throws IOException {
         Log log = new Log("DatabaseTests");
         log.print("===== Beginning database utensils test. =====");
 
@@ -91,7 +91,7 @@ class DatabaseTests {
      * Tests reading and writing allergens
      */
     @Test
-    public void testAllergens() {
+    public void testAllergens() throws IOException {
         Log log = new Log("DatabaseTests");
         log.print("===== Beginning database allergens test. ====");
 
@@ -127,7 +127,7 @@ class DatabaseTests {
      * Tests reading, writing, and deleting Recipes
      */
     @Test
-    public void testRecipes() {
+    public void testRecipes() throws IOException {
         Log log = new Log("DatabaseTests");
         log.print("===== Beginning database Recipes test. =====");
 
@@ -190,7 +190,7 @@ class DatabaseTests {
      * Tests reading and writing photos
      */
     @Test
-    public void testPhotos() {
+    public void testPhotos() throws IOException {
         Log log = new Log("DatabaseTests");
         log.print("===== Beginning database photos test. ====");
 

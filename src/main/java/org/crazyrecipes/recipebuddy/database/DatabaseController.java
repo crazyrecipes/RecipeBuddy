@@ -246,7 +246,12 @@ public class DatabaseController {
      * @return The photo as bytes
      */
     public synchronized byte[] readPhoto(String id) throws IOException {
-        return loadBytesFromFile("data/photos/"+id);
+        try {
+            return loadBytesFromFile("data/photos/"+id);
+        } catch(FileNotFoundException e) {
+            throw new NotFoundException();
+        }
+        
     }
 
     /**
