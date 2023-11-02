@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    container_name: recipebuddy
+    ports:
+      - "8001:8080"
+    volumes:
+      - type: bind
+        source: ./data
+        target: /recipebuddy/data
