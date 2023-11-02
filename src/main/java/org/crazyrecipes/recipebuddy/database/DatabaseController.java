@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.crazyrecipes.recipebuddy.RecipeBuddyMap;
 import org.crazyrecipes.recipebuddy.error.NotFoundException;
-import org.crazyrecipes.recipebuddy.error.ResourceUpdateException;
 import org.crazyrecipes.recipebuddy.recipe.*;
 import org.crazyrecipes.recipebuddy.util.Log;
 
@@ -66,7 +65,7 @@ public class DatabaseController {
     /**
      * Instantiates a DatabaseController.
      */
-    public DatabaseController() {
+    public DatabaseController() throws IOException {
         this.log = new Log("DatabaseController");
         try {
             Files.createDirectories(Paths.get("data/photos/"));
@@ -110,7 +109,7 @@ public class DatabaseController {
      * @param newRecipe New recipe to add
      * @return The created Recipe
      */
-    public synchronized Recipe createRecipe(Recipe newRecipe) {
+    public synchronized Recipe createRecipe(Recipe newRecipe) throws IOException {
         Recipe recipeToAdd = new Recipe();
         recipeToAdd.duplicate_from(newRecipe);
         recipes.add(recipeToAdd);
@@ -125,7 +124,7 @@ public class DatabaseController {
      * @param recipe The Recipe to replace with
      * @return The updated Recipe
      */
-    public synchronized Recipe editRecipe(String id, Recipe recipe) throws NotFoundException {
+    public synchronized Recipe editRecipe(String id, Recipe recipe) throws NotFoundException, IOException {
         for(int i = 0; i < recipes.size(); i++) {
             if(recipes.get(i).getID().equals(id)) {
                 recipes.get(i).duplicate_from(recipe);
@@ -141,7 +140,7 @@ public class DatabaseController {
      * Increments a Recipe's times cooked counter.
      * @param id The Recipe ID to update
      */
-    public synchronized void cookRecipe(String id) throws NotFoundException {
+    public synchronized void cookRecipe(String id) throws NotFoundException, IOException {
         for(int i = 0; i < recipes.size(); i++) {
             if(recipes.get(i).getID().equals(id)) {
                 recipes.get(i).cook();
@@ -157,7 +156,7 @@ public class DatabaseController {
      * Deletes a Recipe.
      * @param id Recipe ID to delete
      */
-    public synchronized void deleteRecipe(String id) throws NotFoundException {
+    public synchronized void deleteRecipe(String id) throws NotFoundException, IOException {
         for(int i = 0; i < recipes.size(); i++) {
             if(recipes.get(i).getID().equals(id)) {
                 recipes.remove(i);
@@ -183,7 +182,7 @@ public class DatabaseController {
      * @param newIngredients Ingredients list to write
      * @return The posted ingredients.
      */
-    public synchronized List<String> writeIngredients(List<String> newIngredients) {
+    public synchronized List<String> writeIngredients(List<String> newIngredients) throws IOException {
         ingredients = new Vector<>();
         for(String i : newIngredients) {
             String j = i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]","");
@@ -206,7 +205,7 @@ public class DatabaseController {
      * @param newUtensils Utensils list to write
      * @return The posted utensils
      */
-    public synchronized List<String> writeUtensils(List<String> newUtensils) {
+    public synchronized List<String> writeUtensils(List<String> newUtensils) throws IOException {
         utensils = new Vector<>();
         for(String i : newUtensils) {
             String j = i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]","");
@@ -229,7 +228,7 @@ public class DatabaseController {
      * @param newAllergens Allergens list to write
      * @return The posted allergens
      */
-    public synchronized List<String> writeAllergens(List<String> newAllergens) {
+    public synchronized List<String> writeAllergens(List<String> newAllergens) throws IOException {
         allergens = new Vector<>();
         for(String i : newAllergens) {
             String j = i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]","");
@@ -246,7 +245,7 @@ public class DatabaseController {
      * @param id The ID of the photo to read
      * @return The photo as bytes
      */
-    public synchronized byte[] readPhoto(String id) {
+    public synchronized byte[] readPhoto(String id) throws IOException {
         return loadBytesFromFile("data/photos/"+id);
     }
 
@@ -255,14 +254,9 @@ public class DatabaseController {
      * @param item The photo as bytes
      * @param id The ID of the photo to write
      */
-    public synchronized void writePhoto(String item, String id) {
-        try {
-            byte[] image = Base64.getDecoder().decode(item.split(",")[1]);
-            saveBytesToFile(image, "data/photos/"+id);
-        } catch(RuntimeException e) {
-            log.print(2, "Failed to write image.");
-            throw new ResourceUpdateException();
-        }
+    public synchronized void writePhoto(String item, String id) throws IOException {
+        byte[] image = Base64.getDecoder().decode(item.split(",")[1]);
+        saveBytesToFile(image, "data/photos/"+id);
     }
 
     /**
@@ -276,7 +270,7 @@ public class DatabaseController {
     /**
      * Resets the database. Clears all items in the cache and on the disk.
      */
-    public synchronized void reset() {
+    public synchronized void reset() throws IOException {
         log.print(1, "RESETTING DATABASE!");
         recipes = new Vector<>();
         ingredients = new Vector<>();
@@ -323,21 +317,13 @@ public class DatabaseController {
      * @param items Vector of strings to save
      * @param STORE_FILE Filename to save to
      */
-    private synchronized void saveStringsToFile(Vector<String> items, String STORE_FILE) {
-        try {
-            log.print("Syncing writes to " + STORE_FILE + ".");
-            FileOutputStream f = new FileOutputStream(STORE_FILE);
-            ObjectOutputStream o = new ObjectOutputStream(f);
-            o.writeObject(items);
-            o.close();
-            f.close();
-        } catch(FileNotFoundException e) {
-            log.print(2, "Couldn't find " + STORE_FILE + " on write.");
-            throw new ResourceUpdateException();
-        } catch(IOException e) {
-            log.print(2, "I/O error writing " + STORE_FILE + ".");
-            throw new ResourceUpdateException();
-        }
+    private synchronized void saveStringsToFile(Vector<String> items, String STORE_FILE) throws IOException {
+        log.print("Syncing writes to " + STORE_FILE + ".");
+        FileOutputStream f = new FileOutputStream(STORE_FILE);
+        ObjectOutputStream o = new ObjectOutputStream(f);
+        o.writeObject(items);
+        o.close();
+        f.close();
     }
 
     /**
@@ -346,7 +332,7 @@ public class DatabaseController {
      * @return Loaded recipes
      */
     @SuppressWarnings("unchecked") // TODO save/load recipes as JSON
-    private synchronized Vector<Recipe> loadRecipesFromFile(String STORE_FILE) {
+    private synchronized Vector<Recipe> loadRecipesFromFile(String STORE_FILE) throws IOException {
         try {
             log.print("Creating cache from " + STORE_FILE + ".");
             FileInputStream f = new FileInputStream(STORE_FILE);
@@ -355,13 +341,6 @@ public class DatabaseController {
             o.close();
             f.close();
             return output;
-        } catch(FileNotFoundException e) {
-            log.print(1, "Couldn't find " + STORE_FILE + ". Will attempt to create it on write.");
-            return new Vector<>();
-        } catch(IOException e) {
-            log.print(2, "I/O error reading " + STORE_FILE + ".");
-            throw new RuntimeException("Failed to read " + STORE_FILE + ".");
-            //return new Vector<>();
         } catch(ClassNotFoundException e) {
             log.print(2, "Class mismatch reading from " + STORE_FILE + ".");
             return new Vector<>();
@@ -373,21 +352,13 @@ public class DatabaseController {
      * @param items Vector of strings to save
      * @param STORE_FILE Filename to save to
      */
-    private synchronized void saveRecipesToFile(Vector<Recipe> items, String STORE_FILE) {
-        try {
-            log.print("Syncing writes to " + STORE_FILE + ".");
-            FileOutputStream f = new FileOutputStream(STORE_FILE);
-            ObjectOutputStream o = new ObjectOutputStream(f);
-            o.writeObject(items);
-            o.close();
-            f.close();
-        } catch(FileNotFoundException e) {
-            log.print(2, "Couldn't find " + STORE_FILE + " on write.");
-            throw new ResourceUpdateException();
-        } catch(IOException e) {
-            log.print(2, "I/O error writing " + STORE_FILE + ".");
-            throw new ResourceUpdateException();
-        }
+    private synchronized void saveRecipesToFile(Vector<Recipe> items, String STORE_FILE) throws IOException {
+        log.print("Syncing writes to " + STORE_FILE + ".");
+        FileOutputStream f = new FileOutputStream(STORE_FILE);
+        ObjectOutputStream o = new ObjectOutputStream(f);
+        o.writeObject(items);
+        o.close();
+        f.close();
     }
 
     /**
@@ -395,22 +366,13 @@ public class DatabaseController {
      * @param STORE_FILE Filename to load bytes from
      * @return The loaded bytes
      */
-    private synchronized byte[] loadBytesFromFile(String STORE_FILE) {
-        try {
-            File f = new File(STORE_FILE);
-            FileInputStream fis = new FileInputStream(f);
-            byte[] fb = new byte[(int) f.length()];
-            fis.read(fb);
-            fis.close();
-            return fb;
-        } catch(FileNotFoundException e) {
-            log.print(1, "Couldn't find " + STORE_FILE + ". Will attempt to create it on write.");
-            throw new NotFoundException();
-        } catch(IOException e) {
-            log.print(2, "Error reading " + STORE_FILE + ".");
-            throw new RuntimeException("Failed to read " + STORE_FILE + ".");
-            //return new byte[0];
-        }
+    private synchronized byte[] loadBytesFromFile(String STORE_FILE) throws IOException {
+        File f = new File(STORE_FILE);
+        FileInputStream fis = new FileInputStream(f);
+        byte[] fb = new byte[(int) f.length()];
+        fis.read(fb);
+        fis.close();
+        return fb;
     }
 
     /**
@@ -418,19 +380,11 @@ public class DatabaseController {
      * @param item Bytes to save
      * @param STORE_FILE Filename to save to
      */
-    private synchronized void saveBytesToFile(byte[] item, String STORE_FILE) {
-        try {
-            log.print("Writing " + STORE_FILE + ".");
-            FileOutputStream f = new FileOutputStream(STORE_FILE);
-            f.write(item);
-            f.close();
-        } catch(FileNotFoundException e) {
-            log.print(2, "Couldn't find " + STORE_FILE + " on write.");
-            throw new ResourceUpdateException();
-        } catch(IOException e) {
-            log.print(2, "I/O error writing " + STORE_FILE + ".");
-            throw new ResourceUpdateException();
-        }
+    private synchronized void saveBytesToFile(byte[] item, String STORE_FILE) throws IOException {
+        log.print("Writing " + STORE_FILE + ".");
+        FileOutputStream f = new FileOutputStream(STORE_FILE);
+        f.write(item);
+        f.close();
     }
 
     /**

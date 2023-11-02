@@ -1,24 +1,21 @@
 package org.crazyrecipes.recipebuddy.util;
 
-import org.crazyrecipes.recipebuddy.RecipeBuddyMap;
-
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Log provides simple functionality for logging events by class.
  * Log events can have one of three severity levels:
- *  - 0: [  OK  ]
+ *  - 0: [ INFO ]
  *  - 1: [ WARN ]
- *  - 2: [ERROR!]
+ *  - 2: [ ERROR ]
  */
 public class Log {
-    private final String PREFIX = "(RecipeBuddyApplication) ";
-    private final String LOG_OK = " [  OK  ] ";
-    private final String LOG_WARN = " [ WARN ] ";
-    private final String LOG_ERROR = " [ERROR!] ";
-
-    private String className;
-    private final int LOG_LEVEL = RecipeBuddyMap.LOG_LEVEL;
+    private static final SimpleDateFormat LOG_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final String LOG_INFO = " [ INFO ] ";
+    private static final String LOG_WARN = " [ WARN ] ";
+    private static final String LOG_ERROR = " [ ERROR ] ";
+    private final String className;
 
     /**
      * Instantiates a Log for this class
@@ -29,47 +26,34 @@ public class Log {
     }
 
     /**
-     * Logs an event with severity 0
-     * @param entry Event to log
-     */
-    public void print(String entry) {
-        if(LOG_LEVEL < 1) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(PREFIX);
-            sb.append(new Date());
-            sb.append(LOG_OK);
-            sb.append(className);
-            sb.append(": ");
-            sb.append(entry);
-            System.out.println(sb.toString());
-        }
-    }
-
-    /**
      * Logs an event with a specified severity
      * @param level Severity
      * @param entry Event to log
      */
     public void print(int level, String entry) {
-        if(level >= LOG_LEVEL) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(PREFIX);
-            sb.append(new Date());
-            switch(level) {
-                case 1:
-                    sb.append(LOG_WARN);
-                    break;
-                case 2:
-                    sb.append(LOG_ERROR);
-                    break;
-                default:
-                    sb.append(LOG_OK);
-                    break;
-            }
-            sb.append(className);
-            sb.append(": ");
-            sb.append(entry);
-            System.out.println(sb.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append(LOG_DATE_FORMAT.format(new Date()));
+        switch(level) {
+            case 1:
+                sb.append(LOG_WARN);
+                break;
+            case 2:
+                sb.append(LOG_ERROR);
+                break;
+            default:
+                sb.append(LOG_INFO);
+                break;
         }
+        sb.append(className);
+        sb.append(" ".repeat(Math.max(0, 24 - className.length())));
+        sb.append(": ");
+        sb.append(entry);
+        System.out.println(sb);
     }
+
+    /**
+     * Logs an event with severity INFO.
+     * @param entry Event to log
+     */
+    public void print(String entry) { this.print(0, entry); }
 }

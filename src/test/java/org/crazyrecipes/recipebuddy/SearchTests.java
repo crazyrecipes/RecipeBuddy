@@ -31,6 +31,6 @@ class SearchTests {
 		assert test_search.getUtensils().equals("SOME");
 		assert test_search.getAllergens().equals("BLOCK");
 
-		log.print("===== Recipe test passed. =====");
+		log.print("===== Search test passed. =====");
 	}
 }

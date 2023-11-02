@@ -7,6 +7,7 @@ import org.crazyrecipes.recipebuddy.util.Log;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 import java.util.Vector;
 
 /**
@@ -18,7 +19,7 @@ class DatabaseTests {
      * Tests reading and writing ingredients
      */
     @Test
-    public void testIngredients() {
+    public void testIngredients() throws IOException {
         Log log = new Log("DatabaseTests");
         log.print("===== Beginning ingredients test. =====");
 

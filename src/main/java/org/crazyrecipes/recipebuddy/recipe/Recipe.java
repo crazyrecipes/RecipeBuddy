@@ -12,6 +12,7 @@ import java.util.Vector;
  *   a rating, a times cooked counter, a list of ingredients,
  *   a list of utensils, a list of allergens, a list of steps, and a list of tags.
  */
+@SuppressWarnings("unused")
 public class Recipe implements Serializable {
     @Serial
     private static final long serialVersionUID = 1802001L;
@@ -43,27 +44,27 @@ public class Recipe implements Serializable {
     /**
      * The Recipe's ingredients
      */
-    private Vector<String> ingredients;
+    private final Vector<String> ingredients;
 
     /**
      * The Recipe's utensils
      */
-    private Vector<String> utensils;
+    private final Vector<String> utensils;
 
     /**
      * The Recipe's allergens
      */
-    private Vector<String> allergens;
+    private final Vector<String> allergens;
 
     /**
      * The steps to make the Recipe
      */
-    private Vector<String> steps;
+    private final Vector<String> steps;
 
     /**
      * The Recipe's tags
      */
-    private Vector<String> tags;
+    private final Vector<String> tags;
 
     /**
      * Regex used to remove invalid characters from input
@@ -285,7 +286,7 @@ public class Recipe implements Serializable {
      * @return The vector converted to JSON
      */
     private String vec_strings_to_json(Vector<String> s) {
-        if(s.size() == 0) { return "[]"; }
+        if(s.isEmpty()) { return "[]"; }
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         for(String i : s) {

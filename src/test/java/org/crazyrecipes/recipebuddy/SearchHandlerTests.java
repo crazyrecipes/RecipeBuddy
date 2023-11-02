@@ -116,7 +116,7 @@ public class SearchHandlerTests {
             }
             search = new Search(String.valueOf(i), "ALL", "ALL", "SHOW");
             results = new Vector<>((new SearchHandler(recipes, ingredients, utensils, allergens)).doSearch(search));
-            assert results.size() == 0;
+            assert results.isEmpty();
         }
 
         log.print("Testing showing only recipes with most ingredients+utensils (we do have most)...");
@@ -147,7 +147,7 @@ public class SearchHandlerTests {
             }
             search = new Search(String.valueOf(i), "SOME", "SOME", "SHOW");
             results = new Vector<>((new SearchHandler(recipes, ingredients, utensils, allergens)).doSearch(search));
-            assert results.size() == 0;
+            assert results.isEmpty();
         }
 
         log.print("Testing showing only recipes without allergens (we do NOT have allergens)");
@@ -174,7 +174,7 @@ public class SearchHandlerTests {
             }
             search = new Search(String.valueOf(i), "NONE", "NONE", "BLOCK");
             results = new Vector<>((new SearchHandler(recipes, ingredients, utensils, allergens)).doSearch(search));
-            assert results.size() == 0;
+            assert results.isEmpty();
         }
 
         /* ===== Test ranking ===== */

@@ -7,6 +7,7 @@ import org.crazyrecipes.recipebuddy.util.Log;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 import java.util.Vector;
 
 /**
@@ -18,7 +19,7 @@ class ControllerTests {
      * Tests reading and writing ingredients
      */
     @Test
-    public void testIngredients() {
+    public void testIngredients() throws IOException {
         Log log = new Log("ControllerTests");
         log.print("===== Beginning controller ingredients test. =====");
 
@@ -56,7 +57,7 @@ class ControllerTests {
      * Tests reading and writing utensils
      */
     @Test
-    public void testUtensils() {
+    public void testUtensils() throws IOException {
         Log log = new Log("ControllerTests");
         log.print("===== Beginning controller utensils test. =====");
 
@@ -93,7 +94,7 @@ class ControllerTests {
      * Tests reading and writing allergens
      */
     @Test
-    public void testAllergens() {
+    public void testAllergens() throws IOException {
         Log log = new Log("ControllerTests");
         log.print("===== Beginning controller allergens test. ====");
 
@@ -130,7 +131,7 @@ class ControllerTests {
      * Tests reading, writing, and deleting Recipes
      */
     @Test
-    public void testRecipes() {
+    public void testRecipes() throws IOException {
         Log log = new Log("ControllerTests");
         log.print("===== Beginning controller Recipes test. =====");
 
@@ -197,7 +198,7 @@ class ControllerTests {
      * Tests reading and writing photos
      */
     @Test
-    public void testPhotos() {
+    public void testPhotos() throws IOException {
         Log log = new Log("ControllerTests");
         log.print("===== Beginning controller photos test. ====");
 

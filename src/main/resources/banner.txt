@@ -6,5 +6,7 @@
 #                |_|                            |__/
 #
 #   Brought to you by the CrazyRecipes team
+#   Application version ${application.version}.
+#   Spring Boot version ${spring-boot.version}.
 #   https://crazyrecipes.github.io
 #
