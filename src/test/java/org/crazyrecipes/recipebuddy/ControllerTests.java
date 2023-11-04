@@ -21,7 +21,7 @@ class ControllerTests {
     @Test
     public void testIngredients() throws IOException {
         Log log = new Log("ControllerTests");
-        log.print("===== Beginning controller ingredients test. =====");
+        log.print("Beginning controller ingredients test.");
 
         log.print("Resetting DB...");
         DatabaseController db = new DatabaseController();
@@ -31,7 +31,7 @@ class ControllerTests {
         RecipeBuddyController rbc = new RecipeBuddyController();
 
         log.print("Checking ingredient cache...");
-        assert rbc.readIngredients().size() == 0;
+        assert rbc.readIngredients().isEmpty();
 
         log.print("Populating with test content...");
         Vector<String> test_ingredients = new Vector<>();
@@ -48,9 +48,9 @@ class ControllerTests {
         rbc.updateIngredients(test_ingredients);
 
         log.print("Checking for proper deletion of ingredients...");
-        assert rbc.readIngredients().size() == 0;
+        assert rbc.readIngredients().isEmpty();
 
-        log.print("===== Controller ingredients test passed. =====");
+        log.print("Controller ingredients test passed.");
     }
 
     /**
@@ -59,7 +59,7 @@ class ControllerTests {
     @Test
     public void testUtensils() throws IOException {
         Log log = new Log("ControllerTests");
-        log.print("===== Beginning controller utensils test. =====");
+        log.print("Beginning controller utensils test.");
 
         log.print("Resetting DB...");
         DatabaseController db = new DatabaseController();
@@ -69,7 +69,7 @@ class ControllerTests {
         RecipeBuddyController rbc = new RecipeBuddyController();
 
         log.print("Checking utensil cache...");
-        assert rbc.readUtensils().size() == 0;
+        assert rbc.readUtensils().isEmpty();
 
         log.print("Populating with test content...");
         Vector<String> test_utensils = new Vector<>();
@@ -85,9 +85,9 @@ class ControllerTests {
         rbc.updateUtensils(test_utensils);
 
         log.print("Checking for proper deletion of utensils...");
-        assert rbc.readUtensils().size() == 0;
+        assert rbc.readUtensils().isEmpty();
 
-        log.print("===== Controller utensils test passed. =====");
+        log.print(" Controller utensils test passed. ");
     }
 
     /**
@@ -96,7 +96,7 @@ class ControllerTests {
     @Test
     public void testAllergens() throws IOException {
         Log log = new Log("ControllerTests");
-        log.print("===== Beginning controller allergens test. ====");
+        log.print("Beginning controller allergens test.");
 
         log.print("Resetting DB...");
         DatabaseController db = new DatabaseController();
@@ -106,7 +106,7 @@ class ControllerTests {
         RecipeBuddyController rbc = new RecipeBuddyController();
 
         log.print("Checking allergen cache...");
-        assert rbc.readAllergens().size() == 0;
+        assert rbc.readAllergens().isEmpty();
 
         log.print("Populating with test content...");
         Vector<String> test_allergens = new Vector<>();
@@ -122,9 +122,9 @@ class ControllerTests {
         rbc.updateAllergens(test_allergens);
 
         log.print("Checking for proper deletion of allergens...");
-        assert rbc.readAllergens().size() == 0;
+        assert rbc.readAllergens().isEmpty();
 
-        log.print("===== Controller allergens test passed. ====");
+        log.print("Controller allergens test passed.");
     }
 
     /**
@@ -133,7 +133,7 @@ class ControllerTests {
     @Test
     public void testRecipes() throws IOException {
         Log log = new Log("ControllerTests");
-        log.print("===== Beginning controller Recipes test. =====");
+        log.print("Beginning controller Recipes test.");
 
         log.print("Resetting DB...");
         DatabaseController db = new DatabaseController();
@@ -143,7 +143,7 @@ class ControllerTests {
         RecipeBuddyController rbc = new RecipeBuddyController();
 
         log.print("Checking recipe cache...");
-        assert rbc.readRecipes().size() == 0;
+        assert rbc.readRecipes().isEmpty();
 
         log.print("Database reset succeeded.");
 
@@ -189,9 +189,9 @@ class ControllerTests {
         rbc.deleteRecipe(test_recipe.getID());
 
         log.print("Checking for proper deletion of Recipes...");
-        assert rbc.readRecipes().size() == 0;
+        assert rbc.readRecipes().isEmpty();
 
-        log.print("===== Controller Recipes test passed. =====");
+        log.print("Controller Recipes test passed.");
     }
 
     /**
@@ -200,7 +200,7 @@ class ControllerTests {
     @Test
     public void testPhotos() throws IOException {
         Log log = new Log("ControllerTests");
-        log.print("===== Beginning controller photos test. ====");
+        log.print("Beginning controller photos test.");
 
         log.print("Resetting DB...");
         DatabaseController db = new DatabaseController();
@@ -228,6 +228,6 @@ class ControllerTests {
         }
         assert photo_deleted;
 
-        log.print("===== Controller photos test passed. ====");
+        log.print("Controller photos test passed.");
     }
 }

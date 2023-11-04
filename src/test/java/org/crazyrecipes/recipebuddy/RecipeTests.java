@@ -1,6 +1,5 @@
 package org.crazyrecipes.recipebuddy;
 
-import org.crazyrecipes.recipebuddy.database.DatabaseController;
 import org.crazyrecipes.recipebuddy.recipe.Recipe;
 import org.crazyrecipes.recipebuddy.util.Log;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,7 @@ class RecipeTests {
 	@Test
 	public void testRecipe() {
 		Log log = new Log("RecipeTests");
-		log.print("===== Beginning Recipe test. =====");
+		log.print("Beginning Recipe test. =====");
 
 		log.print("Creating first test recipe...");
 		Vector<String> test_ingredients = new Vector<>();
@@ -65,6 +64,6 @@ class RecipeTests {
 		assert test_recipe1.equals(test_recipe1);
 		assert !test_recipe1.equals(test_recipe2);
 
-		log.print("===== Recipe test passed. =====");
+		log.print("Recipe test passed.");
 	}
 }

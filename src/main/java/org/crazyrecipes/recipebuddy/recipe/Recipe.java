@@ -1,11 +1,9 @@
 package org.crazyrecipes.recipebuddy.recipe;
 
+import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * Recipe stores a single recipe. Each recipe has an ID, a name, a description,
@@ -13,9 +11,7 @@ import java.util.Vector;
  *   a list of utensils, a list of allergens, a list of steps, and a list of tags.
  */
 @SuppressWarnings("unused")
-public class Recipe implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1802001L;
+public class Recipe {
     /**
      * The Recipe's unique ID
      */
@@ -92,6 +88,36 @@ public class Recipe implements Serializable {
         this.allergens = new Vector<>();
         this.steps = new Vector<>();
         this.tags = new Vector<>();
+    }
+
+    public Recipe(List<String> lines) throws IOException {
+        int header_index;
+        try {
+            this.id = lines.get(0).split("id=", 2)[1];
+            this.name = lines.get(1).split("name=", 2)[1];
+            this.desc = lines.get(2).split("desc=", 2)[1];
+            this.rating = Double.parseDouble(lines.get(3).split("rating=", 2)[1]);
+            this.cooked = Integer.parseInt(lines.get(4).split("cooked=", 2)[1]);
+            header_index = 5;
+
+            this.ingredients = parseList(lines, header_index, "ingredients:");
+            header_index += this.ingredients.size() + 1;
+
+            this.utensils = parseList(lines, header_index, "utensils:");
+            header_index += this.utensils.size() + 1;
+
+            this.allergens = parseList(lines, header_index, "allergens:");
+            header_index += this.allergens.size() + 1;
+
+            this.steps = parseList(lines, header_index, "steps:");
+            header_index += this.steps.size() + 1;
+
+            this.tags = parseList(lines, header_index, "tags:");
+        } catch(IndexOutOfBoundsException e) {
+            throw new IOException("Failed to read recipe (Bad syntax). Lines: " + Arrays.toString(lines.toArray()));
+        } catch(NumberFormatException e) {
+            throw new IOException("Failed to read recipe (Bad value). Lines: " + Arrays.toString(lines.toArray()));
+        }
     }
 
     /**
@@ -299,6 +325,15 @@ public class Recipe implements Serializable {
         return sb.toString();
     }
 
+    private Vector<String> parseList(List<String> lines, int header_index, String header_prefix) {
+        int n_items = Integer.parseInt(lines.get(header_index).split(header_prefix, 2)[1]);
+        Vector<String> items = new Vector<>();
+        for(int i = header_index + 1; i <= header_index + n_items; i++) {
+            items.add(lines.get(i));
+        }
+        return items;
+    }
+
     @Override
     public boolean equals(Object other) {
         if(!(other instanceof Recipe)) {
@@ -321,29 +356,30 @@ public class Recipe implements Serializable {
 
     @Override
     public String toString() {
-        return String.format(
-                """
-                {
-                "id":"%s",
-                "name":"%s",
-                "desc":"%s",
-                "rating":"%f",
-                "cooked":"%d",
-                "ingredients":%s,
-                "utensils":%s,
-                "steps":%s,
-                "allergens":%s
-                }
-                """,
-                this.id,
-                this.name,
-                this.desc,
-                this.rating,
-                this.cooked,
-                vec_strings_to_json(this.ingredients),
-                vec_strings_to_json(this.utensils),
-                vec_strings_to_json(this.steps),
-                vec_strings_to_json(this.allergens)
-        );
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("id=").append(this.id).append("\n");
+        sb.append("name=").append(this.name).append("\n");
+        sb.append("desc=").append(this.desc).append("\n");
+        sb.append("rating=").append(this.rating).append("\n");
+        sb.append("cooked=").append(this.cooked).append("\n");
+
+        sb.append("ingredients:").append(this.ingredients.size()).append("\n");
+        for(String i : this.ingredients) { sb.append(i).append("\n"); }
+
+        sb.append("utensils:").append(this.utensils.size()).append("\n");
+        for(String i : this.utensils) { sb.append(i).append("\n"); }
+
+        sb.append("allergens:").append(this.allergens.size()).append("\n");
+        for(String i : this.allergens) { sb.append(i).append("\n"); }
+
+        sb.append("steps:").append(this.steps.size()).append("\n");
+        for(String i : this.steps) { sb.append(i).append("\n"); }
+
+        sb.append("tags:").append(this.tags.size()).append("\n");
+        for(String i : this.tags) { sb.append(i).append("\n"); }
+
+        sb.append("\f\n");
+        return sb.toString();
     }
 }

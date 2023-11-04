@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
+import java.util.Scanner;
 import java.util.Vector;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import org.crazyrecipes.recipebuddy.RecipeBuddyMap;
 import org.crazyrecipes.recipebuddy.error.NotFoundException;
 import org.crazyrecipes.recipebuddy.recipe.*;
 import org.crazyrecipes.recipebuddy.util.Log;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpStatusCodeException;
 
 /**
  * DatabaseController provides functionality for creating, reading, updating,
@@ -20,42 +23,42 @@ public class DatabaseController {
     /**
      * Path where recipes are stored
      */
-    private final String RECIPES_STORE_FILE = "data/recipes.dat";
+    private static final String RECIPES_STORE_FILE = "data/recipes.dat";
 
     /**
      * Path where ingredients are stored
      */
-    private final String INGREDIENTS_STORE_FILE = "data/ingredients.dat";
+    private static final String INGREDIENTS_STORE_FILE = "data/ingredients.dat";
 
     /**
      * Path where utensils are stored
      */
-    private final String UTENSILS_STORE_FILE = "data/utensils.dat";
+    private static final String UTENSILS_STORE_FILE = "data/utensils.dat";
 
     /**
      * Path where allergens are stored
      */
-    private final String ALLERGENS_STORE_FILE = "data/allergens.dat";
+    private static final String ALLERGENS_STORE_FILE = "data/allergens.dat";
 
     /**
      * Currently loaded recipes
      */
-    private Vector<Recipe> recipes;
+    private final Vector<Recipe> recipes;
 
     /**
      * Currently loaded ingredients
      */
-    private Vector<String> ingredients;
+    private final Vector<String> ingredients;
 
     /**
      * Currently loaded utensils
      */
-    private Vector<String> utensils;
+    private final Vector<String> utensils;
 
     /**
      * Currently loaded allergens
      */
-    private Vector<String> allergens;
+    private final Vector<String> allergens;
 
     /**
      * This DatabaseController's Log
@@ -73,10 +76,14 @@ public class DatabaseController {
             log.print(2, "Failed to ensure presence of data directories.");
         }
         log.print("Loading data from disk...");
-        this.recipes = loadRecipesFromFile(RECIPES_STORE_FILE);
+        this.recipes = loadRecipesFromFile();
+        log.print("Loaded " + this.recipes.size() + " recipes.");
         this.ingredients = loadStringsFromFile(INGREDIENTS_STORE_FILE);
+        log.print("Loaded " + this.ingredients.size() + " ingredients.");
         this.utensils = loadStringsFromFile(UTENSILS_STORE_FILE);
+        log.print("Loaded " + this.utensils.size() + " utensils.");
         this.allergens = loadStringsFromFile(ALLERGENS_STORE_FILE);
+        log.print("Loaded " + this.allergens.size() + " allergens.");
         cleanupPhotos();
         log.print("Init completed.");
     }
@@ -94,13 +101,13 @@ public class DatabaseController {
      * @param id Recipe's ID
      * @return The Recipe with the specified ID
      */
-    public Recipe getRecipe(String id) throws NotFoundException {
+    public Recipe getRecipe(String id) throws HttpStatusCodeException {
         for(Recipe i : recipes) {
             if (i.getID().equals(id)) {
                 return i;
             }
         }
-        log.print(1, "Recipe " + id + " not found in cache on read.");
+        log.print(1, "Recipe \"" + id + "\" not found.");
         throw new NotFoundException();
     }
 
@@ -114,7 +121,7 @@ public class DatabaseController {
         recipeToAdd.duplicate_from(newRecipe);
         recipes.add(recipeToAdd);
         writePhoto(RecipeBuddyMap.FALLBACK_THUMBNAIL, recipeToAdd.getID());
-        saveRecipesToFile(recipes, RECIPES_STORE_FILE);
+        saveRecipesToFile(recipes);
         return recipeToAdd;
     }
 
@@ -128,11 +135,11 @@ public class DatabaseController {
         for(int i = 0; i < recipes.size(); i++) {
             if(recipes.get(i).getID().equals(id)) {
                 recipes.get(i).duplicate_from(recipe);
-                saveRecipesToFile(recipes, RECIPES_STORE_FILE);
+                saveRecipesToFile(recipes);
                 return recipe;
             }
         }
-        log.print(1, "Recipe " + id + " not found in cache on edit.");
+        log.print(1, "Recipe \"" + id + "\" not found.");
         throw new NotFoundException();
     }
 
@@ -144,11 +151,11 @@ public class DatabaseController {
         for(int i = 0; i < recipes.size(); i++) {
             if(recipes.get(i).getID().equals(id)) {
                 recipes.get(i).cook();
-                saveRecipesToFile(recipes, RECIPES_STORE_FILE);
+                saveRecipesToFile(recipes);
                 return;
             }
         }
-        log.print(1, "Recipe " + id + " not found in cache on edit.");
+        log.print(1, "Recipe \"" + id + "\" not found.");
         throw new NotFoundException();
     }
 
@@ -160,12 +167,12 @@ public class DatabaseController {
         for(int i = 0; i < recipes.size(); i++) {
             if(recipes.get(i).getID().equals(id)) {
                 recipes.remove(i);
-                saveRecipesToFile(recipes, RECIPES_STORE_FILE);
+                saveRecipesToFile(recipes);
                 deletePhoto(id);
                 return;
             }
         }
-        log.print(1, "Recipe " + id + " not found in cache on delete.");
+        log.print(1, "Recipe \"" + id + "\" not found.");
         throw new NotFoundException();
     }
 
@@ -183,7 +190,7 @@ public class DatabaseController {
      * @return The posted ingredients.
      */
     public synchronized List<String> writeIngredients(List<String> newIngredients) throws IOException {
-        ingredients = new Vector<>();
+        ingredients.clear();
         for(String i : newIngredients) {
             String j = i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]","");
             if(j.length() > 1) {
@@ -206,7 +213,7 @@ public class DatabaseController {
      * @return The posted utensils
      */
     public synchronized List<String> writeUtensils(List<String> newUtensils) throws IOException {
-        utensils = new Vector<>();
+        utensils.clear();
         for(String i : newUtensils) {
             String j = i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]","");
             if(j.length() > 1) {
@@ -229,7 +236,7 @@ public class DatabaseController {
      * @return The posted allergens
      */
     public synchronized List<String> writeAllergens(List<String> newAllergens) throws IOException {
-        allergens = new Vector<>();
+        allergens.clear();
         for(String i : newAllergens) {
             String j = i.replaceAll("[^a-zA-Z0-9¿-ÿ !.,?:;'#$%^*()]","");
             if(j.length() > 1) {
@@ -249,6 +256,7 @@ public class DatabaseController {
         try {
             return loadBytesFromFile("data/photos/"+id);
         } catch(FileNotFoundException e) {
+            log.print(1, "Photo \"" + id + "\" not found.");
             throw new NotFoundException();
         }
         
@@ -277,11 +285,11 @@ public class DatabaseController {
      */
     public synchronized void reset() throws IOException {
         log.print(1, "RESETTING DATABASE!");
-        recipes = new Vector<>();
-        ingredients = new Vector<>();
-        utensils = new Vector<>();
-        allergens = new Vector<>();
-        saveRecipesToFile(recipes, RECIPES_STORE_FILE);
+        recipes.clear();
+        ingredients.clear();
+        utensils.clear();
+        allergens.clear();
+        saveRecipesToFile(recipes);
         saveStringsToFile(ingredients, INGREDIENTS_STORE_FILE);
         saveStringsToFile(utensils, UTENSILS_STORE_FILE);
         saveStringsToFile(allergens, ALLERGENS_STORE_FILE);
@@ -294,25 +302,15 @@ public class DatabaseController {
      * @param STORE_FILE Filename to load strings from
      * @return The loaded strings
      */
-    @SuppressWarnings("unchecked") // TODO save/load ingredients as JSON
     private synchronized Vector<String> loadStringsFromFile(String STORE_FILE) {
         try {
-            log.print("Creating cache from " + STORE_FILE + ".");
-            FileInputStream f = new FileInputStream(STORE_FILE);
-            ObjectInputStream o = new ObjectInputStream(f);
-            Vector<String> output = (Vector<String>) o.readObject();
-            o.close();
-            f.close();
-            return output;
+            log.print("Loading \"" + STORE_FILE + "\".");
+            Scanner file = new Scanner(new FileInputStream(STORE_FILE));
+            Vector<String> lines = new Vector<>();
+            while(file.hasNextLine()) { lines.add(file.nextLine()); }
+            return lines;
         } catch(FileNotFoundException e) {
-            log.print(1, "Couldn't find " + STORE_FILE + ". Will attempt to create it on write.");
-            return new Vector<>();
-        } catch(IOException e) {
-            log.print(2, "Error reading " + STORE_FILE + ".");
-            throw new RuntimeException("Failed to read " + STORE_FILE + ".");
-            //return new Vector<>();
-        } catch(ClassNotFoundException e) {
-            log.print(2, "Class mismatch reading from " + STORE_FILE + ".");
+            log.print(1, "File \"" + STORE_FILE + "\" not found.");
             return new Vector<>();
         }
     }
@@ -323,31 +321,37 @@ public class DatabaseController {
      * @param STORE_FILE Filename to save to
      */
     private synchronized void saveStringsToFile(Vector<String> items, String STORE_FILE) throws IOException {
-        log.print("Syncing writes to " + STORE_FILE + ".");
-        FileOutputStream f = new FileOutputStream(STORE_FILE);
-        ObjectOutputStream o = new ObjectOutputStream(f);
-        o.writeObject(items);
-        o.close();
-        f.close();
+        log.print("Saving \"" + STORE_FILE + "\".");
+        PrintWriter file = new PrintWriter(new FileOutputStream(STORE_FILE));
+        for(String i : items) { file.println(i); }
+        file.flush();
+        file.close();
     }
 
     /**
      * Loads a vector of recipes from a file.
-     * @param STORE_FILE File path to load recipes from
      * @return Loaded recipes
      */
-    @SuppressWarnings("unchecked") // TODO save/load recipes as JSON
-    private synchronized Vector<Recipe> loadRecipesFromFile(String STORE_FILE) throws IOException {
+    private synchronized Vector<Recipe> loadRecipesFromFile() throws IOException {
         try {
-            log.print("Creating cache from " + STORE_FILE + ".");
-            FileInputStream f = new FileInputStream(STORE_FILE);
-            ObjectInputStream o = new ObjectInputStream(f);
-            Vector<Recipe> output = (Vector<Recipe>) o.readObject();
-            o.close();
-            f.close();
-            return output;
-        } catch(ClassNotFoundException e) {
-            log.print(2, "Class mismatch reading from " + STORE_FILE + ".");
+            log.print("Loading \"" + RECIPES_STORE_FILE + "\".");
+            Scanner file = new Scanner(new FileInputStream(RECIPES_STORE_FILE));
+            Vector<Recipe> loaded_recipes = new Vector<>();
+            Vector<String> line_buf = new Vector<>();
+            String current_line;
+            while(file.hasNextLine()) {
+                current_line = file.nextLine();
+                if(current_line.equals("\f")) {
+                    loaded_recipes.add(new Recipe(line_buf));
+                    line_buf.clear();
+                } else {
+                    line_buf.add(current_line);
+                }
+            }
+            file.close();
+            return loaded_recipes;
+        } catch(FileNotFoundException e) {
+            log.print(1, "File \"" + RECIPES_STORE_FILE + "\" not found.");
             return new Vector<>();
         }
     }
@@ -355,15 +359,13 @@ public class DatabaseController {
     /**
      * Saves a vector of strings to a file.
      * @param items Vector of strings to save
-     * @param STORE_FILE Filename to save to
      */
-    private synchronized void saveRecipesToFile(Vector<Recipe> items, String STORE_FILE) throws IOException {
-        log.print("Syncing writes to " + STORE_FILE + ".");
-        FileOutputStream f = new FileOutputStream(STORE_FILE);
-        ObjectOutputStream o = new ObjectOutputStream(f);
-        o.writeObject(items);
-        o.close();
-        f.close();
+    private synchronized void saveRecipesToFile(Vector<Recipe> items) throws IOException {
+        log.print("Saving \"" + RECIPES_STORE_FILE + "\".");
+        PrintWriter file = new PrintWriter(new FileOutputStream(RECIPES_STORE_FILE));
+        for(Recipe i : items) { file.print(i); }
+        file.flush();
+        file.close();
     }
 
     /**
@@ -375,7 +377,7 @@ public class DatabaseController {
         File f = new File(STORE_FILE);
         FileInputStream fis = new FileInputStream(f);
         byte[] fb = new byte[(int) f.length()];
-        fis.read(fb);
+        int ignored = fis.read(fb);
         fis.close();
         return fb;
     }
@@ -386,7 +388,7 @@ public class DatabaseController {
      * @param STORE_FILE Filename to save to
      */
     private synchronized void saveBytesToFile(byte[] item, String STORE_FILE) throws IOException {
-        log.print("Writing " + STORE_FILE + ".");
+        log.print("Saving \"" + STORE_FILE + "\".");
         FileOutputStream f = new FileOutputStream(STORE_FILE);
         f.write(item);
         f.close();
@@ -399,14 +401,14 @@ public class DatabaseController {
     private synchronized void deleteFile(String STORE_FILE) {
         File f = new File(STORE_FILE);
         if(f.delete()) { return; }
-        log.print(2, "I/O error deleting " + STORE_FILE + ".");
+        log.print(2, "Could not delete \"" + STORE_FILE + "\".");
     }
 
     /**
      * Cleans up unused photos from disk.
      */
     private synchronized void cleanupPhotos() {
-        log.print(0, "Cleaning up photo database...");
+        log.print(0, "Scanning photo database...");
         Vector<String> recipe_ids = new Vector<>();
         for(Recipe i : recipes) {
             recipe_ids.add(i.getID());
@@ -416,7 +418,7 @@ public class DatabaseController {
         int n_photos = 0;
         for(File i : files) { if(i.isFile()) { n_photos++; } }
         if(n_photos <= recipe_ids.size()) { return; }
-        log.print(1, "Found unused photos.");
+        log.print(0, "Cleaning up unused photos.");
         for(File i : files) {
             if(i.isFile()) {
                 boolean hasParentRecipe = false;
@@ -428,9 +430,9 @@ public class DatabaseController {
                     }
                 }
                 if(!hasParentRecipe) {
-                    log.print(0, "Deleting unused photo " + i.getName());
+                    log.print(0, "Deleting unused photo \"" + i.getName() + "\".");
                     if(!i.delete()) {
-                        log.print(1, "Failed to delete unused photo " + i.getName());
+                        log.print(1, "Failed to delete unused photo " + i.getName() + "\".");
                     }
                 }
             }

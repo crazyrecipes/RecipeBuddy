@@ -21,7 +21,7 @@ class DatabaseTests {
     @Test
     public void testIngredients() throws IOException {
         Log log = new Log("DatabaseTests");
-        log.print("===== Beginning ingredients test. =====");
+        log.print("Beginning ingredients test.");
 
         log.print("Instantiating a DatabaseController...");
         DatabaseController dbc = new DatabaseController();
@@ -30,7 +30,7 @@ class DatabaseTests {
         dbc.reset();
 
         log.print("Checking ingredient cache...");
-        assert dbc.readIngredients().size() == 0;
+        assert dbc.readIngredients().isEmpty();
 
         log.print("Populating database with test content...");
         Vector<String> test_ingredients = new Vector<>();
@@ -47,9 +47,9 @@ class DatabaseTests {
         dbc.writeIngredients(test_ingredients);
 
         log.print("Checking for proper deletion of ingredients...");
-        assert dbc.readIngredients().size() == 0;
+        assert dbc.readIngredients().isEmpty();
 
-        log.print("===== Database ingredients test passed. =====");
+        log.print("Database ingredients test passed.");
     }
 
     /**
@@ -58,7 +58,7 @@ class DatabaseTests {
     @Test
     public void testUtensils() throws IOException {
         Log log = new Log("DatabaseTests");
-        log.print("===== Beginning database utensils test. =====");
+        log.print("Beginning database utensils test.");
 
         log.print("Instantiating a DatabaseController...");
         DatabaseController dbc = new DatabaseController();
@@ -67,7 +67,7 @@ class DatabaseTests {
         dbc.reset();
 
         log.print("Checking utensil cache...");
-        assert dbc.readUtensils().size() == 0;
+        assert dbc.readUtensils().isEmpty();
 
         log.print("Populating database with test content...");
         Vector<String> test_utensils = new Vector<>();
@@ -82,9 +82,9 @@ class DatabaseTests {
         dbc.writeUtensils(test_utensils);
 
         log.print("Checking for proper deletion of utensils...");
-        assert dbc.readUtensils().size() == 0;
+        assert dbc.readUtensils().isEmpty();
 
-        log.print("===== Database utensils test passed. =====");
+        log.print("Database utensils test passed.");
     }
 
     /**
@@ -93,7 +93,7 @@ class DatabaseTests {
     @Test
     public void testAllergens() throws IOException {
         Log log = new Log("DatabaseTests");
-        log.print("===== Beginning database allergens test. ====");
+        log.print("Beginning database allergens test. ====");
 
         log.print("Instantiating a DatabaseController...");
         DatabaseController dbc = new DatabaseController();
@@ -102,7 +102,7 @@ class DatabaseTests {
         dbc.reset();
 
         log.print("Checking allergen cache...");
-        assert dbc.readAllergens().size() == 0;
+        assert dbc.readAllergens().isEmpty();
 
         log.print("Populating database with test content...");
         Vector<String> test_allergens = new Vector<>();
@@ -118,9 +118,9 @@ class DatabaseTests {
         dbc.writeAllergens(test_allergens);
 
         log.print("Checking for proper deletion of allergens...");
-        assert dbc.readAllergens().size() == 0;
+        assert dbc.readAllergens().isEmpty();
 
-        log.print("===== Database allergens test passed. ====");
+        log.print("Database allergens test passed. ====");
     }
 
     /**
@@ -129,7 +129,7 @@ class DatabaseTests {
     @Test
     public void testRecipes() throws IOException {
         Log log = new Log("DatabaseTests");
-        log.print("===== Beginning database Recipes test. =====");
+        log.print("Beginning database Recipes test.");
 
         log.print("Instantiating a DatabaseController...");
         DatabaseController dbc = new DatabaseController();
@@ -138,7 +138,7 @@ class DatabaseTests {
         dbc.reset();
 
         log.print("Checking recipe cache...");
-        assert dbc.getRecipes().size() == 0;
+        assert dbc.getRecipes().isEmpty();
 
         log.print("Database reset succeeded.");
 
@@ -181,9 +181,9 @@ class DatabaseTests {
         dbc.deleteRecipe(test_recipe.getID());
 
         log.print("Checking for proper deletion of Recipes...");
-        assert dbc.getRecipes().size() == 0;
+        assert dbc.getRecipes().isEmpty();
 
-        log.print("===== Database Recipes test passed. =====");
+        log.print("Database Recipes test passed.");
     }
 
     /**
@@ -192,7 +192,7 @@ class DatabaseTests {
     @Test
     public void testPhotos() throws IOException {
         Log log = new Log("DatabaseTests");
-        log.print("===== Beginning database photos test. ====");
+        log.print("Beginning database photos test.");
 
         log.print("Instantiating a DatabaseController...");
         DatabaseController dbc = new DatabaseController();
@@ -219,6 +219,6 @@ class DatabaseTests {
         }
         assert photo_deleted;
 
-        log.print("===== Database photos test passed. ====");
+        log.print("Database photos test passed.");
     }
 }

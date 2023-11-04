@@ -20,7 +20,7 @@ public class SearchHandlerTests {
     @Test
     public void testSearchHandler() {
         Log log = new Log("SearchHandlerTests");
-        log.print("===== Starting test of SearchHandler... =====");
+        log.print("Starting test of SearchHandler...");
 
         /*
             Generate recipes to test:
@@ -43,7 +43,7 @@ public class SearchHandlerTests {
                 r_utensils.add(String.valueOf(j));
                 r_allergens.add(String.valueOf(j));
             }
-            r.setRating(i / 10);
+            r.setRating(i / 10.0);
             r.setCooked(i / 10);
             r.setIngredients(r_ingredients);
             r.setUtensils(r_utensils);
@@ -190,6 +190,6 @@ public class SearchHandlerTests {
             assert results.get(i).equals(recipes.get(8-i));
         }
 
-        log.print("===== Test of SearchHandler passed. =====");
+        log.print("Test of SearchHandler passed.");
     }
 }

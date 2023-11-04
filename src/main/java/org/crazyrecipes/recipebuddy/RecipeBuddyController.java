@@ -14,7 +14,9 @@ import org.crazyrecipes.recipebuddy.recipe.Recipe;
 import org.crazyrecipes.recipebuddy.search.Search;
 import org.crazyrecipes.recipebuddy.search.SearchHandler;
 import org.crazyrecipes.recipebuddy.util.Log;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpStatusCodeException;
 
 /**
  * RecipeBuddyController defines and implements the API calls that we support.
@@ -46,12 +48,12 @@ public class RecipeBuddyController {
      */
     public RecipeBuddyController() throws IOException {
         this.log = new Log("RecipeBuddyController");
-        log.print("Starting up...");
+        log.print("Starting...");
         this.databaseController = new DatabaseController();
         Bandwidth limit = Bandwidth.classic(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE,
                 Refill.greedy(RecipeBuddyMap.MAX_REQUESTS_PER_MINUTE, Duration.ofMinutes(1)));
         this.bucket = Bucket.builder().addLimit(limit).build();
-        log.print("----- Init completed. Welcome to RecipeBuddy. -----");
+        log.print("=== Startup complete. Welcome to RecipeBuddy. ===");
     }
 
     /* ===== RECIPES ===== */
@@ -91,12 +93,7 @@ public class RecipeBuddyController {
     @GetMapping("/api/recipe/{id}")
     public Recipe readRecipe(@PathVariable String id) {
         if(bucket.tryConsume(1)) {
-            try {
-                return databaseController.getRecipe(id);
-            } catch(NotFoundException e) {
-                log.print(1, "Couldn't find recipe " + id + " in database.");
-                throw new NotFoundException();
-            }
+            return databaseController.getRecipe(id);
         }
         throw new RateLimitException();
     }
@@ -111,13 +108,8 @@ public class RecipeBuddyController {
     @PutMapping("/api/recipe/{id}")
     public Recipe updateRecipe(@RequestBody Recipe newRecipe, @PathVariable String id) throws IOException {
         if(bucket.tryConsume(1)) {
-            log.print("Handling update for recipe " + id);
-            try {
-                return databaseController.editRecipe(id, newRecipe);
-            } catch(NotFoundException e) {
-                log.print(1, "Couldn't find recipe " + id + " in database.");
-                throw new NotFoundException();
-            }
+            log.print("Updating recipe \"" + id + "\".");
+            return databaseController.editRecipe(id, newRecipe);
         }
         throw new RateLimitException();
     }
@@ -130,13 +122,8 @@ public class RecipeBuddyController {
     @DeleteMapping("/api/recipe/{id}")
     public void deleteRecipe(@PathVariable String id) throws IOException {
         if(bucket.tryConsume(1)) {
-            log.print("Handling delete for recipe " + id);
-            try {
-                databaseController.deleteRecipe(id);
-            } catch(NotFoundException e) {
-                log.print(1, "Couldn't find recipe " + id + " in database.");
-                throw new NotFoundException();
-            }
+            log.print("Deleting recipe \"" + id + "\".");
+            databaseController.deleteRecipe(id);
         } else {
             throw new RateLimitException();
         }
@@ -151,12 +138,7 @@ public class RecipeBuddyController {
     public void cookRecipe(@PathVariable String id) throws IOException {
         if(bucket.tryConsume(1)) {
             log.print("Handling increment times cooked for recipe " + id);
-            try {
-                databaseController.cookRecipe(id);
-            } catch(NotFoundException e) {
-                log.print(1, "Couldn't find recipe " + id + " in database.");
-                throw new NotFoundException();
-            }
+            databaseController.cookRecipe(id);
         } else {
             throw new RateLimitException();
         }
@@ -277,12 +259,7 @@ public class RecipeBuddyController {
     @GetMapping(value = "api/photo/{id}")
     public byte[] getPhoto(@PathVariable String id) throws IOException {
         if(bucket.tryConsume(1)) {
-            try {
-                return databaseController.readPhoto(id);
-            } catch(NotFoundException e) {
-                log.print(1, "Couldn't find photo " + id + " in database.");
-                throw new NotFoundException();
-            }
+            return databaseController.readPhoto(id);
         }
         throw new RateLimitException();
     }

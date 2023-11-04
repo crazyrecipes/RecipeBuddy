@@ -10,4 +10,7 @@ public class RateLimitException extends RuntimeException {
     public RateLimitException() {
         super("Too Many Requests");
     }
+
+    @Override
+    public synchronized Throwable fillInStackTrace() { return this; }
 }
