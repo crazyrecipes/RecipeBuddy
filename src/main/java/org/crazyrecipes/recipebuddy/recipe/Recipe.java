@@ -90,6 +90,11 @@ public class Recipe {
         this.tags = new Vector<>();
     }
 
+    /**
+     * Constructs a Recipe from a list of lines.
+     * @param lines List of lines to construct Recipe with
+     * @throws IOException if parsing the input lines fails
+     */
     public Recipe(List<String> lines) throws IOException {
         int header_index;
         try {
@@ -307,24 +312,12 @@ public class Recipe {
     }
 
     /**
-     * Convert a vector of strings to JSON
-     * @param s The vector to convert
-     * @return The vector converted to JSON
+     * Parses a list-type parameter for deserialization.
+     * @param lines List of lines to parse
+     * @param header_index Index of the list header
+     * @param header_prefix Prefix of the list header
+     * @return List elements
      */
-    private String vec_strings_to_json(Vector<String> s) {
-        if(s.isEmpty()) { return "[]"; }
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for(String i : s) {
-            sb.append("\"");
-            sb.append(i);
-            sb.append("\",");
-        }
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append("]");
-        return sb.toString();
-    }
-
     private Vector<String> parseList(List<String> lines, int header_index, String header_prefix) {
         int n_items = Integer.parseInt(lines.get(header_index).split(header_prefix, 2)[1]);
         Vector<String> items = new Vector<>();
