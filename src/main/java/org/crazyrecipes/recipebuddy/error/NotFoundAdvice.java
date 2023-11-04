@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * or modify content that does not exist.
  */
 @ControllerAdvice
+@SuppressWarnings("unused")
 public class NotFoundAdvice {
     /**
      * Tells Spring how to handle a NotFoundException

@@ -12,7 +12,6 @@ import org.crazyrecipes.recipebuddy.RecipeBuddyMap;
 import org.crazyrecipes.recipebuddy.error.NotFoundException;
 import org.crazyrecipes.recipebuddy.recipe.*;
 import org.crazyrecipes.recipebuddy.util.Log;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpStatusCodeException;
 
 /**

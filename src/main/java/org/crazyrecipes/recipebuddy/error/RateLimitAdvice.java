@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * RateLimitAdvice provides HTTP 429 responses to throttled requests.
  */
 @ControllerAdvice
+@SuppressWarnings("unused")
 public class RateLimitAdvice {
     /**
      * Tells Spring how to handle a RateLimitException

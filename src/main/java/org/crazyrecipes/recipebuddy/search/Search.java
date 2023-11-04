@@ -5,6 +5,7 @@ import java.util.Objects;
 /**
  * Search holds the parameters of a single user search.
  */
+@SuppressWarnings("unused")
 public class Search {
     private String query;
     private String ingredients;

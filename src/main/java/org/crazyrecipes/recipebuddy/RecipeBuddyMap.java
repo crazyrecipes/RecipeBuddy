@@ -5,11 +5,11 @@ package org.crazyrecipes.recipebuddy;
  */
 public class RecipeBuddyMap {
     /**
-     * Maximum amount of requests that the API will process per minute.
+     * Maximum amount of requests that the API will process per second.
      * Additional requests will generate HTTP 429 responses.
-     * Example: 6000 (~100 requests per second)
+     * Example: 100
      */
-    public static final int MAX_REQUESTS_PER_MINUTE = 6000;
+    public static final int MAX_REQUESTS_PER_SECOND = 100;
 
     /**
      * Fallback thumbnail for recipe images
